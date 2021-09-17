@@ -5,7 +5,7 @@ using namespace std;
 int main()
 {
 	
-	int AP = 500;
+	int AP = 510;
 
 	cout << AP << endl;
 
