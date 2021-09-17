@@ -9,5 +9,5 @@ int main()
 
 	cout << AP << endl;
 
-	
+	return 0;
 }
