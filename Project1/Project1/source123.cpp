@@ -5,7 +5,10 @@ using namespace std;
 int main()
 {
 	
-	int AP = 50012;
+
+	int AP = 512;
+
+
 
 	cout << AP << endl;
 
