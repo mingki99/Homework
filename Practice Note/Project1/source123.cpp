@@ -4,14 +4,27 @@ using namespace std;
 
 void Infut();
 
-bool Program = true;
+bool GameState = true;
 
 int main()
 {
-	cout << " ¡¬      /¡¬   " << endl;
-	cout << "   )    (  ')  " << endl;
-	cout << "  (   /   )    " << endl;
-	cout << "   ¡¬(__)|     " << endl;
+	int a;
+	int b;
+	while (GameState)
+	{	
+		cin >> a;
+		if (!a)
+		{
+			GameState = false;
+		}
+		cin >> b;
+		
+		
+
+		
+		cout << a + b << endl;
+	}
+
 	
 
 }
