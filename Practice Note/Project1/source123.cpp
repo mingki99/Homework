@@ -2,63 +2,29 @@
 
 using namespace std;
 
-void EvenNumber();
-void OddNumber();
-void Star();
+void Infut();
 
-
-
+bool Program = true;
 
 int main()
 {
+	int a;
+	int b;
 
-	int b = 0;
 
-	for (int a = 0; a <= 100; a++)
+	while (Program)
 	{
-			b = b + a;
+		cout << "첫번째 덧셈할 숫자키 하나를 눌러주세요!" << endl;
+		
+		cin >> a;
+
+		cout << "두번째 덧셈할 숫자키 하나를 눌러주세요!" << endl;
+
+		cin >> b;
+
+		cout << a + b << endl;
+	
 	}
 
-	cout << b << endl;
 
-	EvenNumber();
-	OddNumber();
-	Star();
-
-	return 0;
-}
-
-void EvenNumber()
-{
-	int a = 0;
-
-	for (int b = 0; b <= 100; b = b + 2)
-	{
-		a = a + b;
-	}
-
-	cout << a << endl;
-
-}
-
-void OddNumber()
-{
-	int a = 0;
-	for (int b = 1; b < 100; b = b + 2)
-	{
-		a = a + b;
-	}
-
-	cout << a << endl;
-}
-
-void Star()
-{
-	for (int a = 0; a < 5; a++)
-	{
-		for (int b = 0; b < 5; b++)
-		{
-			cout << '*';
-		}
-	}
 }
