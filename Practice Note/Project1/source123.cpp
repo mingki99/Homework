@@ -1,57 +1,82 @@
 #include <iostream>
 #include <conio.h>
+#include <ctime>
+#include <cstdlib>
+
+
 
 using namespace std;
 
-//숫자외에 입력되면 끝내는 프로그램 까지 만들려다 실패 Goto 활용을 못하겠다 ㅠ
+void One();
+void Two();
+void Three();
 
-bool GameState = true;
+
 
 int main()
 {
-	int a;
-	int b;
-	char c;
+	int a [10] ;
 	
-	/*int a[b];
-	int c[d];*/
 	
-	bool Program = true;
-	//a 나 b 에 0~10 이외에 숫자를 입력하게되면 false 되게하는 식을 구해보자
-
-
+	//다시 검색해보고 고민해보자 !
 	
+	srand(static_cast <int>(time(NULL)));
 
-
-	while (Program)
+	for (int c = 0; c < 10; c++)
 	{
-	
-		cin >> a;
-			
-		cin >> b;
-		
-		
-		
-		if (a == _getch())
-		{
-			Program = false;
-		}
-		else if (a <= 10 && b <= 10)
-		{
-		cout << a << " 와 " << b << " 를 더한 값" << endl;
-		cout << a + b << " 입니다 " << endl;
-			
-			
+		int b = rand() % 10;
 
-		}
-
-		else
+		if (a[b])
 		{
-			cout << "0부터 ~ 10 까지 숫자를 입력해주세요" << endl;
-			Program = false;
+			continue;
+			cout << b << endl;
 		}
 	
 	
 	}
-	return 0 ;
+	
+}
+
+void One() //0~ 100 까지 더한수
+{
+	int a;
+	int c = 0;
+	
+
+	for (a = 0; a <= 100; a++)
+	{
+		c = c + a;
+	}
+
+	cout << c << endl;
+
+}
+
+void Two() //홀수로 100 까지 더한수
+{
+	int a;
+	int c = 0;
+	
+
+	for (a = 1; a <= 100; a += 2)
+	{
+		c = c + a;
+	}
+
+	cout << c << endl;
+}
+
+void Three() //짝수로 100 까지 더한수
+{
+	int a;
+	int c = 0;
+	
+
+	for (a = 0; a <= 100; a += 2)
+	{
+		c = c + a;
+	}
+
+	cout << c << endl;
+
 }
