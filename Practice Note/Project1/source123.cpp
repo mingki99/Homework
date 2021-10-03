@@ -5,32 +5,16 @@ using namespace std;
 int main()
 {
 
-	//점수 별 클래스
-	int a ;
+	// 배열 정수 넣어주기
+	int a[10];
 
-	cin >> a;
-	
-	switch (a/10)
+	int i;
+	for (i = 1; i <= 10; i++)
 	{
-	case 10:
-	case 9:
-		cout << "A";
-		break;
-	case 8:
-		cout << "B";
-		break;
-	case 7:
-		cout << "C";
-		break;
-	case 6:
-		cout << "F";
-		break;
-	default:
-		cout << "D";
-	
-	
-	
+		a[i] = i;
+		cout << a[i] << endl;
 	}
+
 	
 	
 }
