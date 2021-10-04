@@ -1,49 +1,34 @@
-
-#include<iostream>
-
-using namespace std;
-
 #include <iostream>
 
 using namespace std;
 
-/*
-*      *
-**    **
-***  ***
-********
-*/
-
 int main()
 {
+	int a;
+	
+	cin >> a;
 
-	for (int a = 1; a <= 4; a++)
+
+
+	switch (a / 10)
 	{
-		for (int b = 0; b < a; b++)
-		{
-			cout << "*";
-		}
-
-		for (int c = 4; c > a; c--)
-		{
-			cout << " ";
-		}
-
-		for (int b = 0; b < a; b++)
-		{
-			cout << "*";
-		}
-
-		
-
-		cout << endl;
-
-
-
-
+	case 10:
+	case 9:
+		cout << "A";
+		break;
+	case 8:
+		cout << "B";
+		break;
+	case 7:
+		cout << "C";
+		break;
+	case 6:
+		cout << "F";
+		break;
+	default:
+		cout << "D";
 
 	}
-
-
-
+		
+	
 }
