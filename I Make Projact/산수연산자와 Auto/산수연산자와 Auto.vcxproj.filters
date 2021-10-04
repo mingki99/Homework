@@ -18,8 +18,5 @@
     <ClCompile Include="soce.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Auto.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

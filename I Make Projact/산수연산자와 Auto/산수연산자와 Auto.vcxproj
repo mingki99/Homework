@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Auto.cpp" />
     <ClCompile Include="soce.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

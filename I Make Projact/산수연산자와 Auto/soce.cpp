@@ -16,25 +16,30 @@ int main()
 		N이 주어졌을 때, N의 사이클의 길이를 구하는 프로그램을 작성하시오.*/
 
 
-	int n[100];
-
-	for (int i = 0; i <= 99; i++)
-	{
-		n[i] = i;
-		cout << n[i] << endl;
-	}
+	int n;
 
 	int a;
 	int b;
 	int c;
 	int d;
 
+	int s[10];
+	int i;
+	// 인덱스 끼리의 셔플의 횟수가 더하기 사이클의 횟수일것같다.
 	cin >> n;
 	a = (n / 10);
 	b = (n % 10);
-	c = c * a + b;
+	
+	for (i = 0; i < 10; i++)
+	{
+		s[i] = i;
+		cout << s[i];
+	}
+	while (s[a] || s[b] == c|| d)
 
-	cout << c;
+		d = a;
+		a = b;
+		b = d;
 
 	/*while ()
 
