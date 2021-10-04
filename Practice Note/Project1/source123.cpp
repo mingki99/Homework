@@ -13,38 +13,7 @@ using namespace std;
 int main()
 {
 
-<<<<<<< HEAD
-	/*
-	26 = 2 + 6 = 6 
-	
-	
-	
-	*/
-	int a = 1 %10;
-	int b = 2 % 10;
-	int c = 3 % 10;
-	int d = 4 % 10;
-	int e = 5 % 10;
-	int f = 6 % 10;
-	int g = 7 % 10;
-	int h = 8 % 10;
-	int i = 9 % 10;
-	int j = 0 % 10;
 
-
-
-	h = f + b;
-	d = f + h;
-
-
-	
-	
-
-	
-
-	
-	
-=======
 	int a;
 	int b;
 	int c;
@@ -56,18 +25,18 @@ int main()
 	cin >> c;
 
 
-	if (b < c && c * a > b * a )
+	if (c > b )
 	{
 		for (d = 0; d * c < a + b * d; d++)
 		{
 		}
 		cout << "손익분기점을 넘기는 판매 갯수는 " << d + 1 << "입니다" << endl;
 	}
-	else;
+	else if(c < b )
 	{
 		cout << "인건비도 안나오겠네;" << " -1" << endl;
 	}
->>>>>>> ba56f044b874cf06c7539fa86405cd454b26bf61
+
 	
 	
 }
