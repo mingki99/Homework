@@ -1,0 +1,4 @@
+﻿  soce.cpp
+C:\Users\dkwna\OneDrive\바탕 화면\Homework\I Make Projact\산수연산자와 Auto\soce.cpp(23,6): warning C4101: 'c' :참조되지 않은 지역 변수입니다.
+C:\Users\dkwna\OneDrive\바탕 화면\Homework\I Make Projact\산수연산자와 Auto\soce.cpp(24,6): warning C4101: 'd' :참조되지 않은 지역 변수입니다.
+  산수연산자와 Auto.vcxproj -> C:\Users\dkwna\OneDrive\바탕 화면\Homework\I Make Projact\산수연산자와 Auto\Debug\산수연산자와 Auto.exe
