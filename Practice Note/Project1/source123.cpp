@@ -1,40 +1,60 @@
 #include <iostream>
+//STL
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
-/*한달 간 고정으로 지출되는 고정 비용을 A
-		물건 하나를 만들 때 들어가는 가변 비용을 B
-		물건의 가격을 C
-		라고 하였을때,
-.
-		A, B, C를 입력받으면 손익분기점을 구하는 프로그램을 구하시오. (손익분기점이 존재하지 않으면 - 1을 출력한다)*/
-
-//좀만 고민하면 될듯 30분만 더 고민해보자
 int main()
 {
+	string Mother = "My Famliy";
+	string Sister = "Member";
+	string Me = "Three People";
 
-	int a;
-	int b;
-	int c;
+	string B1;
+	string B2;
+	string B3;
 
-	int d;
+	string b1;
+	string b2;
+	string b3;
 
-	cin >> a;
-	cin >> b;
-	cin >> c;
-
-
-	if (b < c && c * a > b * a )
+	for (auto a : Mother)
 	{
-		for (d = 0; d * c < a + b * d; d++)
-		{
-		}
-		cout << "손익분기점을 넘기는 판매 갯수는 " << d + 1 << "입니다" << endl;
+		B1.push_back(toupper(a));
 	}
-	else;
+	for (auto a : Sister)
 	{
-		cout << "인건비도 안나오겠네;" << " -1" << endl;
+		B2.push_back(toupper(a));
 	}
+	for (auto a : Me)
+	{
+		B3.push_back(toupper(a));
+	}
+
+	cout << B1 << endl;
+	cout << B2 << endl;
+	cout << B3 << endl;
+	cout <<B1+B2+ B3 << endl;
 	
-	
+	for (auto A : Mother)
+	{
+		b1.push_back(tolower(A));
+	}
+	for (auto A : Sister)
+	{
+		b2.push_back(tolower(A));
+	}
+	for (auto A : Me)
+	{
+		b3.push_back(tolower(A));
+	}
+
+	cout << b1 << endl;
+	cout << b2 << endl;
+	cout << b3 << endl;
+	cout << b1+b2+b3 << endl;
+
+
+	return 0;
 }
