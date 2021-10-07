@@ -6,18 +6,35 @@
 
 using namespace std;
 
+int myrandom(int i)
+{
+	return rand() % i;
+}
 
-vector<int>b = { 10 };
 
 
 int main()
 {
-	b.push_back(15);
-	b.push_back(20);
+	
+	srand( unsigned (time(0))); //unsigned 는 0부터 ~ 양수 인 정수를 뜻하는 데이터타입
+	
+	vector <int> myvector;
 
-	cout << b[0] << endl;
-	cout << b[1] << endl;
-	cout << b[2] << endl;
+	for (int i = 0; i <= 20; ++i)
+	{
+		myvector.push_back(i);
+	}
+
+	
+
+	random_shuffle(myvector.begin(), myvector.end(), myrandom);
+
+	cout << " 0부터~ 10 까지 출력 " << endl;
+
+	for (vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+	{
+		cout << ' ' << *it;
+	}
 
 
 	return 0;
