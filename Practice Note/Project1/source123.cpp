@@ -2,28 +2,21 @@
 
 using namespace std;
 
+int a;
+int b;
+
+int c;
+
+
 int main()
 {
-	int a;
-	int b;
-
-	int c;
-
 	cin >> a;
 	cin >> b;
 
-	if (a < 10 && b > 10)
-	{
-		c = a + b;
-		
-	}
-	else if (a > 10 && b < 10)
-	{
-		c = a + b;
-		
-	}
-	else (a == b);
+	c = a + b;
 
 	cout << c << endl;
+
+	
 	
 }
