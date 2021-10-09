@@ -2,21 +2,65 @@
 
 using namespace std;
 
-int a;
-int b;
+void TastA(int&, int&);
 
-int c;
+void TastB(int*, int*);
 
+void TastC(int, int);
 
 int main()
 {
-	cin >> a;
-	cin >> b;
+	int Homwork1 = 100;
+	int Homwork2 = 200;
 
-	c = a + b;
+	cout << "첫 정수 상태" << endl;
+	cout << Homwork1 << '\n' << Homwork2 << endl;
 
-	cout << c << endl;
+	TastA(Homwork1, Homwork2);
+	cout << "참조 변수" << endl;
+	cout << Homwork1 << '\n' << Homwork2 << endl;
 
-	
-	
+	TastB(&Homwork1, &Homwork2);
+	cout << "포인터 이용" << endl;
+	cout << Homwork1 << '\n' << Homwork2 << endl;
+
+	TastC(Homwork1, Homwork2);
+	cout << "그냥 함수" << endl;
+	cout << Homwork1 << '\n' << Homwork2 << endl;
+
+
+
+}
+
+
+void TastA(int& a, int& b)
+{
+	int tamp;
+
+	tamp = a;
+	a = b;
+	b = tamp;
+
+}
+
+void TastB(int* a, int* b)
+{
+	int tamp;
+
+	tamp = *a;
+	*a = *b;
+	*b = tamp;
+
+}
+
+void TastC(int a, int b)
+{
+	int tamp;
+
+	tamp = a;
+	a = b;
+	b = tamp;
+
+	cout << "테스트 안에서는?" << endl;
+	cout << a << '\n' << b << endl;
 }
