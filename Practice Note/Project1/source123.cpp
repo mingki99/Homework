@@ -2,65 +2,63 @@
 
 using namespace std;
 
-void TastA(int&, int&);
+// 0보다 크거나 같고, 99보다 작거나 같은 정수가 주어질 때 다음과 같은 연산을 할 수 있다.
+// 먼저 주어진 수가 10보다 작다면 앞에 0을 붙여 두 자리 수로 만들고, 
+// 각 자리의 숫자를 더한다.그 다음, 
+// 주어진 수의 가장 오른쪽 자리 수와 앞에서 구한 합의 가장 오른쪽 자리 수를 이어 붙이면 새로운 수를 만들 수 있다.다음 예를 보자.
+//
+// 26부터 시작한다. 2 + 6 = 8이다.새로운 수는 68이다. 6 + 8 = 14이다.새로운 수는 84이다. 8 + 4 = 12이다.새로운 수는 42이다.
+//  4 + 2 = 6이다.새로운 수는 26이다.
+//
+// 위의 예는 4번만에 원래 수로 돌아올 수 있다.따라서 26의 사이클의 길이는 4이다.
+//
+// N이 주어졌을 때, N의 사이클의 길이를 구하는 프로그램을 작성하시오.
 
-void TastB(int*, int*);
+// 첫째 줄에 N이 주어진다.N은 0보다 크거나 같고, 99보다 작거나 같은 정수이다.
 
-void TastC(int, int);
 
 int main()
 {
-	int Homwork1 = 100;
-	int Homwork2 = 200;
+	int a = 0;
+	cin >> a;
 
-	cout << "첫 정수 상태" << endl;
-	cout << Homwork1 << '\n' << Homwork2 << endl;
+	int b = a % 10;
+	int c = 0;
+	a = a / 10;
+	
 
-	TastA(Homwork1, Homwork2);
-	cout << "참조 변수" << endl;
-	cout << Homwork1 << '\n' << Homwork2 << endl;
+	
+	int cicle = 0;
+	
+	bool start = true;
 
-	TastB(&Homwork1, &Homwork2);
-	cout << "포인터 이용" << endl;
-	cout << Homwork1 << '\n' << Homwork2 << endl;
+	while (start)
+	{
+		c = a + b;
 
-	TastC(Homwork1, Homwork2);
-	cout << "그냥 함수" << endl;
-	cout << Homwork1 << '\n' << Homwork2 << endl;
+		c = c % 10;
 
+		a = b + c;
 
+		a = a % 10;
 
-}
+		b = c + a;
 
+		b = b % 10;
 
-void TastA(int& a, int& b)
-{
-	int tamp;
+		cicle++;
 
-	tamp = a;
-	a = b;
-	b = tamp;
+		if ((a, b) == (b , c))
+		{
+			cout << cicle + 3 << endl;
+			start = false;
+		}
+		
 
-}
+	}
 
-void TastB(int* a, int* b)
-{
-	int tamp;
+	
 
-	tamp = *a;
-	*a = *b;
-	*b = tamp;
+	return 0;
 
-}
-
-void TastC(int a, int b)
-{
-	int tamp;
-
-	tamp = a;
-	a = b;
-	b = tamp;
-
-	cout << "테스트 안에서는?" << endl;
-	cout << a << '\n' << b << endl;
 }
