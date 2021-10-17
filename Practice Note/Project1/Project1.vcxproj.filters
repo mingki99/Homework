@@ -24,16 +24,22 @@
     <ClCompile Include="Slime.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Goblie.cpp">
+    <ClCompile Include="Goblin.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
+    <ClCompile Include="Chraracter.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Engin.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterPlayBattle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,16 +50,22 @@
     <ClInclude Include="Slime.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Goblie.h">
+    <ClInclude Include="Goblin.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
+    <ClInclude Include="Chraracter.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Engin.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterPlayBattle.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
