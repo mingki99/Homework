@@ -1,29 +1,37 @@
-#include<iostream>
-#include "Engin.h"
-#include "Player.h"
-#include "Slime.h"
-#include "MonsterPlayBattle.h"
 
+#include <iostream>
 
 using namespace std;
 
-
-// HP MP MOVE ATTEC 가 있는 플레이어.
-// 돼지 슬라임 고블린 
-// 플레이어는 Gold 가 
-//몬스터에게는 running away 가 있음
-
-
 int main()
 {
-	MonsterPlayBattle monsterPlayBattle;
+	//메모리가 배열일 경우
+	//동적메모리 할당
+	int n = 1;
+	int* a = new int[n];
 
-	monsterPlayBattle.MonsterPlayBattle();
+	int b;
 
-	
-	
+	cin >> n;
+	bool Engine = true;
 
+	while (Engine)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			cin >> b;
+			a[i] = b;
 
-	return 0;
+			if ()
 
+			//a[10] 배열의 크기
+			// a[0] ~ a[9] = 10 배열의 인덱스
+		}
+
+		for (int i = 0; i < n; i++)
+		{
+			cout << b << endl;
+		}
+		return 0;
+	}
 }
