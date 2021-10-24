@@ -1,37 +1,42 @@
-
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-	//메모리가 배열일 경우
-	//동적메모리 할당
-	int n = 1;
-	int* a = new int[n];
-
-	int b;
-
+	int n;
 	cin >> n;
-	bool Engine = true;
 
-	while (Engine)
+	int* num = new int[n];
+	int min;
+	int max;
+
+	for (int i = 0; i < n; i++)
 	{
-		for (int i = 0; i < n; i++)
-		{
-			cin >> b;
-			a[i] = b;
-
-			if ()
-
-			//a[10] 배열의 크기
-			// a[0] ~ a[9] = 10 배열의 인덱스
-		}
-
-		for (int i = 0; i < n; i++)
-		{
-			cout << b << endl;
-		}
-		return 0;
+		cin >> num[i];
 	}
+
+	min = num[0];
+	max = num[0];
+
+	for(int i = 0; i < n; i++)
+	{	
+		if (min > num[i])
+		{
+			min = num[i];
+		}
+		else if (max < num[i])
+		{
+			max = num[i];
+		}
+	}
+	
+	cout << "최소 값 :" << min << endl;
+	cout << "최대 값 :" << max << endl;
+
+	delete[] num;
+
+	return 0;
+	
 }
