@@ -1,42 +1,30 @@
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
 int main()
 {
-	int n;
-	cin >> n;
+	int a[9];
+	int b;
+	int num = 0;
+	int c ;
 
-	int* num = new int[n];
-	int min;
-	int max;
-
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i <= 8; i++)
 	{
-		cin >> num[i];
-	}
+		cin >> b;
 
-	min = num[0];
-	max = num[0];
+		a[i] = b;
 
-	for(int i = 0; i < n; i++)
-	{	
-		if (min > num[i])
+
+		if (num < a[i])
 		{
-			min = num[i];
-		}
-		else if (max < num[i])
-		{
-			max = num[i];
+			num = a[i];
+			c = i+1;
 		}
 	}
 	
-	cout << "최소 값 :" << min << endl;
-	cout << "최대 값 :" << max << endl;
-
-	delete[] num;
+	cout << num << endl;
+	cout << c << endl;
 
 	return 0;
-	
 }
