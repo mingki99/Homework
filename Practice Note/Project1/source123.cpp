@@ -5,38 +5,48 @@ using namespace std;
 
 int main()
 {
-	int n;
-	cin >> n;
-
-	int* num = new int[n];
-	int min;
-	int max;
-
-	for (int i = 0; i < n; i++)
-	{
-		cin >> num[i];
-	}
-
-	min = num[0];
-	max = num[0];
-
-	for(int i = 0; i < n; i++)
-	{	
-		if (min > num[i])
-		{
-			min = num[i];
-		}
-		else if (max < num[i])
-		{
-			max = num[i];
-		}
-	}
+	int A;
+	int B;
+	int C;
+	int total;
+	int index;
 	
-	cout << "최소 값 :" << min << endl;
-	cout << "최대 값 :" << max << endl;
+	int x;
 
-	delete[] num;
+	int array[10] = {0};
+	
+
+	cin >> A;
+	cin >> B;
+	cin >> C;
+
+	total = A * B * C;
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (total > 0)
+		{
+			index = total % 10;
+			total = total / 10;
+
+			
+			
+			
+			for (x = 0; x < 10; x++)
+			{
+				if (index == x)
+				{
+					array[x] = array[x] + 1;
+				}
+			}
+		}
+	
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		cout << array[i] << endl;
+	}
 
 	return 0;
-	
 }
