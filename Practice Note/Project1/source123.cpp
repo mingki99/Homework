@@ -4,42 +4,55 @@ using namespace std;
 
 int main()
 {
-	int A;
-	int B;
-	int C;
-	int total;
-	int index;
+
+	char* s1 = new char[80];
 	
-	int x;
+	int a = 0;
+	int b = 0;
 
-	int array[10] = {0};
+	int total = 0;
+
+	cin >> s1;
 	
-	cin >> A;
-	cin >> B;
-	cin >> C;
-
-	total = A * B * C;
-
-	for (int i = 0; i < 10; i++)
+	while (s1[0] == 'O' && 'X')
 	{
-		if (total > 0)
+		for (int i = 0; i < 79; i++)
 		{
-			index = total % 10;
-			total = total / 10;
-
-			for (x = 0; x < 10; x++)
+			switch (s1[i])
 			{
-				if (index == x)
-				{
-					array[x] = array[x] + 1;
-				}
-			}
+			case 'O':
 
-			for (int i = 0; i < 10; i++)
-			{
-				cout << array[i] << endl;
+				a = a++;
+				total = a + total;
+				break;
+
+			case'X':
+
+				a = 0;
+				break;
 			}
 		}
-	}	
+
+		cout << total;
+	}
+	delete[] s1;
+
 	return 0;
 }
+
+
+
+
+/*for (int i = 0; i < 79; i++)
+	{
+		if (s1[i] == 'O')
+		{
+			a = a++;
+			total = a + total;
+
+		}
+		else if (s1[i] == 'X')
+		{
+			a = 0;
+		}
+	}*/
