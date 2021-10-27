@@ -40,9 +40,6 @@ int main()
 	return 0;
 }
 
-
-
-
 /*for (int i = 0; i < 79; i++)
 	{
 		if (s1[i] == 'O')
