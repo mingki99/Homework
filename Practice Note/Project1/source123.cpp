@@ -1,55 +1,61 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
 int main()
-{
-
-	char* s1 = new char[80];
-	
-	int a = 0;
-	int b = 0;
-
-	int total = 0;
-
-	cin >> s1;
-	
-	while (s1[0] == 'O' && 'X')
 	{
-		for (int i = 0; i < 79; i++)
+		
+	
+	int a;
+	int b;
+
+	int* score = new int[1000];
+
+
+	cin >> a;
+
+	for (int i = 0; i < a; i++)
+	{
+		cin >> b;
+
+		while (b >= 0 && b <= 1000)
 		{
-			switch (s1[i])
+			int total = 0;
+
+			for (int x = 0; x < b; x++)
 			{
-			case 'O':
+				cin >> score[x];
 
-				a = a++;
-				total = a + total;
-				break;
+				total = total + score[x];
 
-			case'X':
 
-				a = 0;
-				break;
 			}
+
+			float percentage = 0;
+			float percentage2 = 100.00 / b;
+
+			for (int x = 0; x < b; x++)
+			{
+				if (total / b + 1 <= score[x])
+				{
+					percentage = percentage + percentage2;
+
+				}
+			}
+
+			
+			printf("% .3f\n", percentage); cout << "%" << endl;;
+			
+
+			break;
 		}
-
-		cout << total;
+		
 	}
-	delete[] s1;
+	
 
+	delete[] score;
 	return 0;
 }
 
-/*for (int i = 0; i < 79; i++)
-	{
-		if (s1[i] == 'O')
-		{
-			a = a++;
-			total = a + total;
-
-		}
-		else if (s1[i] == 'X')
-		{
-			a = 0;
-		}
-	}*/
+/*cout << round(percentage * 1000) / 1000 << endl;*/
