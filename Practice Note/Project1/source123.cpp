@@ -3,65 +3,122 @@
 #include<time.h>
 
 using namespace std;
+
+enum EUM
+{
+	EUM_0,
+	EUM_1,
+	EUM_2,
+	EUM_3
+};
+
+#define EUM_4 4
+
+
+enum SRP
+{
+	SRP_S = 1,
+	SRP_R,
+	SRP_P,
+	SRP_END
+
+};
+
+
 int main()
 {
+	int iNumber;
+
+	cout << "숫자를 입력하세요 : ";
+
+	cin >> iNumber;
+	switch (iNumber)
+	{
+	case EUM_1:
+		cout << "입력한 숫자는 1입니다. " << endl;
+		break;
+	case EUM_2:
+		cout << "입력한 숫자는 2입니다. " << endl;
+		break;
+	case EUM_3:
+		cout << "입력한 숫자는 3입니다. " << endl;
+		break;
+	default:
+		break;
+	}
+
+	
+	
+
+	
+
 	srand((unsigned int)time(0));
 
-	cout << rand() << endl;
-	cout << rand() << endl;
-	cout << rand() << endl;
-	cout << (rand() % 101 + 100) << endl;
-	cout << (rand() % 10000 / 100.f) << endl;
-
-	int iUpgrade = 0;
-	cout << "Upgrade 기본 수치를 입력하세요 : ";
-	
-
-	//강화 확률 구한다.
-	
+	int iPlayer , iAI;
 
 	while (true)
 	{
-		cin >> iUpgrade;
+		int iPlayer;
+
+		cout << "1. 가위" << endl;
+		cout << "2. 바위" << endl;
+		cout << "3. 보" << endl;
+		cout << "4. 가위" << endl;
+		cout << "메뉴를 선택하세요 : ";
+		cin >> iPlayer;
+
+		if (iPlayer <SRP_S || iPlayer > SRP_END)
+		{
+			cout << "잘못된 값을 입력하였습니다." << endl;
+			//일시정지
+			system("pause");
+			//반복문의 시작점으로 이동.
+			continue;
+		}
+		else if (iPlayer == SRP_END)
+			break;
+	
+		iAI = rand() % 3 + SRP_S;
+
+		switch (iAI)
+		{
+		case SRP_S:
+			cout << "AI : 가위" << endl;
+			break;
+		case SRP_R:
+			cout << "AI : 바위" << endl;
+			break;
+		case SRP_P:
+			cout << "AI : 보" << endl;
+			break;
+		default:
+			break;
+		}
+
+		int iWin = iPlayer - iAI;
+
+		switch (iWin)
+		{
+		case 1:
+		case -2:
+			cout << "Player 승리" << endl;
+			break;
+		case 0:
+			cout << "비김" << endl;
+			break;
+		default:
+			cout << "AI 승리" << endl;
+			break;
+		}
+
+
 		
-		float	fPercent = rand() % 10000 / 100.f;
+			 
+	
+	}
 
-	//강화 확률 : 업그레이드가 0~3 : 100% 성공 , 4~6 : 40% 7~9 : 10%
-	// 10~13 : 1% , 14 ~ 15 : 0.1 %
-	cout << "Upfrade : " << iUpgrade << endl;
-	cout << "Percent : " << fPercent << endl;
 
-	if (iUpgrade <= 3)
-		cout << "강화 성공" << endl;
-	else if (4 <= iUpgrade && iUpgrade <=6)
-	{
-		if (fPercent < 40.f)
-			cout << "강화 성공" << endl;
-		else
-			cout << "강화 실패" << endl;
-	}
-	else if (7 <= iUpgrade && iUpgrade <= 9)
-	{
-		if (fPercent < 10.f)
-			cout << "강화 성공" << endl;
-		else
-			cout << "강화 실패" << endl;
-	}
-	else if (10 <= iUpgrade && iUpgrade <= 13)
-	{
-		if (fPercent < 1.f)
-			cout << "강화 성공" << endl;
-		else
-			cout << "강화 실패" << endl;
-	}
-	else if (14 <= iUpgrade && iUpgrade <= 15)
-	{
-		if (fPercent < 0.1f)
-			cout << "강화 성공" << endl;
-		else
-			cout << "강화 실패" << endl;
-	}
-	}
+
 
 	return 0;
 }
