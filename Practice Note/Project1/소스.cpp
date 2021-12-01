@@ -2,41 +2,38 @@
 
 using namespace std;
 
+int iCount = 5;
+
 int iNumber;
 
-int ia, ib, ic, id;
+int iMax;
 
-int iCount;
+int iMin;
 
 int main()
 {
-	cin >> iNumber;
+	cin >> iCount;
 
+	int iarray[10000];
 	
-
-	ia = iNumber / 10;
-	ib = iNumber % 10;
-
-	while (1)
+	for (int i = 0; i <= iCount; i++)
 	{
-		ic = ia + ib;
-		ic = ic % 10;
-		id = ib * 10 + ic;
-		ib = id % 10;
-		ia = id / 10;
+		cin >> iNumber;
 
-		iCount++;
+		iarray[i] = iNumber;
 
-		if (iNumber == id)
+		if (iMax < iarray[i])
 		{
-				break;
+			iMax = iarray[i];
+		}
+
+		if (iMin > iarray[i])
+		{
+
 		}
 
 	}
 
-		
-
-	cout << iCount << endl;
 
 
 	return 0;
