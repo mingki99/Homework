@@ -12,26 +12,31 @@ int main()
 {
 	cin >> iNumber;
 
-	if (0 <= iNumber <= 99)
+	
+
+	ia = iNumber / 10;
+	ib = iNumber % 10;
+
+	while (1)
 	{
+		ic = ia + ib;
+		ic = ic % 10;
+		id = ib * 10 + ic;
+		ib = id % 10;
+		ia = id / 10;
 
-		ia = iNumber / 10;
-		ib = iNumber % 10;
+		iCount++;
 
-		while (iNumber != id)
+		if (iNumber == id)
 		{
-			ic = ia + ib;
-			ic = ic % 10;
-			id = ib * 10 + ic;
-			ib = id % 10;
-			ia = id / 10;
-
-			iCount++;
+				break;
 		}
 
-		cout << iCount << endl;
-
 	}
+
+		
+
+	cout << iCount << endl;
 
 
 	return 0;
