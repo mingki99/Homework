@@ -2,19 +2,19 @@
 
 using namespace std;
 
-int iCount = 5;
+int iCount ;
 
 int iNumber;
 
 int iMax;
 
-int iMin;
+int iMin = 1000000;
 
 int main()
 {
 	cin >> iCount;
 
-	int iarray[10000];
+	double iarray[1000000];
 	
 	for (int i = 0; i <= iCount; i++)
 	{
@@ -29,12 +29,15 @@ int main()
 
 		if (iMin > iarray[i])
 		{
-
+			iMin = iarray[i];
 		}
 
+		
+		
+		
 	}
 
-
+	cout << iMax << " " << iMin << endl;
 
 	return 0;
 }
