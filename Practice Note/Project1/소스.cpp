@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -6,38 +7,23 @@ int iCount ;
 
 int iNumber;
 
-int iMax;
 
-int iMin = 1000000;
-
-int main()
+int main(int argc, const char* argv[])
 {
+
 	cin >> iCount;
 
-	double iarray[1000000];
+	int iarray[1000001];
 	
 	for (int i = 0; i <= iCount; i++)
 	{
-		cin >> iNumber;
-
-		iarray[i] = iNumber;
-
-		if (iMax < iarray[i])
-		{
-			iMax = iarray[i];
-		}
-
-		if (iMin > iarray[i])
-		{
-			iMin = iarray[i];
-		}
-
-		
-		
+		cin >> iarray[i];
 		
 	}
 
-	cout << iMax << " " << iMin << endl;
+	sort(iarray + 0, iarray + iCount);
+
+	cout << iarray[0] << " " << iarray[iCount-1] << endl;
 
 	return 0;
 }
