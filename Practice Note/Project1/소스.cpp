@@ -73,11 +73,66 @@ int main()
 
 	// 논리 연산자
 	// !(역), &&(곱), ||(합)
+	// 참(ture), 거짓(false)
+	// 참   : 0 이 아닌 값, 주로 1
+	// 거짓 : 0
+	bool turefalse = false;
+
+	true;
+	false;
+
+	bool IsTrue = 100;
+
+	IsTrue = true;
+	IsTrue = !IsTrue;
+
+	int iTrue = 100;
+	iTrue = !iTrue;
+
+	iTrue = 0 && 200;
+	iTrue = 1 || 0;
+
+	// 비교 연산자
+	// ==, !=, <, <=, >,  >=
+
+
+	// 구문
+	// if, else
+
+	data = 0;
+	if (0 && 200)
+	{
+		data = 100;
+	}
+
+	if (data == 100)
+	{
+		// if 가 참이면 수형
+	}
+	else
+	{
+		// if 기 거짓인 경우 수행
+	}
+
+	if ()
+	{
+
+	}
+	else if ()
+	{
+
+	}
+	else
+	{
+
+	}
 
 
 
+	// switch, case
 
-
+	// 삼항 연산자
+	// :?
 
 
 
