@@ -1,5 +1,10 @@
 #include <iostream>
 
+#define HUNGRY 1
+
+// 장점 가독성
+
+
 using namespace std;
 
 int main()
@@ -114,11 +119,31 @@ int main()
 		// if 기 거짓인 경우 수행
 	}
 
-	if ()
+
+	switch (10)
+	{
+	case 10:
+		break;
+
+	case 20:
+		break;
+
+	default:
+		break;
+	}
+
+	int iTest = 30;
+	if (iTest == 10 || iTest == 20 || iTest == 30)
+
+	// 연산순서
+	//	true
+	//	1. iTest == 10 (F) || iTest == 20 (F)
+	//	2. F || F || iTest == 30 (T)
+	//	3. true!!
 	{
 
 	}
-	else if ()
+	else if (iTest == 20)
 	{
 
 	}
@@ -128,11 +153,45 @@ int main()
 	}
 
 
-
 	// switch, case
 
 	// 삼항 연산자
 	// :?
+	// 가독성이 떨어질수있다.
+	// 특별히 한줄로 쓸려고할때? 굳이 사용하지않음.
+
+	iTest == 20 ? iTest = 100 : iTest = 200;
+
+	if (iTest == 20)
+	{
+		iTest = 100;
+	}
+	else
+	{
+		iTest = 200;
+	}
+
+
+	// 비트 연산자
+	// 쉬프트 << >>
+	// 비트가 한자리 올라간다는것은 2배 (2진수니깐)
+
+	unsigned char byte = 13;
+
+	byte <<= 3; // 2^n 배수
+	byte >>= 1; // 2^n 나눈 몫
+
+	// 비트 곱(&), 합(|), xor(^), 반전(~)
+	// 비트단위로 연산을 진행,
+	// & 둘다 1 인경우 1
+	// | 둘중 하나라도 1이면 1
+	// ^ 같으면 0, 다르면 1
+
+
+	int iStatus = HUNGRY;
+
+
+
 
 
 
