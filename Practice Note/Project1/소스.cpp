@@ -1,6 +1,24 @@
 #include <iostream>
 
-#define HUNGRY 1
+//#define HUNGRY  1
+//#define THIRSTY 2
+//#define TIRED   4 //비트 자리 단위 이기에 4
+
+#define HUNGRY  0x001
+#define THIRSTY 0x002
+#define TIRED   0x004
+#define FIRE	0x008
+
+#define COLD	0x010
+#define POISON  0x020
+#define POISON  0x040
+#define POISON  0x080
+
+#define POISON  0x100
+#define POISON  0x200
+#define POISON  0x400
+#define POISON  0x800
+
 
 // 장점 가독성
 
@@ -188,10 +206,22 @@ int main()
 	// ^ 같으면 0, 다르면 1
 
 
-	int iStatus = HUNGRY;
+	int iStatus = 0;
 
+	// 상태 추가
+	// 비트 단위의 자리에 상태를 넣는다.
+	iStatus |= HUNGRY;  // 00000001 = 1 
+	iStatus |= THIRSTY; // 00000010 = 2
+	iStatus |= TIRED;   // 00000100 = 4
 
+	// 상태 확인
+	if (iStatus & THIRSTY)
+	{
 
+	}
+
+	// 특정 자리 비트 제거
+	iStatus &= ~THIRSTY;
 
 
 
