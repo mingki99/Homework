@@ -19,18 +19,27 @@
 #define POISON  0x400
 #define POISON  0x800
 
+using namespace std;
 
 // 장점 가독성
 
 
-using namespace std;
+//전역변수
+int istack;
 
+int Add(int left, int right) // left, right 도 함수안에 있는 변수기에 "지역변수" 이다.
+{
+	return left + right;
+}
+
+// 함수
 int main()
 {
 	// 자료형 (크기단위, Byte)
 	// 정수형 : cahr(1), short(2), int(4), long(4), long ling(8)
 	// 실수형 : float(4), double(8)
 
+	// 지역변수
 	int i;
 
 	//양수만 표현 unsigned
@@ -223,7 +232,28 @@ int main()
 	// 특정 자리 비트 제거
 	iStatus &= ~THIRSTY;
 
+	// 변수
+	// 1. 지역변수 
+	// 2. 전역변수
+	// 3. 정적변수
+	// 4. 외부변수
 
+	// 함수
+
+	int iName = 0;
+
+	// 괄호 안에 선언된 변수(함수)
+	{
+		// 변수명 규칙
+		int iNAme = 100;
+
+		iName;
+		{
+
+		}
+	}
+
+	data = Add(10, 20);
 
 	return 0;
 }
