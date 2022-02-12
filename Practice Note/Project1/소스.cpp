@@ -57,6 +57,23 @@ int main()
 	}*/
 
 
+	// 콘솔
+	// printf
+
+	printf("abcdef %d \n", 10 );		// %d: 정수
+	printf("abcdef %f \n", 3.14f);		// %f: 소수
+
+
+	for (int i = 0; i <= 10; ++i)
+	{
+		printf("Output i : %d \n ", i);
+	}
+
+	// scanf
+
+	int iInput = 0;
+	scanf_s("%d", &iInput);		//scanf_s(세이프)	//포인터 사용
+
 	return 0;
 }
 
