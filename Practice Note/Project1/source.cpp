@@ -25,6 +25,12 @@ int main()
 
 	int iData = Add(100, 200);
 
+	iData = Add(300, 400);
+
+	iData = Add(222, 700);
+
+	iData = Add(333, 555);
+
 	// 반복문
 	//for (/* 반복자 초기화 */; /*반복자 조건체크*/; /*반복자 변경*/)
 	//{
@@ -73,6 +79,21 @@ int main()
 
 	int iInput = 0;
 	scanf_s("%d", &iInput);		//scanf_s(세이프)	//포인터 사용
+
+	// 함수가 사용하는 메모리 영역
+	// 스택 메모리 영역
+
+
+
+
+
+
+
+
+
+
+
+
 
 	return 0;
 }
