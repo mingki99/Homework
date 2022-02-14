@@ -4,103 +4,33 @@
 
 using namespace std;
 
-int Add(int ia, int ib)
+// 함수
+// Factorial
+// 
+
+int Factorial(int _iNumb)
 {
-	return ia + ib;
+	int iValue = 1;
+	
+	for (int j = 0; j < _iNumb - 1; ++j)
+	{
+		iValue *= (j + 2);
+	}
+
+	return iValue;
 }
 
-// 함수
+
+
+
+
 int main()
 {
-
-	//scanf();
-
-	int num1 = 3;
-	int num2 = 3;
-	int num3 = 3;
-	int num4 = 3;
-	int num5 = 3;
-
-	printf("asd\n");
-
-	int iData = Add(100, 200);
-
-	iData = Add(300, 400);
-
-	iData = Add(222, 700);
-
-	iData = Add(333, 555);
-
-	// 반복문
-	//for (/* 반복자 초기화 */; /*반복자 조건체크*/; /*반복자 변경*/)
-	//{
-
-	//}
-	
-	for (int i = 0; i < 4; ++i)
-	{
-		if (i % 2 == 1)
-		{
-			continue;
-		}
-
-		printf("Output tast\n"); // 콘솔이 \n 을 만나면 다음줄로 이동하라는 것으로 인식한다.
-
-		// continue 를 만나게되면 밑에있는 구문들은 건너뛰고 바로 다음횟수로 넘어가진다.
-		continue;
-		
-
-		break;
-	}
-
-
-	int i = 0;
-	/*while (i < 4)
-	{
-		printf("oitput\n");
-
-		++i;
-	}*/
-
-
-	// 콘솔
-	// printf
-
-	printf("abcdef %d \n", 10 );		// %d: 정수
-	printf("abcdef %f \n", 3.14f);		// %f: 소수
-
-
-	for (int i = 0; i <= 10; ++i)
-	{
-		printf("Output i : %d \n ", i);
-	}
-
-	// scanf
-
-	int iInput = 0;
-	scanf_s("%d", &iInput);		//scanf_s(세이프)	//포인터 사용
-
-	// 함수가 사용하는 메모리 영역
-	// 스택 메모리 영역
-
-
-
-
-
-
-
-
-
-
+	int iValue = Factorial(4);
+	iValue = Factorial(10);
 
 
 
 	return 0;
 }
-
-
-// 단축기
-// 
-// 지정한 구문 주석 처리		: Ctrl + k, c
-// 지정한 구문 주석 해제		: Ctrl + k, u
 
