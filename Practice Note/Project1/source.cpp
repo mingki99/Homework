@@ -17,11 +17,15 @@ int Factorial(int _iNumb)
 		iValue *= (j + 2);
 	}
 
+	Factorial(10);
+
 	return iValue;
 }
 
+// 재귀 함수
+// 가독성, 구현의 용이
 
-
+// 성능이 떨어진다.
 
 
 int main()
