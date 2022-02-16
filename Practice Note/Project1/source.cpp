@@ -49,22 +49,51 @@ int Fibonacci(int _iNum)
 		return 1;
 	}
 
+	int iPrev1 = 1;
+	int iPrev2 = 1;
+	int iValue = 0;
+
 	for (int i = 0; i < _iNum - 2; ++i)
 	{
-
+		iValue = iPrev1 + iPrev2;
+		iPrev1 = iPrev2;
+		iPrev2 = iValue;
 	}
+
+	return iValue;
+}
+
+
+int i = 1;
+
+int Fibonacci_Re(int _iNum)
+{
+	if (1 == _iNum || 2 == _iNum)
+	{
+		return 1;
+	}
+
+	return Fibonacci_Re(_iNum - 1) + Fibonacci_Re(_iNum - 2);
+
+	i = i + 1;
 }
 
 
 
 int main()
 {
+	
+
 	int iValue = Factorial(4);
 	iValue = Factorial(10);
 
 	iValue = Factorial_Re(10);
 	
-	iValue = Fibonacci(10);
+	iValue = Fibonacci(25);
+
+	iValue = Fibonacci_Re(7);
+
+	printf("%d", i);
 
 	return 0;
 }
