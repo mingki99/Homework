@@ -86,14 +86,18 @@ int main()
 
 	int iValue = Factorial(4);
 	iValue = Factorial(10);
-
 	iValue = Factorial_Re(10);
-	
-	iValue = Fibonacci(25);
 
+	iValue = Fibonacci(25);
 	iValue = Fibonacci_Re(7);
 
-	printf("%d", i);
+	// 배열
+	// 메모리가 연속적
+	int iArray[10] = {}; // 아무것도 넣지 않으면 전부 Null = 0 으로 들어가있다.
+
+	iArray[4] = 10;
+
+
 
 	return 0;
 }
