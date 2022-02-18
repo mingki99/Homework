@@ -2,102 +2,51 @@
 #include <stdio.h>
 
 
-using namespace std;
+// 사용자 정의 자료형
+// 내가 직접 자료형을 만들수있다.
+// 자료형 = int, float 같은 자료형
 
-// 함수
-// Factorial
-// 
-
-int Factorial(int _iNumb)
+typedef struct _tagMyST
 {
-	int iValue = 1;
-	
-	for (int j = 0; j < _iNumb - 1; ++j)
-	{
-		iValue *= (j + 2);
-	}
+	int a;		// 4 바이트
+	float f;	// 4 바이트
+}MYST;			// 8 바이트
 
-	
-
-	return iValue;
-}
-
-// 재귀 함수
-// 가독성, 구현의 용이
-
-// 성능이 떨어진다.
-
-int Factorial_Re(int _iNum)
+typedef struct _tagbig
 {
-	if (1 == _iNum)
-	{
-		return 1;
-	}
+	MYST K;		// 구조체 안에 또 구조체를 만들수있다.
+	int i;
+	char c;
+}BIG;
 
-	return _iNum * Factorial_Re(_iNum - 1);
-}
+typedef int INT;
 
-
-// 피보나치 수열
-// 1 1 2 3 5 8 13 21 34 55...
-
-int Fibonacci(int _iNum)
+typedef struct NewStruct // c 스타일: typedef 는 통째로 이름을 새로 만들어줬다. 
 {
-	// 1,2 번째는 값이 1과 1이기 때문에 
-	if (1 == _iNum || 2 == _iNum)
-	{
-		return 1;
-	}
-
-	int iPrev1 = 1;
-	int iPrev2 = 1;
-	int iValue = 0;
-
-	for (int i = 0; i < _iNum - 2; ++i)
-	{
-		iValue = iPrev1 + iPrev2;
-		iPrev1 = iPrev2;
-		iPrev2 = iValue;
-	}
-
-	return iValue;
-}
+	int a;
+	short s;
+} NEWST;				// 실재로 이름을 만들었다.
 
 
-int i = 1;
-
-int Fibonacci_Re(int _iNum)
-{
-	if (1 == _iNum || 2 == _iNum)
-	{
-		return 1;
-	}
-
-	return Fibonacci_Re(_iNum - 1) + Fibonacci_Re(_iNum - 2);
-
-	i = i + 1;
-}
 
 
 
 int main()
 {
-	
+	int arr[10] = { 1, 2, 3, 4, 5, 6 };
 
-	int iValue = Factorial(4);
-	iValue = Factorial(10);
-	iValue = Factorial_Re(10);
+	// 구조체
+	MYST t = {100, 3.14f}; // 배열과 초기화 하는법이
+	// 1번째 int 형, 2번째 flaot 형 초기화		// 8 바이트
 
-	iValue = Fibonacci(25);
-	iValue = Fibonacci_Re(7);
+	t.a = 10;
+	t.f = 10.2312f;
 
-	// 배열
-	// 메모리가 연속적
-	int iArray[10] = {}; // 아무것도 넣지 않으면 전부 Null = 0 으로 들어가있다.
+	int iSize = sizeof(MYST);
 
-	iArray[4] = 10;
+	NEWST a;
 
-
+	INT b;
 
 	return 0;
 }
