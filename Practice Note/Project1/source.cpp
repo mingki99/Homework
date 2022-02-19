@@ -1,53 +1,44 @@
 #include <iostream>
 #include <stdio.h>
 
+// 변수의 종류
+// 1. 지역변수
+// 2. 전역변수
+// 3. 정적변수
+// 4. 외부변수
 
-// 사용자 정의 자료형
-// 내가 직접 자료형을 만들수있다.
-// 자료형 = int, float 같은 자료형
+// 메모리 영역
+// 1. 스텍 영역
+// 2. 데이터 영역
+// 3. 읽기 전용(코드, ROM)
+// 4. 힙 영역
 
-typedef struct _tagMyST
+
+
+// 전역 변수
+int g_i = 0; // Data 영역
+
+// Data 영역 특징
+// 프로그램 시작 시 생성
+// 프로그램 종료 시 해제
+
+void Test()
 {
-	int a;		// 4 바이트
-	float f;	// 4 바이트
-}MYST;			// 8 바이트
+	int i = 0;
+	++i; // i 는 지역변수 이기에 함수가 끝나면 해제 되어버린다. 
 
-typedef struct _tagbig
-{
-	MYST K;		// 구조체 안에 또 구조체를 만들수있다.
-	int i;
-	char c;
-}BIG;
+	++ g_i; // 전역변수를 사용하면 Test 가 끝나도 값이 남아있다.
 
-typedef int INT;
-
-typedef struct NewStruct // c 스타일: typedef 는 통째로 이름을 새로 만들어줬다. 
-{
-	int a;
-	short s;
-} NEWST;				// 실재로 이름을 만들었다.
-
-
-
-
+	// a = 100; // 그러므로 Main 의 지역변수는 사용할수없다!
+}
 
 int main()
 {
-	int arr[10] = { 1, 2, 3, 4, 5, 6 };
+	// 지역변수	
 
-	// 구조체
-	MYST t = {100, 3.14f}; // 배열과 초기화 하는법이
-	// 1번째 int 형, 2번째 flaot 형 초기화		// 8 바이트
+	int a = 0;
 
-	t.a = 10;
-	t.f = 10.2312f;
-
-	int iSize = sizeof(MYST);
-
-	NEWST a;
-
-	INT b;
-
+	Test();
 	return 0;
 }
 
