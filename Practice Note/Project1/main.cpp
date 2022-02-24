@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdio.h>
-#include "Func.h"
+#include "func.h"
 #include "common.h"
 
 int g_i = 0;
@@ -37,6 +37,8 @@ int main()
 	Test();
 
 	g_i = 0;
+
+	// 포인터
 
 	printf("Test 함수 호출 횟수 : %d\n", g_i);
 

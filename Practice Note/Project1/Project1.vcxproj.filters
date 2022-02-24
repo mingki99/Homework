@@ -26,7 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Func.h">
+    <ClInclude Include="func.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="common.h">
