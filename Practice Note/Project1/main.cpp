@@ -69,8 +69,22 @@ int main()
 
 	printf("출력 : %d\n", a);
 	
-	scanf_s("%d", &a);	// scanf_S 도 함수이기에 콘솔창으로부터 입력 된 값을 읽어와서 내가 전달해준 주소에 접근을 하여서 넣어주고 나니 함수가 종료되면 정말 a 변수가 바뀌어 있는겄이다
+	//scanf_s("%d", &a);	// scanf_S 도 함수이기에 콘솔창으로부터 입력 된 값을 읽어와서 내가 전달해준 주소에 접근을 하여서 넣어주고 나니 함수가 종료되면 정말 a 변수가 바뀌어 있는겄이다
 
+
+
+	// const
+	volatile const int cint = 100;
+
+	// 상수화
+	// l-value : 상수
+	// r-value : 변수
+	int ii = 10;
+
+	pInt = (int*)&cint;
+	*pInt = 300;
+
+	printf("cint 출력 : %d\n", cint);
 
 	return 0;
 }
