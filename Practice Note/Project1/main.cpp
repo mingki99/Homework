@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void Output(const int* pI)
+{
+	int i = *pI;
+
+	// 문법상 바뀔수 없는 데이터를 바꾸어보자
+
+	int* pInt = (int*)pI;
+	*pInt = 1000;
+};
+
+
 int main()
 {
 	// 1. const
@@ -46,12 +57,15 @@ int main()
 	}
 
 
+	//
+	a = 100;
 
+	// 단축키
+	// 함수 괄호안에
+	// Ctrl + Shift + Space
+	// 선언이 보인다.
 
-
-
-
-
+	Output(&a);
 
 	return 0;
 }
