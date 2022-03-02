@@ -2,17 +2,22 @@
 
 using namespace std;
 
-//N개의 숫자가 공백 없이 쓰여있다. 이 숫자를 모두 합해서 출력하는 프로그램을 작성하시오.
-
-
-char cChar[] = {}
-
-
 int main()
 { 
-	cin >> cChar[];
+	int iIntger = 256;
+	short sShort;
+	long lLong;
+	float fFloat;
+	double dDouble;
 
+	iIntger++;
+	iIntger *= 2;
+	sShort = static_cast<short>(iIntger);
+	lLong = sShort * 10000;
+	fFloat = lLong + 0.785f;
+	dDouble = static_cast<double>(fFloat) / 10000;
 
+	cout << dDouble << endl;
 	
 	return 0;
 }
