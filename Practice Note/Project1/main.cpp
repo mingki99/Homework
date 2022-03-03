@@ -4,11 +4,6 @@
 void Output(const int* pI)
 {
 	int i = *pI;
-
-	// 문법상 바뀔수 없는 데이터를 바꾸어보자
-
-	int* pInt = (int*)pI;
-	*pInt = 1000;
 };
 
 
@@ -66,6 +61,32 @@ int main()
 	// 선언이 보인다.
 
 	Output(&a);
+
+	// void
+	// 1. 원본의 자료형을 정하지 않음
+	// 2. 어떠한 타입의 변수릐 주소든 다 저장 가능
+	// 3. 역참조 불가능
+	// 4. 주소연산 불가능
+	void* pVoid = nullptr;
+	float* pFloat = nullptr;
+
+	{
+		int a = 0;
+		float f = 0.f;
+		double d = 0.;
+		long long ll = 0;
+
+		pVoid = &a;
+		pVoid = &f;
+		pVoid = &d;
+		pVoid = &ll;
+
+		// *pVoid;
+		// pVoid + 1;
+		
+	}
+
+
 
 	return 0;
 }
