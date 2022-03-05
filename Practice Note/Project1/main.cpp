@@ -1,6 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+// 메모리 영역
+// 1. 스텍(stack)
+// 2. 데이터
+// 3. 힙
+// 4. ROM(코드)
+
+
+
+
 void Output(const int* pI)
 {
 	int i = *pI;
@@ -84,7 +94,42 @@ int main()
 		// *pVoid;
 		// pVoid + 1;
 		
+	}                   
+
+	{
+		// 문자
+		// char(1), wchar(2)
+
+		char c = 'a';
+		wchar_t wc = L'a';
+
+		char szChar[10] = "abcdef";
+
+		// 스텍 매모리에 문자열 값 있는 배열
+		wchar_t szWChar[10] = L"abcdef";		// 문자를 배열로 옮겨온것
+
+		// ROM 리드온리메모리 문자열에 주소에 접근
+		// 문법 적으로 
+		const wchar_t* pChar = L"abcdef";		// 문자열의 시작주소를 가리키고 있는것
+		 
+
+		const int* i = 14;
+
+
+		szWChar[1] = 'z';
+		// pChar[1] = 'z';
+
+		short arrShort[10] = { 97, 98, 99, 100, 101, 102, };
+
+		
+
+
 	}
+
+
+
+
+
 
 
 
