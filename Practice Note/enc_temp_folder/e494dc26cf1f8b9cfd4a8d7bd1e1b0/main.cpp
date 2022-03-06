@@ -91,7 +91,7 @@ int main()
 
 	wchar_t szString1[100] = L"abc";
 
-	StrCat(szString1, 100, L"def"); // 왜 이 함수가 오류가 날까? 디버깅 해봐야겠다
+	StrCat(szString1, 100, L"def");
 
 	// 과제 함수 직접구현
 
