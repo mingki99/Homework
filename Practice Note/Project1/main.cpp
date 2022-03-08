@@ -25,6 +25,14 @@ void Test(float a)
 
 }
 
+tyoedef struct _tag;
+
+
+
+
+
+
+
 // 글자가 음수인 이유가 없으니 unsigned 로
 unsigned int GetLength(const wchar_t* _pstr)
 {
@@ -99,53 +107,6 @@ int StrCmp(const wchar_t* _LeftStr, const wchar_t* _RightStr)
 	}
 
 	return 0;
-
-
-
-
-
-
-	
-	/*const int iLMax = GetLength(_LeftStr);
-	const int iRMax = GetLength(_RightStr);
-
-	wchar_t cLeftStr = *_LeftStr;
-	wchar_t cRightStr = *_RightStr;
-
-
-
-	int iIntLeft;
-
-
-	for (int i = 0; i < iLMax; ++i);
-	{
-		_LeftStr[iLMax + i];
-	}
-
-
-	short Result = NULL;
-
-	if (LeftStr < RightStr)
-	{
-		Result = -1;
-	}
-	else if (RightStr < LeftStr)
-	{
-		Result = 1;
-	}
-	else if (LeftStr == RightStr)
-	{
-		Result = 0;
-	}
-	else
-	{
-		assert(nullptr);
-	}*/
-
-	/*switch ()
-	{
-
-	}*/
 
 }
 
