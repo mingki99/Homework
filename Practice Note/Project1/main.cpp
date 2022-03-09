@@ -1,38 +1,33 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
 
-#include <wchar.h>
-#include <assert.h>
+using namespace std;
 
-// 대문자는 절대 변하지않는 값 이라는 표기
-// 그러므로 const 로 사용
+// 스택
+// { } 중괄호의 범위가 생존 범위
 
-const int AIR = 0;
-const int STUN = 1;
-const int POLYMORPH = 2;
-const int INVINCIBLE = 3;
+// 연산 우선순위
+// 애매하다 보면 괄호를쳐라
+
+// 타입변환
+// 자료형 마다 읽는 bit 단위가 다르기에 값이 유실되거나 다른 값이 나오지않게 주의하자
+
+// 사칙연산
+// int / int = int 정수형으로 뱉는다
+// int / float || float / int = float 상수형으로 뱉음.
+// 이런 규칙이 있기에 주의하자
 
 int main()
 {
-#pragma region 비트 연산
-	unsigned char flag; // 부호를 없애야 >> 를 하더라도 부호가 딸려오지않음
+	int hp = 20;
+	cout << hp << endl;
 
-	// 실습
-	// 0b000 [무적][변이][스턴][공중부양]
+	// 짝수 여부
+	bool isEven = ((hp % 2) == 0);
 
-	// 무적 상태로 만든다
-	flag = (1 << 3);
+	// 짝수거나 3으로 나뉘는 값인지
+	bool isEven0rDivBy3 = ((hp%2) == 0||
 
-	// 변이 상태를 추가한다 (무적 + 변이) 
-	flag |= (1 << 2);
 
-	// 무적인지 확인하고 싶다? (다른 상태는 관심없음)
-	// bitmask
-	bool invincible = ((flag & (1 << 3)) != 0);
-
-	// 무적이거나 스턴 상태인지 확인하고 싶다면?
-	bool stunOrlnvincible = ((flag & 0b1010) != 0);
-#pragma endregion
 
 	return 0;
 }
