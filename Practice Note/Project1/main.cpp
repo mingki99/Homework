@@ -2,117 +2,116 @@
 
 using namespace std;
 
-// 오늘의 주제 : 분기문
-// 데이터를 메모렝 할당하고 가공하고 방법에 대해 알아봄
-// 가공한 데이터를 이용해서 무엇인가를 하고싶다면?
+
 
 int main()
 {
+	srand(time(0)); // 시드 설정
 
-#pragma region 몬스터 상호작용
-	int hp = 100;				// 몬스터 HP
-	int damage = 100;			// 플레이어 데미지
-
-	hp -= damage;				//피격판정
-	bool isDead = (hp <= 0);	// 처치 판정
-
-	// 몬스터가 죽었으면 경험치 추가
-	// 어셈블리에서 CMP JMP
-
-	if (isDead)
-	{
-		cout << "몬스터를 처치했습니다." << endl;
-	}
-	else if (hp <= 20)
-	{
-		cout << "몬스터가 도망가고 있습니다." << endl;
-		//(isDead == false)
-	}
-	else
-	{	
-		// TODO
-		cout << "몬스터가 반격했습니다" << endl;
-	}
-		
-		
-#pragma endregion
-#pragma region 분기문
-	const int ROOK = 0;
-	const int PAPER = 1;
-	const int SCISSORS = 2;
-
-	int input = ROOK;
-
-	switch (input)
-	{
-	case ROOK:
-		cout << "바위를 냿습니다" << endl;
-		break;
-	case PAPER:
-		cout << "바위를 냿습니다" << endl;
-		break;
-	case SCISSORS:
-		cout << "바위를 냿습니다" << endl;
-		break;
-	default:
-		cout << "이상한겄을 내셨습니다" << endl;
-		break;
-	}
-
-#pragma endregion
-
-#pragma region 반복문
-	int count = 0;
-
-	while (count <= 5)
-	{
-		cout << "출력" << endl;
-		count++;
-	}
+	// 1 2 3
 	
-	for (int i = 0; i < 5; ++count)
+	int iMyTurn = 0;
+
+	int iRounds = 0;
+
+	int iWins = 0;
+
+
+	while (iMyTurn <= 4)
 	{
-		cout << "For Loop" << endl; 
-		break;
-	}
+		int value = 1 + (rand() % 3); // 0~32767 
 
+		cout << "가위 (1) 바위 (2) 보 (3) 골라주세요" << endl;
 
+		cin >> iMyTurn;
+		
+		cout << endl;
 
-	for (int iCount = 1; iCount <= 10; iCount++)
-	{
-		bool isEven = ((iCount % 2) == 0);
-		if (isEven)
+		cout << " AI " << value << endl;
+		cout << endl;
+			
+		if (iRounds == 0)
 		{
-			continue;
+
+			cout << "현재 승룰 : 없음" << endl;
+
+		}
+		else if (iMyTurn <= 4)
+		{
+			// TODO : 확률을 구해준다
+			int iWinPercentage = (iWins*100) / iRounds ; // 승률?
+			cout << "현재 승률 : " << iWinPercentage << endl;
 		}
 
-		cout << iCount << endl;
+		iRounds++;
 
-
-
-	}
-#pragma endregion
-
-#pragma region 구구단
-	// 구구단
-
-	// 1개부터 시작해서 순차적으로 줄마다 증가
-
-	int total = 0;
-
-	for (int i = 2; i <= 9; ++i)
-	{
-		
-		for (int j = 1; j <= 9; ++j)
+		if (iMyTurn == 1)
 		{
-			total = i * j;
-			cout << i, " X ", j, " = ", total << endl;
-		
+			
+			switch (value)
+			{
+			case 1:
+				cout << "DRAW" << endl;
+				break;
+
+			case 2:
+				cout << "AI Win" << endl;
+
+				break;
+			
+			case 3:
+				cout << "Player Win" << endl;
+
+				iWins++;
+				break;
+				
+
+			}
+		}
+		else if (iMyTurn == 2)
+		{
+			switch (value)
+			{
+			case 1:
+				cout << "player Win" << endl;
+				iWins++;
+				break;
+			case 2:
+				cout << "DRAW" << endl;
+				break;
+			case 3:
+				cout << "AI Win" << endl;
+				break;
+			}
+		}
+		else if (iMyTurn == 3)
+		{
+			switch (value)
+			{
+			case 1:
+				cout << "AI Win" << endl;
+				break;
+			case 2:
+				cout << "player Win" << endl;
+				iWins++;
+				break;
+			
+			case 3:
+				cout << "DRAW" << endl;
+				break;
+
+
+			}
 		}
 		
 		
+
+
+
+
+
 	}
-#pragma endregion
+
 
 
 	return 0;
