@@ -16,6 +16,25 @@ int main()
 
 	int iWins = 0;
 
+	// 숫저를 지정하지 않으면 첫 값은 0부터 시작
+	// 그 다음 값들은 이전 값 + 1
+	enum ENUM_SRP
+	{
+		ENUM_SCISSORS = 1,
+		ENUM_ROOK,
+		ENUM_PATER
+	};
+
+	// #이 붙으면 -> 전처리 지시문
+	// 1) 잔처리 2) 컴파일 3) 링크
+
+#define DEFINE_SCISSORS 1+2
+#define DEFINE_TEST cout << "hello World" << endl;
+
+
+
+
+
 
 	while (iMyTurn <= 4)
 	{
