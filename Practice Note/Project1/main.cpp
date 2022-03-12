@@ -2,32 +2,32 @@
 
 using namespace std;
 
-void Func1();
-void Func2();
-void Func3();
 
-void Func1()
+
+int Factorial(int n)
 {
-	cout << "Func1" << endl;
+	if (1 >= n)
+	{
+		return n;
+	}
 
-	Func2();
+	cout << n << endl;
+	return n * Factorial(n - 1);
 }
 
-void Func2()
-{
-	cout << "Func2" << endl;
 
-	Func3();
-}
-
-void Func3()
+void SetPlayerinfo(int hp, int mp, int attack, int guildld = 0, int casteld = 0)
 {
-	cout << "Func3" << endl;
+	
 }
 
 int main()
 {
-	Func1();
+	SetPlayerinfo(20, 30, 50);
+
+	int result = Factorial(5);
+
+	cout << result << endl;
 
 	return 0;
 }
