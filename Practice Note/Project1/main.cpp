@@ -1,33 +1,21 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 
 
-int Factorial(int n)
-{
-	if (1 >= n)
-	{
-		return n;
-	}
-
-	cout << n << endl;
-	return n * Factorial(n - 1);
-}
-
-
-void SetPlayerinfo(int hp, int mp, int attack, int guildld = 0, int casteld = 0)
-{
-	
-}
-
 int main()
 {
-	SetPlayerinfo(20, 30, 50);
+	// 정수타입 백터 생성
+	vector<int> iMyVector = { 11,22 };
+	
+	// push_back()을 이용하여 생성한 백터에 정숫값을 몇개 추가한다.
+	iMyVector.push_back(33);
+	iMyVector.push_back(44);
 
-	int result = Factorial(5);
+	cout << "1 st elemnt" << iMyVector[0] << endl;
 
-	cout << result << endl;
 
 	return 0;
 }
