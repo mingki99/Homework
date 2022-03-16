@@ -4,24 +4,19 @@
 
 using namespace std;
 
-void SetHP(int* hp)
-{
-	*hp = 100;
-}
+// 포인터 연산
 
+// 주소 연산자 (&)
+// 산술 연산자 (+ -)
+// 간접 연산자
+// 간접 멤버 연산자
 
 
 int main()
 {
-	int HP = 1;
-	SetHP(&HP);
+	int number = 1;
 
-	printf("%d\n", HP);
-
-	int hp;
-
-	// 타입의 불일치
-	__int64* a;
+	int* pointer = &number;
 	
 	return 0;
 }
