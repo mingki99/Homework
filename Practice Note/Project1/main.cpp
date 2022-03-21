@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// 참조
+// 배열
 
 struct StatInfo
 {
@@ -13,94 +13,48 @@ struct StatInfo
 	int defence;
 };
 
-// [매개변수] [RET] [지역변수(info) ] [매개변수(&info)] [RET] [지역변수]
-void CreateMonster(StatInfo* info)
-{
-	info->hp = 100;
-	info->attack = 8;
-	info->defence = 5;
 
-}
-
-// 포인터가 없다면 복사가 이뤄진다.
-// [매개변수] [RET] [지역변수(info) ] [매개변수(info(100, 8, 5))] [RET] [지역변수]
-void CreateMonster(StatInfo info)
-{
-	info.hp = 100;
-	info.attack = 8;
-	info.defence = 5;
-
-}
-
-// 값을 수정하지 않는다면, 양쪽 다 일단 문제 없음
-
-// 1) 값 전달 방식
-
-void PrintInfoByCopy(StatInfo info)
-{
-	cout << "===============" << endl;
-	cout << "HP: " << info.hp << endl;
-	cout << "attack: " << info.attack << endl;
-	cout << "defence: " << info.defence << endl;
-}
-
-// 2) 주소 전달방식
-
-void PrintInfoByPtr(StatInfo* info)
-{
-	cout << "===============" << endl;
-	cout << "HP: " << info->hp << endl;
-	cout << "attack: " << info->attack << endl;
-	cout << "defence: " << info->defence << endl;
-}
-
-// 3) 참조 전달방식
-
-void PrintInfoByRet(StatInfo& info)
-{
-	cout << "===============" << endl;
-	cout << "HP: " << info.hp << endl;
-	cout << "attack: " << info.attack << endl;
-	cout << "defence: " << info.defence << endl;
-}
-
-// StatInfo 구조체가 1000 버아투 짜리 대형 구조체라면?
-// - (값전달) 구조체 1000Byte를 통째로 복사.
-// - (주소전달) 구조체* 는 64 = 8Byte, 32 = 4Byte
-// - (참조전달) 구조체& 는 64 = 8Byte, 32 = 4Byte
-
-// 값 전달처럼 편리하게 사용
-// 주소 전달처럼 주소값을 이용하여 
 
 int main()
 {
-	// 4바이트 정수형 자료형 사용
-	// 이름을 number 
-	// number 에서 뭘 꺼내거나, 넣는다면
-	// 해당 주소 (data, stack, heap) 에 1 을 넣어줘라
-	int number = 1;
+	// 배열의 이름은 시작 주소를 뜻한다.
+	StatInfo monster[10];
 
-	// * 주소를 담는다
-	// int 그 바구니를 따락면 int 데이터(바구니) 있음
-	int* pointer = &number;
-	// pointer int 자료형에 있는 주소를 타고 이동해서, 그 주소에 2를 넣는다.
-	*pointer = 2;
 
-	// 로우레벨(에섬블리) 관점에서 실제 작동 방식은 int* 와 똑같음
-	// 포인터와 같은 기능을한다.
-	int& reference = number;
-	reference = 3;
+	auto WhoAmI = monster;
 
-	// 또 다른 이름을 짓는 이유는?
-	// 
-	StatInfo info;
 
-	PrintInfoByCopy(info);
-	PrintInfoByPtr(&info);
-	PrintInfoByRet(info);
+	// moster 배열의 1번째의 값을 셋팅
+	StatInfo* monster_0 = monster + 1;
+	monster_0->hp = 100;
+	monster_0->attack = 20;
+	monster_0->defence = 2;
 
-	
+	// 포인터와 참조는 자유자재로 변한 가능
+	// 포인터로 접근하여 monster의 배열의 2번째에 이름을 지어준것이다.
+	StatInfo& monster_2 = *(monster + 2);
+	monster_2.hp = 100;
+	monster_2.attack = 20;
+	monster_2.defence = 2;
 
+	// 완전히 다르니 의미
+	// 값을 복사 한것.
+	StatInfo temp;
+	temp = *(monster + 2);
+	temp.hp = 400;
+	temp.attack = 40;
+	temp.defence = 4;
+
+
+	// 이런 행위를 자동화
+	for (int i = 0; i < 10; ++i)
+	{
+		StatInfo& monster_2 = *(monster + i);
+		monster_2.hp = 100 * (i + 1);
+		monster_2.attack = 1 * (i + 1);
+		monster_2.defence = 1 * (i + 1);
+
+	}
 
 	return 0;
 }
