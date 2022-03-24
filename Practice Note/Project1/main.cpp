@@ -4,30 +4,27 @@
 
 using namespace std;
 
-// 포인타 vs 배열
+// 오늘의 주제 : 다중 포인터
 
-struct StatInfo
+
+void SetMessage(const char** a)
 {
-	int hp;
-	int attack;
-	int defence;
-};
 
-
-// char 인자를 받는 매개변수는 자동으로 포인터로 바뀐다
-void Test(char a[])
-{
-	a[0] = 'x';
 }
 
 
 int main()
 {
-	const char* test1 = "Hello World";
+	const char* msg = "Hello";
 
-	char test2[] = "Hello World";
 
-	char mag [] = { 'h', 'e', 'l', 'l', 'o', '\0' };
+	// 이중 포인터 (사실상 필요없다.)
+	const char** pp = &msg;
+
+	const int a = 5;
+	
+	int b = a;
+
 	return 0;
 }
 
