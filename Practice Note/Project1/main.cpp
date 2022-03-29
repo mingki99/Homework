@@ -20,6 +20,7 @@ int StrLen(const char* str)
 	return 0;
 }
 
+// ¹®Á¦ 2)
 char* StrCpy(char* dest, char* src)
 {
 	/*int i = 0;
@@ -48,6 +49,51 @@ char* StrCpy(char* dest, char* src)
 
 }
 
+char* StrCat(char* dest, char* src)
+{
+	/*int len = StrLen(dest);
+
+	int i = 0;
+	while (src[i] != '|0');
+	{
+		dest[len + 1] = src[i];
+		++i;
+	}
+	
+
+	dest[len + i] = '|0';
+
+	return dest;*/
+
+	char* ret = dest;
+	while (*dest)
+		++dest;
+
+	while (*src)
+	{
+		*dest = ++ * src;
+	}
+	*dest = '|0';
+
+	return ret;
+}
+
+int StrCamp(char* a, char* b)
+{
+	int i = 0;
+	while (a[i] != '|0' || b[i] != '|0')
+	{
+		if (a[i] > b[i])
+			return 1;
+		if (a[i] < b[i])
+			return -1;
+		i++;
+	}
+
+	return 0;
+}
+
+
 #pragma warning(disable : 4996)
 
 
@@ -64,8 +110,11 @@ int main()
 	 
 	 strcpy(b,a);
 
+	 StrCat(a,b);
 
+	 int value = StrCamp(a, b);
 
+	 cout << value;
 	return 0;
 }
 
