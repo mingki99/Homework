@@ -94,6 +94,18 @@ int StrCamp(char* a, char* b)
 }
 
 
+void ReverseStr(char* str)
+{
+	int len = StrLen(str);
+
+	for (int i = 0; i < len / 2; ++i)
+	{
+		int temp = str[i];
+		str[i] = str[len - 1 - i];
+		str[len - 1 - i] = temp;
+	}
+}
+
 #pragma warning(disable : 4996)
 
 
@@ -107,14 +119,18 @@ int main()
 	/*int len = strlen(a);
 	cout << len;*/
 
-	 
-	 strcpy(b,a);
-
-	 StrCat(a,b);
+	
 
 	 int value = StrCamp(a, b);
 
-	 cout << value;
+	 cout << value << endl;
+
+	 ReverseStr(a);
+
+	 cout << a << endl;
+
+
+
 	return 0;
 }
 
