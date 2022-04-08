@@ -1,134 +1,53 @@
 #include <iostream>
 #include <vector>
-//#include "func.h"
+
+// 인풋 아웃풋을 조작하는 기능들이 들어있다.
+#include <iomanip>
 
 using namespace std;
 
-// 오늘의 주제 : TextRPG2
+const int MAX = 100;
+int board[MAX][MAX] = {};
+int N = 0;
 
-// 문제 1) 문자열 길이를 출력하는 함수
-int StrLen(const char* str)
+int iCount = 1;
+
+void PrintBoard()
 {
-	// str 문자열의 길이를 반환
-	int count = 0;
-
-	while (str[count] != '|0')
+	for (int y = 0; y < N; y++)
 	{
-		count++;
+		for (int x = 0; x < N; x++)
+		{
+			board[y][x] = iCount;
+			cout << board[y][x] << " ";
+			iCount ++;
+		}
+		cout <<endl;
 	}
-
-	return 0;
 }
 
-// 문제 2)
-char* StrCpy(char* dest, char* src)
+void SetBoard()
 {
-	/*int i = 0;
-
-	while (src[i] != '\0')
+	for (int i = 0; i < N; ++i)
 	{
-		dest[i] = src[i];
-		++i;
-	}
-
-	dest[i] = '\0';
-	return dest;*/
-
-	char* ret = dest;
-
-	while (*src != '\0')
-	{
-		*dest = *src;
-		++dest;
-		++src;
-	}
-
-	*dest = '\0';
-
-	return ret;
-
-}
-
-char* StrCat(char* dest, char* src)
-{
-	/*int len = StrLen(dest);
-
-	int i = 0;
-	while (src[i] != '|0');
-	{
-		dest[len + 1] = src[i];
-		++i;
+		
 	}
 	
+	// 01 02 03 04 05
+	// 16          06
+	// 15          07
+	// 14          08
+	// 13 12 11 10 09
 
-	dest[len + i] = '|0';
-
-	return dest;*/
-
-	char* ret = dest;
-	while (*dest)
-		++dest;
-
-	while (*src)
-	{
-		*dest = ++ * src;
-	}
-	*dest = '|0';
-
-	return ret;
 }
-
-int StrCamp(char* a, char* b)
-{
-	int i = 0;
-	while (a[i] != '|0' || b[i] != '|0')
-	{
-		if (a[i] > b[i])
-			return 1;
-		if (a[i] < b[i])
-			return -1;
-		i++;
-	}
-
-	return 0;
-}
-
-
-void ReverseStr(char* str)
-{
-	int len = StrLen(str);
-
-	for (int i = 0; i < len / 2; ++i)
-	{
-		int temp = str[i];
-		str[i] = str[len - 1 - i];
-		str[len - 1 - i] = temp;
-	}
-}
-
-#pragma warning(disable : 4996)
-
 
 int main()
 {
-	const int BUF_SIZE = 100;
+	cin >>N;
 
-	char a[BUF_SIZE] = "HEllo";
-	char b[BUF_SIZE];
+	SetBoard();
 
-	/*int len = strlen(a);
-	cout << len;*/
-
-	
-
-	 int value = StrCamp(a, b);
-
-	 cout << value << endl;
-
-	 ReverseStr(a);
-
-	 cout << a << endl;
-
+	PrintBoard();
 
 
 	return 0;
