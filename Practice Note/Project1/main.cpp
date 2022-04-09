@@ -45,6 +45,7 @@ bool CanGo(int y, int x)
 
 void SetBoard()
 {
+	// dir = Direct = 다이렉트 직행으로 곧바로
 	int dir = RIGHT;
 
 	// 찍어줄 번호
@@ -53,6 +54,10 @@ void SetBoard()
 	int y = 0;
 	int x = 0;
 
+	// 배열을 이용 하여 switch문 대신 인용
+	/*int dy[] = {0, 1, 0, -1};
+	int dx[] = {1, 0 ,-1, 0};*/
+
 	while (true)
 	{
 		board[y][x] = num;
@@ -60,8 +65,13 @@ void SetBoard()
 		if ( num == N*N)
 			break;
 
+		// 배열 이용
+		/*int nextY = y + dy[dir];
+		int nextX = x + dx[dir];*/
 		int nextY;
 		int nextX;
+
+
 
 		switch (dir)
 		{
@@ -92,6 +102,11 @@ void SetBoard()
 		}
 		else
 		{
+			
+			// 달팽이 규칙을 인용한다
+			// 나머지 4를 나누어 나오는 값이 0, 1, 2, 3, 0, 1, 2, 3 만 나오게 출력
+			// dir = (dir +1) %4;
+			
 			switch (dir)
 			{
 			case RIGHT:
