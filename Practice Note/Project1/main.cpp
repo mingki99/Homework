@@ -3,53 +3,36 @@
 
 using namespace std;
 
-template <class T>
-
-T Square(T x)
+void add(int& score, int addscore)
 {
-	cout << x << " 의 제곱은";
-	x = x * x;
-	cout << x << " 입니다." << endl;
-	
-	return x;
-}
+	printf("%d점을 더했으므로\n", addscore);
 
-//inline int Square(int x)
-//{
-//	
-//	printf("%d 의 제곱은", x);
-//	x = x * x;
-//	printf("%d입니다\n", x);
-//	return x;
-//
-//}
-//
-//inline double Square(double x)
-//{
-//
-//	// print 실수 double 형 = %lf
-//	printf("%1.2lf 의 제곱은", x);
-//	x = x * x;
-//	printf("%1.2lf입니다\n", x);
-//	return x;
-//}
+	score = score + addscore;
+
+}
 
 int main()
 {
-	printf("정수를 입력하십시오. \n");
-	int iinput = 0;
+	int subject1;
+	int subject2;
 
-	cin >> iinput;
+	int addscore;
 
-	Square(iinput);
+	printf("2 과목 분의 점수를 입력하십시오\n");
 
-	printf("소수를 입력하십시오.\n");
+	cin >> subject1;
+	cin >> subject2;
 
-	double dinput = 0;
+	printf("더할 점수를 입력하십시오.\n");
 
-	cin >> dinput;
+	cin >> addscore;
+	
+	add(subject1, addscore);
+	printf("과목 1은(는) %d점이 되었습니다.\n", subject1);
 
-	Square(dinput);
+	add(subject2, addscore);
+	printf("과목 2은(는) %d점이 되었습니다.\n", subject2);
+
 
 	return 0;
 }

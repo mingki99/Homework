@@ -51,7 +51,7 @@ public:
 	// 이중 인자를 1개만 받는 [기타 생성자]는 [타입 변환 생성자]라고 부른다. 
 	 
 	// 명시적인 용도로 지정
-	 Knight(int hp)
+	explicit Knight(int hp)
 	{
 		cout << "Knight() 기본생성자 호출" << endl;
 
@@ -148,9 +148,9 @@ int main()
 	double d = num;			// 암시적 << 컴파일러가 스스로 처리
 
 	Knight k5;
-	k5 = 1;
+	k5 = (Knight)1;
 
-	HelloKnight(5);
+	HelloKnight((Knight)5);
 
 	return 0;
 }
