@@ -2,155 +2,218 @@
 
 using namespace std;
 
-// 오늘의 주제 : 생성자와 소멸자
+// 오늘의 주제 : 상속성
 
-// [생성자 (Constructor)와 소멸자(Destructor)]
-// 클래스에 '소속' 된 함수들을 멤버 함수라고 함
-// 이 중에서 굉장히 특별한 함수 2종이 있는데, 바로 [시작]과 [끝]을 알리는 함수들
-// -시작(탄생) -> 생성자 (여러개 존재 가능)
-// -끝(소멸) -> 소멸자 (오직 1개만)
+// 객체 지향 (OOP Object Oriented
+// 상속성
+// 은닉성
+// 다형성
 
-// [(암시적(Implicit) 생성자
-// 생성자를 명시적으로 만들지 않으면
-// 아무 인자도 받지 않는 [기본 생성자]가 컴파일러에 의해 자동으로 만들어진다.
-// -> 그러나 우리가 명시적(Explicit)으로 아무 생성자 하나 만들면,
-// 자동으로 만들어지던 [기본 생성자]는 더 이상 만들어지지 않는다.
+struct StatInfo
+{
+	int hp;
+	int attack;
+	int defence;
+};
 
-// class는 일종의 설계도
+// 메모리
 
-class Knight
+// [	Knight	]
+// [   [Player] ]
+
+// 상속 (Inheritance) 부모 -> 자식에게 유산을 물려주는 것
+
+// 생성자는 탄생을 기념해서 호출되는 함수이다
+// -Knight를 생성하면 ->Player의 생성자? Knight의 생성자? 둘 중에 어느게 먼져 실행되야할까
+// ->둘다 호출된다!
+
+// GameObject
+// - Creature
+// -- Player, Monster, NPC, Pet
+// - Projectile
+// -- Arrow, Fireball
+// - Env
+
+// Item
+// - Weapon
+// -- Sword, Bow
+// - Armor
+// -- Helmet, Boots, Armor
+
+class GameObject
 {
 public:
+	int _objectID;
+};
+
+class Player : public GameObject
+{
+public:
+	Player()
+	{
+		cout << "Player() 생성자 동작" << endl;
+	}
+	Player(int hp)
+	{
+		cout << "Player(int hp) 생성자 동작" << endl;
+	}
+	~Player()
+	{
+		cout << "Player() 소멸자 동작" << endl;
+	}
+
+	void Move() { cout << "Player Move " << endl; }
+	void Attack() { cout << "Player Attack "<<  endl; }
+	void Die() { cout << "Player Die " << endl; }
 	
-	// [1] 기본 생성자 (인자가 없음)
-
-	Knight()
-	{
-		cout << "knight() 기본생성자 호출" << endl;
-		_hp = 100;
-		_attack = 10;
-		_posX = 0;
-		_posY = 0;
-
-	}
-
-	// [2] 복사 생성자 (자기 자신의 클래스 참조 타입을 인자로 받는다)
-	// 일반적으로 '똑같은' 데이터를 지닌 객체가 생성될때 사용
-
-	Knight(const Knight& knight)
-	{
-		_hp = knight._hp;
-		_attack = knight._attack;
-		_posX = knight._posX;
-		_posY = knight._posY;
-	}
-
-
-	// [3] 기타 생성자
-	
-	// 이중 인자를 1개만 받는 [기타 생성자]는 [타입 변환 생성자]라고 부른다. 
-	 
-	// 명시적인 용도로 지정
-	explicit Knight(int hp)
-	{
-		cout << "Knight() 기본생성자 호출" << endl;
-
-		_hp = hp;
-		_attack = 10;
-		_posX = 0;
-		_posY = 0;
-
-	}
-
-	Knight(int hp, int attack, int posx, int posy)
-	{
-		_hp = hp;
-		_attack = attack ;
-		_posY= posx;
-		_posX = posy;
-	}
-
-
-	~Knight() 
-	{
-		cout << "~Knight() 소멸자 호출 " << endl;
-	}
-
-
-	// 멤버 함수 선언
-	void Move(int y, int x);
-	void Attack();
-
-	// Class 는 설계도 안에 같이 동작하기에 변수에 접근할수있다
-	void Die()
-	{
-		_hp = 0;
-		cout<< "Die" << endl;
-	}
-
 public:
 	// 멤버 변수
-	int _hp;
-	int _attack;
-	int _posY;
-	int _posX;
+	int _hp = 100;
+	int _attack = 10;
+};
+
+class Knight : public Player
+{
+public:
+	Knight()
+	{
+		_stamina = 100;
+		cout << "knight() 생성자 동작" << endl;
+	}
+
+	Knight(int Stmina) 
+	{
+		_stamina = Stmina;
+		cout << "knight(int Stmina) 생성자 동작" << endl;
+	}
+
+	~Knight()
+	{
+		cout << "Knight() 소멸자 동작" << endl;
+	}
+
+	void Move() { cout << "Knight Move" << endl; }
+
+public:
+
+	int _stamina;
 
 };
 
-void Knight::Move(int y, int x)
-{
-	_posY = y;
-	_posX = x;
 
-	cout << "knight move" << endl;
+class Mage : public Knight
+{
+public:
+	Mage()
+	{
+		cout << "Mage() 생성자 동작" << endl;
+	}
+
+	Mage(int MP) : Knight(10)
+	{
+		cout << "Mage(int MP) 생성자 동작" << endl;
+	}
+
+	~Mage()
+	{
+		cout << "Mage() 소멸자 동작" << endl;
+	}
+
+public:
+	int _mp;
+};
+
+
+int ArrayMax(int x[], const int index)
+{
+	for (int i = 0 ; i < index - 1; ++i)
+	{
+		for (int j = i + 1; j < index; ++j)
+		{
+			if (x[i] < x[j])
+			{
+			int tmp = x[i];
+			x[i] = x[j];
+			x[j] = tmp;
+			}
+		}
+	}
+
+	return x[0];
 }
 
-void Knight::Attack()
+int Length(char* str)
 {
-	cout << "Attack!!: "<< _attack << endl;
+	int counter = 0;
+
+	for (int i = 0; i <= str[i]; ++i)
+	{
+		counter++;		
+	}
+	
+	return counter;
 }
 
-void Move(Knight* knight, int y, int x)
+int count(char str[], char ch)
 {
-	knight->_posY = y;
-	knight->_posX = x;
+	int counter = 0;
+
+	for (int i = 0; '\n' <= str[i]; ++i)
+	{
+		if (ch == str[i])
+		{
+			counter++;
+		}
+	}
+
+
+	return counter;
 }
 
-void HelloKnight(Knight k)
-{
-
-}
-
-// Instantiate 객체를 만든다
 int main()
 {
-	Knight k1;
-	// k1._hp = 100;
-	k1._attack = 10;
-	k1._posY = 0;
-	k1._posX = 0;
+	//const int number = 5;
 
-	Knight k2(k1);
+	//int Array[number] = {};
 
-	// 생성을 함과 동시에 복사생성자의 동작을 한다.
-	Knight k3 = k1;
+	//cout << "시험 점수를 입력하십시오." << endl;
 
+	//for (int i = 0; i < number; ++i)
+	//{
+	//	int score = 0;
 
-	Knight k4;
-	k4 = k1;
+	//	cin >> score;
 
-	k1.Move(2, 2);
+	//	Array[i] = score;
+
+	//	/*cout << Array[i] << endl;*/
+	//}
+	//
+	//ArrayMax(Array, number);
+
+	//cout << "가장 높은 점수는 "<<  Array[0] << " 입니다" << endl;
 	
-	// 암시적 형변환 -> 컴파일러가 알아서 계산
-	int num = 1;
+	printf("\n--------------\n");
 
-	float f = (float)num;	// 명시적 << 개발자가 명시적으로 처리
-	double d = num;			// 암시적 << 컴파일러가 스스로 처리
+	printf("문자열을 입력하십시오.\n");
 
-	Knight k5;
-	k5 = (Knight)1;
+	char str[10];
 
-	HelloKnight((Knight)5);
+	cin >> str;
+
+	int counter = Length(str);
+
+	printf("문자열의 길이는 %d 입니다.\n\n", counter);
+
+	char Findcahr;
+
+	printf("찾을 문자를 입력하시오.\n");
+
+	cin >> Findcahr;	
+
+	printf("%s 안에 %c은 총 %d 개 있습니다.",str, Findcahr, count(str, Findcahr));
+
+
 
 	return 0;
 }
