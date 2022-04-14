@@ -2,218 +2,118 @@
 
 using namespace std;
 
-// 오늘의 주제 : 상속성
+// 오늘의 주제 : 은닉성
 
 // 객체 지향 (OOP Object Oriented
 // 상속성
 // 은닉성
 // 다형성
 
-struct StatInfo
+// 은닉성(Data Hiding) = 캡슐화(Encapsulation)
+// 사용자가 알지못하게 숨긴다.
+// 숨기는 이유
+// - 1) 정말 위험하고 건드리면 안되는 경우
+// - 2) 다른 경로로 접근하길 원하는 경우
+
+// 자동차
+// - 핸들
+// - 페달
+// - 엔진
+// - 문
+// - 각종 전기전
+
+// 일반 구매자 입장에서 사용하는 것?
+// - 핸들/페달/문
+// 몰라도 됨 (오히려 건드리면 큰일남)
+// - 엔진, 각종 전기선
+
+// public (공개적) protected(보호받는) private(개인의)
+// - public : 누구한테나 공개한다.
+// - protected : 나의 자손들에게만 허락.
+// - private : 나만 사용한다. << class Car 내부에서만 사용
+
+// 상속 접근 지정자 : 다음 세데한테 부모님의 유산을 어떻게 물려줄까?
+// 부모님한테 물려받은 유산을 꼭 나의 자손들한테도 똑같이 물려줘야 하진않음.
+// - public : 상속받은 모든 특성들 누구한테나 공개
+// - protected : 상속받은 모든 특성들 나의 자손들에게만 허락.
+// - private : 상속받은 클래스만 특성들을 사용하게 만든다 . 
+
+// 상속 접근 지정자와 접근제어 지정자는 class 에서는 기본 private 이다. (그러므로 public을 꼭 기입해주자)
+
+
+class Car
 {
-	int hp;
-	int attack;
-	int defence;
-};
+public: // (멤버) 접근 지정자
+	void Movehandle() {}
+	void PushPedal() {}
+	void OpenDoor() {}
 
-// 메모리
-
-// [	Knight	]
-// [   [Player] ]
-
-// 상속 (Inheritance) 부모 -> 자식에게 유산을 물려주는 것
-
-// 생성자는 탄생을 기념해서 호출되는 함수이다
-// -Knight를 생성하면 ->Player의 생성자? Knight의 생성자? 둘 중에 어느게 먼져 실행되야할까
-// ->둘다 호출된다!
-
-// GameObject
-// - Creature
-// -- Player, Monster, NPC, Pet
-// - Projectile
-// -- Arrow, Fireball
-// - Env
-
-// Item
-// - Weapon
-// -- Sword, Bow
-// - Armor
-// -- Helmet, Boots, Armor
-
-class GameObject
-{
-public:
-	int _objectID;
-};
-
-class Player : public GameObject
-{
-public:
-	Player()
+	// 키를 돌려야 접근 가능
+	void TurnKey()
 	{
-		cout << "Player() 생성자 동작" << endl;
-	}
-	Player(int hp)
-	{
-		cout << "Player(int hp) 생성자 동작" << endl;
-	}
-	~Player()
-	{
-		cout << "Player() 소멸자 동작" << endl;
+		RunEngine();
 	}
 
-	void Move() { cout << "Player Move " << endl; }
-	void Attack() { cout << "Player Attack "<<  endl; }
-	void Die() { cout << "Player Die " << endl; }
+
+protected:
+	void DisassembleCar() {}
+	void RunEngine() {}
+	void ConnectCircuit() {}
+
+
 	
 public:
-	// 멤버 변수
+	// 핸들
+	// 페달
+	// 엔진
+	// 문
+	// 각종 전기선
+
+};
+
+class SuperCar : public Car // 상속 접근 지정자
+{
+public:
+	void PushRemoteController()
+	{
+		RunEngine();
+	}
+
+};
+
+// '캡슐화'
+// 연관된 데이터와 함수를 논리적으로 묶어놓은 것
+
+class Berserker
+{
+public:
+	int GetHp() {return _hp;}
+
+	// 사양 : 체력이 50 이하로 떨어지면 버서커 모드 발동 (강해짐)
+
+	void SetHP(int hp)
+	{
+		_hp = hp;
+		if (_hp < 50)
+		{
+			SetBerserkerMode();
+		}
+	}
+
+private:
+	void SetBerserkerMode()
+	{
+		cout << "매우 강해짐 !" << endl;
+	}
+
+private:
 	int _hp = 100;
-	int _attack = 10;
-};
-
-class Knight : public Player
-{
-public:
-	Knight()
-	{
-		_stamina = 100;
-		cout << "knight() 생성자 동작" << endl;
-	}
-
-	Knight(int Stmina) 
-	{
-		_stamina = Stmina;
-		cout << "knight(int Stmina) 생성자 동작" << endl;
-	}
-
-	~Knight()
-	{
-		cout << "Knight() 소멸자 동작" << endl;
-	}
-
-	void Move() { cout << "Knight Move" << endl; }
-
-public:
-
-	int _stamina;
 
 };
-
-
-class Mage : public Knight
-{
-public:
-	Mage()
-	{
-		cout << "Mage() 생성자 동작" << endl;
-	}
-
-	Mage(int MP) : Knight(10)
-	{
-		cout << "Mage(int MP) 생성자 동작" << endl;
-	}
-
-	~Mage()
-	{
-		cout << "Mage() 소멸자 동작" << endl;
-	}
-
-public:
-	int _mp;
-};
-
-
-int ArrayMax(int x[], const int index)
-{
-	for (int i = 0 ; i < index - 1; ++i)
-	{
-		for (int j = i + 1; j < index; ++j)
-		{
-			if (x[i] < x[j])
-			{
-			int tmp = x[i];
-			x[i] = x[j];
-			x[j] = tmp;
-			}
-		}
-	}
-
-	return x[0];
-}
-
-int Length(char* str)
-{
-	int counter = 0;
-
-	for (int i = 0; i <= str[i]; ++i)
-	{
-		counter++;		
-	}
-	
-	return counter;
-}
-
-int count(char str[], char ch)
-{
-	int counter = 0;
-
-	for (int i = 0; '\n' <= str[i]; ++i)
-	{
-		if (ch == str[i])
-		{
-			counter++;
-		}
-	}
-
-
-	return counter;
-}
 
 int main()
 {
-	//const int number = 5;
-
-	//int Array[number] = {};
-
-	//cout << "시험 점수를 입력하십시오." << endl;
-
-	//for (int i = 0; i < number; ++i)
-	//{
-	//	int score = 0;
-
-	//	cin >> score;
-
-	//	Array[i] = score;
-
-	//	/*cout << Array[i] << endl;*/
-	//}
-	//
-	//ArrayMax(Array, number);
-
-	//cout << "가장 높은 점수는 "<<  Array[0] << " 입니다" << endl;
-	
-	printf("\n--------------\n");
-
-	printf("문자열을 입력하십시오.\n");
-
-	char str[10];
-
-	cin >> str;
-
-	int counter = Length(str);
-
-	printf("문자열의 길이는 %d 입니다.\n\n", counter);
-
-	char Findcahr;
-
-	printf("찾을 문자를 입력하시오.\n");
-
-	cin >> Findcahr;	
-
-	printf("%s 안에 %c은 총 %d 개 있습니다.",str, Findcahr, count(str, Findcahr));
-
-
+	Car car;
 
 	return 0;
 }
