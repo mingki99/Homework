@@ -1,44 +1,54 @@
 #include <iostream>
 
-
 using namespace std;
 
-// 함수로(로컬)로 new 연산자를 사용하고 delete를 시켜주지 않으면 함수가 끝날때 자동으로 어쩔수없이 delete 되는가?
-
-void Memory(int* PT)
+void OXQuiz(int casenumber)
 {
-	int num;
-	cin >> num;
-
-	PT = new int[num];
-
-	for (int i = 0; i < num; ++i)
+	while (casenumber)
 	{
-		printf("%d 번째의 점수를 입력해주세요\n", i + 1);
-		cin >> PT[i];
-	}
+		int TotalScore = 0;
 
-	for (int j = 0; j < num; ++j)
-	{
-		printf("%d 번째의 점수는 %d 입니다 \n", j + 1, PT[j]);
-	}
-	
+		int tempscore = 0;
 
+		char str[80];
+
+		cin >> str;
+
+		for (int i = 0; 0 <= str[i]; ++i)
+		{
+			if (str[i] == 'O')
+			{
+				tempscore++;
+				TotalScore = TotalScore + tempscore;
+			}
+			else if (str[i] == 'X')
+			{
+				tempscore = 0;
+			}
+			else if (0 != str[i])
+			{
+				return;
+			}
+		}
+
+		printf("%d\n", TotalScore);
+
+		casenumber--;
+	}
 }
 
 int main()
 {
-	
-	int* pt = nullptr;
+	int TestNumber = 0;
 
-	printf("몇 명의 시험 점수를 입력하시겠습니까\n");
+	// printf("카운터 할 숫자를 입력하세요.\n");
 
-	
-	Memory(pt);
-	
+	cin >> TestNumber;
 
-	
+	OXQuiz(TestNumber);
+
 
 	return 0;
 }
+
 
