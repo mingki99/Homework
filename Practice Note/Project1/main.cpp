@@ -3,32 +3,42 @@
 
 using namespace std;
 
-void add(int& score, int addscore)
+// 함수로(로컬)로 new 연산자를 사용하고 delete를 시켜주지 않으면 함수가 끝날때 자동으로 어쩔수없이 delete 되는가?
+
+void Memory(int* PT)
 {
-	printf("%d점을 더했으므로\n", addscore);
+	int num;
+	cin >> num;
 
-	score = score + addscore;
+	PT = new int[num];
 
-}
+	for (int i = 0; i < num; ++i)
+	{
+		printf("%d 번째의 점수를 입력해주세요\n", i + 1);
+		cin >> PT[i];
+	}
 
-void CharArray (char s[])
-{
-	printf("%d \n", sizeof(s));
+	for (int j = 0; j < num; ++j)
+	{
+		printf("%d 번째의 점수는 %d 입니다 \n", j + 1, PT[j]);
+	}
+	
+
 }
 
 int main()
 {
-	char s[15] = "HELLO world";
-
-	printf("%s \n",s);			//"HELLO world"
 	
-	printf("%d \n",sizeof(s));	// 15 s[]의 인덱스 값.
+	int* pt = nullptr;
 
-	CharArray(s);				// 8 = 64bit 운영체제에 따른 byte수가 return
-
-	printf("%d \n",sizeof(&s));	// 8 = 64bit 운영체제에 따른 byte수가 return
+	printf("몇 명의 시험 점수를 입력하시겠습니까\n");
 
 	
+	Memory(pt);
+	
+
+	
+
 	return 0;
 }
 
