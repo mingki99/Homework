@@ -1,53 +1,52 @@
 #include <iostream>
 
+// 백준에서는 string을 사용하길 원한다.
+#include <string.h>
+
 using namespace std;
 
-void OXQuiz(int casenumber)
+int OXQuiz(char str[])
 {
-	while (casenumber)
-	{
+	
 		int TotalScore = 0;
 
 		int tempscore = 0;
 
-		char str[80];
-
-		cin >> str;
 
 		for (int i = 0; 0 <= str[i]; ++i)
-		{
+		{	
 			if (str[i] == 'O')
 			{
 				tempscore++;
 				TotalScore = TotalScore + tempscore;
 			}
-			else if (str[i] == 'X')
+			else  
 			{
 				tempscore = 0;
 			}
-			else if (0 != str[i])
-			{
-				return;
-			}
 		}
 
-		printf("%d\n", TotalScore);
-
-		casenumber--;
-	}
+		return TotalScore;
+	
 }
 
 int main()
 {
-	int TestNumber = 0;
 
-	// printf("카운터 할 숫자를 입력하세요.\n");
+	int TestNumber = 0;
 
 	cin >> TestNumber;
 
-	OXQuiz(TestNumber);
+	for (int i = 0; i <= TestNumber; ++i)
+	{
+		char str[80];
 
+		cin >> str;
 
+		cout << OXQuiz(str) << endl;
+
+	}
+	
 	return 0;
 }
 
