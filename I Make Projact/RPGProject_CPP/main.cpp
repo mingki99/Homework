@@ -9,111 +9,96 @@ using namespace std;
 // 은닉성
 // 다형성
 
-// 은닉성(Data Hiding) = 캡슐화(Encapsulation)
-// 사용자가 알지못하게 숨긴다.
-// 숨기는 이유
-// - 1) 정말 위험하고 건드리면 안되는 경우
-// - 2) 다른 경로로 접근하길 원하는 경우
+// 다형성(Polymorphism = Poly + morph) = 겉은 똑같은데, 기능이 다르게 동작한다.
+// - 오버로딩(Overloading) = 함수 중복 정의 = 함수 이름의 재사용
+// - 오버라이딩(Overriding) = 재정의 = 부모 클래스의 함수를 자식 클래스에서 재정의
 
-// 자동차
-// - 핸들
-// - 페달
-// - 엔진
-// - 문
-// - 각종 전기전
+// 바인딩(Binding) = 묶는다
+// - 정적 바인딩(Static Binding) : 컴파일 시점에 결정
+// - 동적 바인딩(Dynamic Binding) : 실행 시점에 결정.
 
-// 일반 구매자 입장에서 사용하는 것?
-// - 핸들/페달/문
-// 몰라도 됨 (오히려 건드리면 큰일남)
-// - 엔진, 각종 전기선
+// 일부 함수는 정적 바인딩을 사용
+// 동적 바인딩을 원한다면? -> 가상함수 (virtual function)
 
-// public (공개적) protected(보호받는) private(개인의)
-// - public : 누구한테나 공개한다.
-// - protected : 나의 자손들에게만 허락.
-// - private : 나만 사용한다. << class Car 내부에서만 사용
+// 실제 객체가 어떤 타입인지 어떻게 알고 알아서 가상함수를 호출할가?
+// - 가상 함수 테이블 (vftable)
+// .vftable [] 4Byte[32], 8Byte[64]
 
-// 상속 접근 지정자 : 다음 세데한테 부모님의 유산을 어떻게 물려줄까?
-// 부모님한테 물려받은 유산을 꼭 나의 자손들한테도 똑같이 물려줘야 하진않음.
-// - public : 상속받은 모든 특성들 누구한테나 공개
-// - protected : 상속받은 모든 특성들 나의 자손들에게만 허락.
-// - private : 상속받은 클래스만 특성들을 사용하게 만든다 . 
-
-// 상속 접근 지정자와 접근제어 지정자는 class 에서는 기본 private 이다. (그러므로 public을 꼭 기입해주자)
+// 순수 가상 함수 : 구현은 없고 '인터페이스' 만 전달하는 용도로 사용하고 싶은경우
+// 추상 클래스 : 클래스에 순수 가상 함수가 1개이상 포함되면 추상클래스로 간주
+// - 직접적으로 객체를 만들 수 없게 됨.
 
 
-class Car
-{
-public: // (멤버) 접근 지정자
-	void Movehandle() {}
-	void PushPedal() {}
-	void OpenDoor() {}
-
-	// 키를 돌려야 접근 가능
-	void TurnKey()
-	{
-		RunEngine();
-	}
-
-
-protected:
-	void DisassembleCar() {}
-	void RunEngine() {}
-	void ConnectCircuit() {}
-
-
-	
-public:
-	// 핸들
-	// 페달
-	// 엔진
-	// 문
-	// 각종 전기선
-
-};
-
-class SuperCar : public Car // 상속 접근 지정자
+class Player
 {
 public:
-	void PushRemoteController()
+	Player()
 	{
-		RunEngine();
+		_hp = 100;
 	}
+	void Move() { cout << "Move Player ! "<< endl; }
 
+	virtual void VMove() { cout << "VMove Player ! " << endl; }
+	virtual void VDie() { cout << "VDie Player ! " << endl; }
+
+	virtual void VAttack() = 0;	// 순수 가상 함수 이다.
+
+public:
+	int _hp;
 };
 
-// '캡슐화'
-// 연관된 데이터와 함수를 논리적으로 묶어놓은 것
-
-class Berserker
+class Knight : public Player
 {
 public:
-	int GetHp() {return _hp;}
-
-	// 사양 : 체력이 50 이하로 떨어지면 버서커 모드 발동 (강해짐)
-
-	void SetHP(int hp)
+	Knight()
 	{
-		_hp = hp;
-		if (_hp < 50)
-		{
-			SetBerserkerMode();
-		}
+		_stamina = 100;
 	}
+	void Move() {cout << "Move Knight" <<endl;}
+	virtual void VDie() { cout << "VDie Knight ! " << endl; }
 
-private:
-	void SetBerserkerMode()
-	{
-		cout << "매우 강해짐 !" << endl;
-	}
+	virtual void VAttack() {cout << "VAttack Knight" };
 
-private:
-	int _hp = 100;
 
+	// 가상 함수는 재정의를 하더라도 가상함수다.
+	virtual void VMove() { cout << "Move Knight ! " << endl; }
+
+public:
+	int _stamina;
 };
+
+class Mage : public Player
+{
+public:
+	void Move() { cout << "Move Mage" << endl; }
+
+public:
+	int _mp;
+};
+
+// [ [ Player ] ]
+// [   knight   ]
+
+void MovePlayer(Player* player)
+{
+	player->VMove();
+	player->VDie();
+}
+
+void MoveKnight(Knight* knight)
+{
+	knight->Move();
+}
 
 int main()
 {
-	Car car;
+	// Player p;			// 순수 가상함수가 있는 클래스는 독립적으로 존재할수 없다.
+	// MovePlayer(&p);		// 플레이어는 플레이어다? YES
+	// MoveKnight((&p);	// 플레이어는 기사다? NO
+
+	Knight k;
+	// MoveKnight(&k);		// 기사는 기사다? YES
+	MovePlayer(&k);		// 기사는 플에이어다? YES
 
 	return 0;
 }
