@@ -2,46 +2,39 @@
 
 using namespace std;
 
-int OXQuiz(char str[])
+struct Person
 {
+	int age;
+	double weight;
+	double height;
 
-	int TotalScore = 0;
+};
 
-	int tempscore = 0;
+void PersonData(Person* person)
+{
+	printf("나이를 입력하십시오\n");
+	cin >> person->age;
 
-	for (int i = 0; '\n' <= str[i]; ++i)
-	{	
-		if (str[i] == 'O')
-		{
-			tempscore++;
-			TotalScore = TotalScore + tempscore;
-		}
-		else
-		{
-			tempscore = 0;
-		}
-	}
+	printf("몸무게를 입력하십시오\n");
+	cin >> person->weight;
 
-	return TotalScore;
+	printf("키를 입력하십시오\n");
+	cin >> person->height;
 
+	person->age = person->age + 1;
 }
 
 int main()
 {
+	Person p1;
+	Person p2;
 
-	int TestNumber = 0;
+	PersonData(&p1);
 
-	cin >> TestNumber;
+	printf(" 나이 : %d 몸무게 : %0.1f 키 : %0.1f 입니다 \n", p1.age, p1.weight, p1.height);
 
-	for (int i = 1; i <= TestNumber; i++)
-	{
-		char str[80];
 
-		cin >> str;
 
-		cout << OXQuiz(str) << endl;
-
-	}
 
 	return 0;
 }
