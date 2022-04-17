@@ -2,81 +2,45 @@
 
 using namespace std;
 
-class point
+void ScoreAverage()
 {
-public:
-	point() : X(0), Y(0)
+	int SubjectsNumber = 0;
+	cin >> SubjectsNumber;
+
+	int tempScore[1000];
+
+	int TopScore = 0;
+
+	float TotalScore = 0;
+
+	float UpAverge = 0;
+
+	for (int i = 0; i <= SubjectsNumber - 1; ++i)
 	{
-
-	}
-
-	void SetX(int x = 0)
-	{
-		printf("X 좌표를 입력하세요\n");
-
-		cin >> x;
-		if (0 < x && 10 > x)
+		cin >> tempScore[i];
+		
+		if (TopScore < tempScore[i])
 		{
-			X = x;
-		}
-		else
-		{
-			x = 0;
-			X = x;
+			TopScore = tempScore[i];
 		}
 	}
 
-	void SetY(int y = 0);
-		/*{
-			printf("X 좌표를 입력하세요");
-
-			cin >> y;
-			if (0 < y && 10 > y)
-			{
-				Y = y;
-			}
-			else
-			{
-				Y = 0;
-				Y = y;
-			}
-		}*/
-	int GetX(){ return X;}
-	int GetY() { return Y;}
-
-public:
-	int X = 0;
-	int Y = 0;
-};
-
-void point::SetY(int y)
-{
-	printf("Y 좌표를 입력하세요\n");
-
-	cin >> y;
-	if (0 < y && 10 > y)
+	for (int i = 0; i <= SubjectsNumber - 1; ++i)
 	{
-		Y = y;
+		TotalScore = TotalScore + tempScore[i];
 	}
-	else
-	{
-		Y = 0;
-		Y = y;
-	}
+
+	UpAverge = TotalScore / SubjectsNumber;
+
+	UpAverge = UpAverge/TopScore *100;
+
+
+
+	printf("%f", UpAverge);
 }
-
 
 int main()
 {
-	point p1;
-	p1.SetX();
-
-	point p2;
-	p2.SetY();
-
-	printf("좌표는 (%d, %d) 입니다 \n", p1.GetX(), p2.GetY());
-	
-
-
+	ScoreAverage();
 	return 0;
 }
