@@ -2,44 +2,49 @@
 
 using namespace std;
 
-int main()
+#define N 10000
+
+bool arr[N];	// 셀프넘버담을 bool 배열
+
+int SelfNumber(int a)
 {
-	int Number = 0;
-	cin >> Number;	// 몇번 반복할 겄 인지
+	int temp = a;
 
-	for (int j = 0; j <= Number - 1; ++j)
+	while (1)
 	{
-		int SubjectsNumber = 0;
-		cin >> SubjectsNumber;	// 반에 몇명인지
-
-		int tempScore[1000] = {};
-
-		int TotalScore = 0;
-
-		float UpAverge = 0;
-		float count = 0;	// float 형이 아니면 UpAverge에 값을 넣지 못하게된다.
-
-		for (int i = 0; i <= SubjectsNumber - 1; ++i)
+		if (a == 0)
 		{
-			cin >> tempScore[i];	// 차례 대로 점수 기입
-			TotalScore = TotalScore + tempScore[i];	// 반에 총 점수 구하기
+			break;
 		}
 
-		UpAverge = TotalScore / SubjectsNumber;	// 반에 평균 점수 구하기
-
-		for (int i = 0; i <= SubjectsNumber - 1; ++i)
-		{
-			if (UpAverge < tempScore[i])	// 평균보다 높은친구 선별하기
-			{
-				count++;	// 선별된 친구 count
-			}
-		}
-
-		UpAverge = count / SubjectsNumber*100;	// 선별된친구 / 반에 학생수 * 100
-
-		printf("%0.3f%\n", UpAverge);	// %0.3f를 하면 소수점 3자리만 출력되게 해준다. [% 꼭 넣어주세요~]
+		temp += a%10;	// 일의 자릿수만 남겨놓고 더하기
+		a = a/10;	// 십의자리 하나빼주기	
 	}
 
+	return temp;	// 셀프넘버 생성자가 있는 숫자
+}
 
+
+int main()
+{
+	for (int i = 1; i <= N; ++i)
+	{
+		int index = SelfNumber(i);
+		
+		if (index <= N)	// 배열 크기보다 숫자가 크면 false
+		{
+			arr[index] = true;	// 셀프넘버 true 주기.
+		}
+	}
+
+	for (int i = 1; i <= N; ++i)
+	{
+		if (!arr[i])	// 배열의 값이 false 일때만 실행
+		{
+			printf("%d\n",i);
+		}
+	}
+	
 	return 0;
 }
+
