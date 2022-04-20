@@ -2,26 +2,48 @@
 
 using namespace std;
 
+
+
+class Handle
+{
+public:
+	Handle()
+	{
+		printf("Handle spawn \n");
+	}
+};
+
+class Car	: private Handle
+{
+public:
+	Car()
+	{
+		printf("Car Spawn\n");
+	}
+};
+
+class RacingCar : public Car
+{
+public:
+	RacingCar()
+	{
+		printf("RasingCar Spawn\n");
+	}
+};
+
+class SpeedCar :public RacingCar
+{
+public:
+	SpeedCar()
+	{
+		printf("SpeedCar Spawn\n");
+	}
+};
+
+
 int main()
 {
-	int count;
-	cin >> count;
-
-	string a;
-
-	cin >> a;
-
-	int temp = 0;
-	
-
-	for (int i = 0; i <= count - 1; ++i)
-	{
-		temp += a[i] - 48;
-	}
-
-	cout << temp <<endl;
-	
-
+	SpeedCar pc1;
 	
 	
 	return 0;
