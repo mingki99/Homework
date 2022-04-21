@@ -2,73 +2,82 @@
 
 using namespace std;
 
-// 양의 정수의 각 자리 마다 등차수열이 되는 횟수 를 입력해야한다.
-
-// 101 이면 101 이하의 Hansu() 가 나와야한다.
-
-// 125
-bool  Hansu(int a)
-{	
-	int b = a/10;
-
-	int Gongcha = b%10 - a%10;
-
-	int temp = a % 10;
-
-
-	// 1, 2, 3, 4 순서대로 인자를 넘겨 줘야한다 4, 3 -> 3, 2 -> 
-
-	while (1)
+template <class T>
+class Array
+{
+public:
+	Array()
 	{
-		
-		
-		a = a / 10;
+		cout << "Array 클래스 생성" << endl;
 
-		int temp2 = a % 10;
-
-		if (a == 0)
-		{
-			break;
-		}
-
-
-		if (Gongcha == temp2 - temp)
-		{
-			
-			temp = temp2;
-		}
-		else
-		{
-			return false;
-		}
-	
 	}
 
-	return true;
+private:
+	T data[5];
 
+public:
+	void SetData(int num, T d);
+	T GetData(int num);
+};
 
+template<class T>
+void Array<T>::SetData(int num, T d)
+{
+	if (num < 0 || num > 4)
+	{
+		cout <<" 배열 길이를 넘었습니다.\n"<<endl;
+	}
+	else
+	{
+		data[num] = d;	// set 해주는 부분
+	}
 }
 
+template<class T>
+T Array<T>::GetData(int num)
+{
+	if (num < 0 || num > 4)
+	{
+		cout << " 배열 길이를 넘었습니다.\n" << endl;
+		return data[0];
+	}
+	else
+	{
+		return data[num];	
+	}
+}
 
 int main()
 {
-	int a;
+	cout << "int 형 배열을 생성합니다 \n" <<endl;
 
-	cin >> a;
+	Array<int> i_array;
+	i_array.SetData(0, 80);
+	i_array.SetData(1, 80);
+	i_array.SetData(2, 80);
+	i_array.SetData(3, 80);
+	i_array.SetData(4, 80);
+	i_array.SetData(5, 80);
 
-	int hansu = 0;
-
-	for (int i = 1; i <= a; ++i)
+	for (int i = 0; i < 5; i++)
 	{
-		if (Hansu(i))
-		{
-			hansu++;
-		}
+		cout << i_array.GetData(i) << endl;
 	}
-	
-	
 
-	printf("%d", hansu);
+	cout << " double 형 배열을 생성합니다 \n" << endl;
+
+	Array<double> i_array1;
+	i_array1.SetData(0, 76.2);
+	i_array1.SetData(1, 1.54);
+	i_array1.SetData(2, 2.3252);
+	i_array1.SetData(3, 0.474);
+	i_array1.SetData(4, 999.999);
+	i_array1.SetData(5, 999.999);
+		   
+	for (int i = 0; i < 5; i++)
+	{
+		cout << i_array1.GetData(i) << endl;
+	}
 	
 	
 	return 0;
