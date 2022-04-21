@@ -2,83 +2,69 @@
 
 using namespace std;
 
-template <class T>
-class Array
+
+class Point
 {
 public:
-	Array()
+	Point()
 	{
-		cout << "Array 클래스 생성" << endl;
 
+	}
+	
+
+public:
+	Point operator-(Point p)
+	{
+		Point point;
+		point._hp = _hp - p._hp;
+
+		return point;
+	}
+
+	Point operator--(int b)
+	{
+		Point point = *this;
+		_hp--;
+
+		return point;
+	}
+
+	Point operator--()
+	{
+		_hp--;
+
+		return *this;
+	}
+
+	void Add_hp(int a)
+	{
+		_hp = _hp + a;
+	}
+
+	int Get_hp()
+	{
+		return _hp;
 	}
 
 private:
-	T data[5];
-
-public:
-	void SetData(int num, T d);
-	T GetData(int num);
+	int _hp;
+	
 };
 
-template<class T>
-void Array<T>::SetData(int num, T d)
-{
-	if (num < 0 || num > 4)
-	{
-		cout <<" 배열 길이를 넘었습니다.\n"<<endl;
-	}
-	else
-	{
-		data[num] = d;	// set 해주는 부분
-	}
-}
-
-template<class T>
-T Array<T>::GetData(int num)
-{
-	if (num < 0 || num > 4)
-	{
-		cout << " 배열 길이를 넘었습니다.\n" << endl;
-		return data[0];
-	}
-	else
-	{
-		return data[num];	
-	}
-}
 
 int main()
 {
-	cout << "int 형 배열을 생성합니다 \n" <<endl;
+	Point p1;
+	p1.Add_hp(100);
 
-	Array<int> i_array;
-	i_array.SetData(0, 80);
-	i_array.SetData(1, 80);
-	i_array.SetData(2, 80);
-	i_array.SetData(3, 80);
-	i_array.SetData(4, 80);
-	i_array.SetData(5, 80);
+	Point p2;
+	p2.Add_hp(10);
 
-	for (int i = 0; i < 5; i++)
-	{
-		cout << i_array.GetData(i) << endl;
-	}
+	Point p3 = p1 - p2;
+	cout << p3.Get_hp() <<'\n' << endl;
 
-	cout << " double 형 배열을 생성합니다 \n" << endl;
-
-	Array<double> i_array1;
-	i_array1.SetData(0, 76.2);
-	i_array1.SetData(1, 1.54);
-	i_array1.SetData(2, 2.3252);
-	i_array1.SetData(3, 0.474);
-	i_array1.SetData(4, 999.999);
-	i_array1.SetData(5, 999.999);
-		   
-	for (int i = 0; i < 5; i++)
-	{
-		cout << i_array1.GetData(i) << endl;
-	}
-	
+	--p3;
+	cout << p3.Get_hp() << '\n' << endl;
 	
 	return 0;
 }
