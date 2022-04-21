@@ -3,68 +3,57 @@
 using namespace std;
 
 
-class Point
-{
-public:
-	Point()
-	{
-
-	}
-	
-
-public:
-	Point operator-(Point p)
-	{
-		Point point;
-		point._hp = _hp - p._hp;
-
-		return point;
-	}
-
-	Point operator--(int b)
-	{
-		Point point = *this;
-		_hp--;
-
-		return point;
-	}
-
-	Point operator--()
-	{
-		_hp--;
-
-		return *this;
-	}
-
-	void Add_hp(int a)
-	{
-		_hp = _hp + a;
-	}
-
-	int Get_hp()
-	{
-		return _hp;
-	}
-
-private:
-	int _hp;
-	
-};
 
 
 int main()
 {
-	Point p1;
-	p1.Add_hp(100);
+	// 아스키코드가 들어있을 배열
+	int Arr[26];
 
-	Point p2;
-	p2.Add_hp(10);
+	// 글자 자리들의 위치 저장.
+	int OutputArr[26];
 
-	Point p3 = p1 - p2;
-	cout << p3.Get_hp() <<'\n' << endl;
+	// 중복체크
+	bool overlap[26];
 
-	--p3;
-	cout << p3.Get_hp() << '\n' << endl;
+	string s;
+
+	// 몇 번째 인지 정해줄 정수
+	int digit = 0;
+
+	for (int i = 0; i <= 25; ++i)
+	{
+		Arr[i] = i + 97;	// 아스키코드로는 소문자 a = 97이다
+		OutputArr[i] = -1;
+		overlap[i] = true;
+
+	}
+
+	cin >> s;
+
+	for (int i = 0; i < s.length(); ++i)
+	{
+		for (int j = 0; j <= 25; ++j)
+		{	
+			if (overlap[j])	// 중복 체크
+			{
+				if (Arr[j] == s[i])	// 정수와 아스키코드 비교
+				{
+					OutputArr[j] = digit;	// 이 구문 수상
+
+					overlap[j] = false;	// 값이 들어갔으면 false
+				}
+			}
+		}
+
+		digit ++;
+	}
+	
+	for (int i = 0; i <= 25; ++i)
+	{
+		cout << OutputArr[i]<< " ";
+	}
+
 	
 	return 0;
 }
