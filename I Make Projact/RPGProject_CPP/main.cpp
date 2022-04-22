@@ -2,109 +2,85 @@
 
 using namespace std;
 
-// 오늘의 주제 : 타입 변환
+// 오늘의 주제 : 타입 변환 (포인터)
 
-class Knight
+class Item
 {
 public:
-	int _hp;
-};
-
-class Dog
-{
-public:
-	Dog()
+	Item()
 	{
-
+		cout << "Item()" << endl;
 	}
 
-	// 타입 변환 생성자
-	// 말도 안되는 생성자 형식이지만 명시적 참고로 인해 넣어봤다.
-	Dog(const Knight& knight)	
+	Item(const Item& item)
 	{
-		_age = knight._hp;
+		cout << "Item(const Item&)" << endl;
 	}
 
-	// 타입 변환 연산자
-	operator Knight()	// opertor  = 는 클래스의 자체를 넣어줄겄이기에 이기에 리턴 타입이 없다 .
+	~Item()
 	{
-		return(Knight)(*this);	// 강제 변환 해버린다.
+		cout << " ~Item()" <<endl;
 	}
 
 public:
-	int _age = 1;
-	int _cuteness = 2;
+	int _itemType = 0;
+	int _itemDbld = 0;
+
+	char _dummy[4096] = {}; // 이런 저런 정보들로 인해 비대졌다.
 };
 
-class Bulldog : public Dog
+void TestItem(Item item)	// 복사된다.
 {
-public:
-	
-};
+
+}
+
+void TestItemPtr(Item* item)	// 복사가 아닌 주소값만 볷
+{
+
+}
 
 int main()
 {
-	// ---------- 아무런 연관 관계가 없는 클래스 사이의 변환 -----------------
-
-	// [1] 연관없는 클래스 사이의 '값 타입' 변환
-	// 특징) 일반적으로 안 됨(예외 : 타입 변환 생성자, 타입 변환 연산자)
+	// 복습
 	{
-		Knight k1;
-		Dog dog = (Dog)k1;
-		// Knight k2 = dog;
+		// stack [ type(4) dbid(4) dummy[4096]
+		Item item; 
 
+		// Stack [ 주소 (4~8바이트)] -> heap [ type(4) dbid(4) dummy[4096]
+		Item* item2 = new Item();
+
+		// 메모리 누수(Memory Leak) -> 점점 가용 메모리가 줄어들어서 Crash
+		delete item2;
+
+		TestItem(item);
+		TestItem(*item2);
+
+		TestItemPtr(&item);
+		TestItemPtr(item2);
 	}
 
-	// [2] 연관없는 클래스 사이의 참조 타입 변환
-	// 특징) 명시적으로 가능하다.
+	// 배열
 	{
-		// 어셈블리 : 포인터 = 참조
+		cout << "--------------------" << endl;
 
-		Knight Knight;
-		
-		// [주소] -> [Dog]
-		// 주소를 타고 가면 무었이 있는지는 모르기에 참조(주소)를 받는것 까지는 암시적으로 가능하다.
-		// 설령 그게 완전히 다른, 연관없는 클래스 였어도!!
-		Dog& dog = (Dog&)Knight;	
+		// 실제로 아이템 이 100개 있는 것 (스택 메모리에 올라와 있는)
+		Item item3[100] = {}; 
 
-		// Knight의 변수는 1개(_hp)이다 그러므로 4Btye 이다
-		// dog의 변수는 2개 이므로 2번째에 있는 _cuteness를 건드리는 순간 알지 못하는 주소값을 건드리게 된다.
-		dog._cuteness = 12;
+		// 아이템을 가리키는 주소가 100개. 실제 아이템은 1개도 없을 수 도있다.
+		cout << "--------------------" << endl;
+		Item* item4[100] = {};
+
+		for (int i = 0; i < 100; i++)
+		{
+			item4[i] = new Item();
+		}
+
+
 	}
 
-	// ------------------ 상속 관계에 있는 클래스 사이의 변환 -----------------
-	// 
-	// 자식 -> 부모 ok
-	// 부모 -> 자식 X
-	// 
-	// [1] 상속 관계 클래스의 값 타입 변환
 
-	{	
-		// 어떠한 명시적으로 지정을 해줘도 불가능하다.
-		/*Dog dog;
-		Bulldog bulldog = (bulldog&)dog;*/ 
 
-		Bulldog bulldog2;	
-		Dog dog = bulldog2;	// 자식 -> 부모
-	}
-	
-	// [2] 상속 관계 클래스의 참조 타입 변환
-	{
-		Dog dog;
-		Bulldog& bulldog = (Bulldog&)dog;
 
-		Bulldog bulldog2;
-		Dog& dog2 = bulldog2;
-	}
-
-	// 결론)
-	// [값 타입 변환 ] : 진짜 비트열도 바꾸고 논리적을 말이되게 바꾸는 변한
-	// - 논리적으로 말이 된다? (ex.Bulldog -> dog) Ok
-	// -
-	// [참조 타입 변환] : 비트열은 냅두고 우리의 '관점' 만 바꾸는 변환
-	// - 명시적으로 요구하면 실행은 되지만, 그냥 암시적으로 된다면 안전성 여부 연관이 있다.
-	// -- 안전하다 ex) Bulldog -> Dog& 암시적으로 OK
-	// -- 위험하다 ex) Dog& -> Bulldog 메모리 침범 위험이 있을경우 암시적으로 해주진않는다. (명시적으로 정말 하겠다고 할 수 도있다.)
 
 	return 0;
 }
