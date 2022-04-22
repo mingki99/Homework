@@ -1,60 +1,53 @@
 #include <iostream>
+#include <string>
+#include <ostream>
 
 using namespace std;
 
-
-
-
 int main()
 {
-	// 아스키코드가 들어있을 배열
-	int Arr[26];
+	int count;
 
-	// 글자 자리들의 위치 저장.
-	int OutputArr[26];
+	cin >> count;
 
-	// 중복체크
-	bool overlap[26];
+	if (0 >= count || 1000 < count) {return 0;}
 
-	string s;
 
-	// 몇 번째 인지 정해줄 정수
-	int digit = 0;
-
-	for (int i = 0; i <= 25; ++i)
+	for (int i = 0; i < count; i++)
 	{
-		Arr[i] = i + 97;	// 아스키코드로는 소문자 a = 97이다
-		OutputArr[i] = -1;
-		overlap[i] = true;
+		int gain;
 
-	}
+		string s ;
+		cin >> gain;
+		cin >> s;
+		// s.erase(remove(s.begin(), s.end(), ' '), s.end());
+		
 
-	cin >> s;
+		// if(20 < s.length() || 0 >= s.length()) { return 0; }
 
-	for (int i = 0; i < s.length(); ++i)
-	{
-		for (int j = 0; j <= 25; ++j)
-		{	
-			if (overlap[j])	// 중복 체크
+		if (0 >= gain || 8 < gain) { return 0; }
+		
+		string output;
+
+		for (int j = 0; j < s.size(); ++j)
+		{
+			for (int k = 0; k < gain; ++k)
 			{
-				if (Arr[j] == s[i])	// 정수와 아스키코드 비교
+				if (s[j] == 32)
 				{
-					OutputArr[j] = digit;	// 이 구문 수상
-
-					overlap[j] = false;	// 값이 들어갔으면 false
+					// break;
+				}
+				else
+				{
+					output.push_back(s[j]);
 				}
 			}
 		}
 
-		digit ++;
-	}
-	
-	for (int i = 0; i <= 25; ++i)
-	{
-		cout << OutputArr[i]<< " ";
+		cout << output << endl;
 	}
 
-	
+
+
 	return 0;
 }
-

@@ -4,81 +4,132 @@ using namespace std;
 
 // 오늘의 주제 : 타입 변환 (포인터)
 
+class Knight
+{
+public:
+
+int _hp = 4;
+};
+
 class Item
 {
 public:
-	Item()
+
+	// 복사 생성자
+	Item(int itemType) : _itemType(itemType)	// 복사될때 아이템 타입 정해주기.
 	{
-		cout << "Item()" << endl;
+		cout << "Item(int itemType)" << endl << endl;
 	}
 
-	Item(const Item& item)
+	virtual~Item()
 	{
-		cout << "Item(const Item&)" << endl;
+		cout << " ~Item()" <<endl << endl;
 	}
-
-	~Item()
-	{
-		cout << " ~Item()" <<endl;
-	}
-
 public:
-	int _itemType = 0;
-	int _itemDbld = 0;
+	int _itemType;
 
-	char _dummy[4096] = {}; // 이런 저런 정보들로 인해 비대졌다.
 };
 
-void TestItem(Item item)	// 복사된다.
+enum ItemType	// 아이템 지정
 {
+	IT_WEAPON = 1,
+	IT_ARMOR = 2,
+};
 
-}
-
-void TestItemPtr(Item* item)	// 복사가 아닌 주소값만 볷
+class Weapon : virtual public Item
 {
+public:
+	Weapon() : Item(IT_WEAPON)
+	{	
 
-}
+		cout << " Weapon()" << endl << endl;
+	}
+
+	~Weapon()
+	{
+		cout << " ~Weapon()" << endl << endl;
+	}
+};
+
+class Armor : virtual public Item
+{
+public:
+	Armor() : Item(IT_ARMOR)
+	{
+
+		cout << " Armor()" << endl << endl;
+	}
+
+	~Armor()
+	{
+		cout << " ~Armor()" << endl << endl;
+	}
+};
+
+
+class Handle : public Armor
+{
+public:
+	Handle() : Item(IT_ARMOR)
+	{
+		cout << "Handle()" << endl << endl;
+	}
+	~Handle()
+	{
+		cout << "~Handle()" << endl << endl;
+	}
+};
+
+
 
 int main()
 {
-	// 복습
+	
+	Item* inventory[5] = {};	// 아이템이 총 5개가 주어진다. (주소)
+
+	srand((unsigned int)time(nullptr));	// 랜덤을 만들어 Weapon, Armor를 랜덤하게 생성한다.
+
+	for (int i = 0; i < 5; ++i)
 	{
-		// stack [ type(4) dbid(4) dummy[4096]
-		Item item; 
-
-		// Stack [ 주소 (4~8바이트)] -> heap [ type(4) dbid(4) dummy[4096]
-		Item* item2 = new Item();
-
-		// 메모리 누수(Memory Leak) -> 점점 가용 메모리가 줄어들어서 Crash
-		delete item2;
-
-		TestItem(item);
-		TestItem(*item2);
-
-		TestItemPtr(&item);
-		TestItemPtr(item2);
-	}
-
-	// 배열
-	{
-		cout << "--------------------" << endl;
-
-		// 실제로 아이템 이 100개 있는 것 (스택 메모리에 올라와 있는)
-		Item item3[100] = {}; 
-
-		// 아이템을 가리키는 주소가 100개. 실제 아이템은 1개도 없을 수 도있다.
-		cout << "--------------------" << endl;
-		Item* item4[100] = {};
-
-		for (int i = 0; i < 100; i++)
+		int randValue = rand() %2;	// 랜덤 배정
+		switch (randValue)
 		{
-			item4[i] = new Item();
+		case 0:
+			inventory[i] = new Weapon();	// weapon 생성!
+			break;
+		case 1:
+			inventory[i] = new Armor();		// Armor 생성!
+			break;
 		}
 
+	}
+
+	cout << endl <<  "------- Weapon과 Armor의 필요가 없어졌다. -------" << endl <<endl;
+
+	// ************************* 매우 중요함 *****************************
+
+	for (int i = 0; i < 5; i++)
+	{
+		Item* item = inventory[i];
+		if (item == nullptr)
+			continue;
+		
+		delete item;	// weapon, Armor를 꺼내어 하나씩 소멸시키고 있다.
 
 	}
 
+	Item* Inven;
+	Inven = new Handle();
 
+	delete Inven;
+
+
+	// 최상위 부모 클래스에게 virtual 소멸자를 꼭 넣어주자!!
+	
+	// [결론]
+	// - 포인터 vs 일반 타입 : 차이를 이해하자
+	// - 포인터 사이의 타입 변환(캐스팅)을 할 떄는 매우 매우 조심해야 한다!.
+	// - 부모 - 자식 관계에서 부모 클래스의 소멸자에는 까먹지 말고 virtual을 붙이자!!
 
 
 
