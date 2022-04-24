@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 
 using namespace std;
@@ -7,35 +6,37 @@ using namespace std;
 
 int main()
 {
-	string s;
+	char s[1000000];
+	cin >> s;
 
 	char capital[26];
-	char smallletter[26];
 
-	int check[26] = {};
+	int check[26] = {0};
 
 	for (int i = 0; i < 26; i++)
 	{
-		capital[i] = 65+i;
-		smallletter[i] = 97+i;
+		capital[i] = 65+i;	// 대문자 넣어주기
 	}
 
-	cin >> s;
+	int count = 0;
 
-	for (int i = 0; i < s.length(); i++)
+	while (s[count] != '\0')
 	{
-		for (int j = 0; j < 26; j++)
-		{
-			if (s[i] == capital[j] || s[i] == smallletter[j])
-			{
-				check[j] += 1;
-				break;
-			}
-		}
-		
-	}
+		int a = (int)s[count];	// 형변환 정수를 정수로
 
-	
+		if (a > 96)
+		{
+			++check[a - 97];
+		}
+		else
+		{
+			++check[a - 65];
+		}
+
+		count++;
+	}
+		
+
 	int Output = 0;
 	int temp = 0;
 
@@ -43,13 +44,13 @@ int main()
 
 	for (int i = 0; i < 26; i++)
 	{	
-		if (temp < check[i])
+		if (temp < check[i])	// int 배열중에 정수가 가장많은 index 저장.
 		{
 			temp = check[i];
 			Output = i;
 			mark = true;
 		}
-		else if (temp == check[i])
+		else if (temp == check[i])	// 값이 같으면 false 저장.
 		{
 			mark = false;
 		}
