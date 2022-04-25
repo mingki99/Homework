@@ -1,70 +1,47 @@
 #include <iostream>
 
+#include <string>
 
 using namespace std;
 
-
-int main()
+int main(void)
 {
 	char s[1000000];
-	cin >> s;
 
-	char capital[26];
+	// fgets(s, 1000000, stdin);
 
-	int check[26] = {0};
+	cin.getline(s,1000000);
 
-	for (int i = 0; i < 26; i++)
+	// cin.getline(s,1000000,'\n');
+
+	// scanf_s("%[^\n]s",s,1000000);
+
+	int count = 1;
+
+	int clength = 0;
+
+	if (s[clength] == 32)
 	{
-		capital[i] = 65+i;	// 대문자 넣어주기
-	}
-
-	int count = 0;
-
-	while (s[count] != '\0')
-	{
-		int a = (int)s[count];	// 형변환 정수를 정수로
-
-		if (a > 96)
-		{
-			++check[a - 97];
-		}
-		else
-		{
-			++check[a - 65];
-		}
-
-		count++;
-	}
+		count = 0;
 		
-
-	int Output = 0;
-	int temp = 0;
-
-	bool mark = true;
-
-	for (int i = 0; i < 26; i++)
-	{	
-		if (temp < check[i])	// int 배열중에 정수가 가장많은 index 저장.
-		{
-			temp = check[i];
-			Output = i;
-			mark = true;
-		}
-		else if (temp == check[i])	// 값이 같으면 false 저장.
-		{
-			mark = false;
-		}
 	}
 
-	if (mark)
+	while (s[clength] != '\0')
 	{
-		cout << capital[Output] << endl;
-	}
-	else
-	{
-		cout << "?" << endl;
+		if (s[clength] == 32)
+		{
+			count++;
+		}
+
+		clength++;
 	}
 
+	if (s[clength-1] == 32)
+	{
+		count--;
+	}
+	
+	cout << count << endl;
 	
 	
 
