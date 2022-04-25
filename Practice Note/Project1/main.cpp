@@ -1,49 +1,69 @@
 #include <iostream>
 
-#include <string>
-
 using namespace std;
 
-int main(void)
+int SangsuMath(int a, int b)
 {
-	char s[1000000];
+	int tempA = a;
+	int tempB = b;
 
-	// fgets(s, 1000000, stdin);
-
-	cin.getline(s,1000000);
-
-	// cin.getline(s,1000000,'\n');
-
-	// scanf_s("%[^\n]s",s,1000000);
-
-	int count = 1;
-
-	int clength = 0;
-
-	if (s[clength] == 32)
-	{
-		count = 0;
-		
-	}
-
-	while (s[clength] != '\0')
-	{
-		if (s[clength] == 32)
+	while (true)
+	{	
+		if (a == 0 || b == 0)
 		{
-			count++;
+			return 0;
 		}
-
-		clength++;
+		
+		if (a % 10 < b % 10)
+		{
+			return tempB;
+		}
+		else if (a % 10 > b % 10)
+		{
+			return tempA;
+		}
+		a = a / 10;
+		b = b / 10;
 	}
 
-	if (s[clength-1] == 32)
-	{
-		count--;
+	return 0;
+}
+
+int Alignment(int a)
+{
+	int temp = 0;
+	
+	while (a)
+	{	
+		if (a == 0)
+		{
+			return temp;
+		}
+		temp = (a % 10) * 100;
+		a = a /10;
+		temp = temp + (a % 10) * 10;
+		a = a / 10;
+		temp = temp + (a % 10);
+		a = a / 10;
 	}
+
+	return temp;
+}
+
+
+
+int main()
+{
+	int a;
+	int b;
+
+	cin >> a >> b;
 	
-	cout << count << endl;
+	a = SangsuMath(a, b);
+
+	b = Alignment(a);
 	
-	
+	cout << b << endl;
 
 	return 0;
 }
