@@ -2,68 +2,26 @@
 
 using namespace std;
 
-int SangsuMath(int a, int b)
-{
-	int tempA = a;
-	int tempB = b;
-
-	while (true)
-	{	
-		if (a == 0 || b == 0)
-		{
-			return 0;
-		}
-		
-		if (a % 10 < b % 10)
-		{
-			return tempB;
-		}
-		else if (a % 10 > b % 10)
-		{
-			return tempA;
-		}
-		a = a / 10;
-		b = b / 10;
-	}
-
-	return 0;
-}
-
-int Alignment(int a)
-{
-	int temp = 0;
-	
-	while (a)
-	{	
-		if (a == 0)
-		{
-			return temp;
-		}
-		temp = (a % 10) * 100;
-		a = a /10;
-		temp = temp + (a % 10) * 10;
-		a = a / 10;
-		temp = temp + (a % 10);
-		a = a / 10;
-	}
-
-	return temp;
-}
-
-
 
 int main()
 {
-	int a;
-	int b;
+	char s[16];
+	cin >> s;
 
-	cin >> a >> b;
-	
-	a = SangsuMath(a, b);
+	int arr[26] = {3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,8,9,9,9,10,10,10,10};
 
-	b = Alignment(a);
-	
-	cout << b << endl;
+	int Sconds = 0;
+
+	for (int i = 0; s[i] != '\0'; ++i)
+	{	
+		Sconds += arr[s[i] - 65];
+	}
+
+	cout << Sconds << endl;
+
+
+
+
 
 	return 0;
 }
