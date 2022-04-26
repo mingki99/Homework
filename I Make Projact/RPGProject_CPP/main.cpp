@@ -2,6 +2,7 @@
 
 using namespace std;
 
+#include "Game.h"
 // ø¿¥√¿« ¡÷¡¶ : TextRPG #4
 
 
@@ -9,6 +10,15 @@ using namespace std;
 int main()
 {
 	
+	srand((unsigned int)time(nullptr));
+
+	Game gmae;
+	gmae.Init();
+
+	while (true)
+	{
+		gmae.Update();
+	}
 	
 	return 0;
 }
