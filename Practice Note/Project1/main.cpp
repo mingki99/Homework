@@ -2,26 +2,41 @@
 
 using namespace std;
 
+// 1 입력 : 노트북 판매 개수와 상관없이 == 임대료, 재산세, 보험료, 급여 == A만원 고정비용
+// 2 입력 : 재료비와 인건비 == B만원
+// 3 입력 : 노트북 가격 == C만원
+
+// C의정수가 B보다 작으면 손익분기점이 상실된다
+
 
 int main()
 {
-	char s[16];
-	cin >> s;
+	int A;
+	int B;
+	int C;
 
-	int arr[26] = {3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,8,9,9,9,10,10,10,10};
+	cin >> A;
+	cin >> B;
+	cin >> C;
 
-	int Sconds = 0;
-
-	for (int i = 0; s[i] != '\0'; ++i)
+	if (C <= B)
 	{	
-		Sconds += arr[s[i] - 65];
+		cout << -1 <<endl;
+	}
+	else
+	{
+		int temp = C - B;
+
+		for (int i = 1; C < A; ++i)
+		{
+			C = temp * i;
+			B = i;
+		}
+
+		cout << B+1 << endl;
+
 	}
 
-	cout << Sconds << endl;
-
-
-
-
-
+	
 	return 0;
 }
