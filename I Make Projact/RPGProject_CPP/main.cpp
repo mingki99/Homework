@@ -9,16 +9,15 @@ using namespace std;
 
 int main()
 {
+	char c[100];
+
+	cin >> c;
 	
-	srand((unsigned int)time(nullptr));
-
-	Game gmae;
-	gmae.Init();
-
-	while (true)
+	for (int i = 0; c[i] != '\0'; i++)
 	{
-		gmae.Update();
+		cout << i << endl;
 	}
+	
 	
 	return 0;
 }
