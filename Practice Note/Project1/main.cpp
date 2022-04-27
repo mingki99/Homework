@@ -2,41 +2,120 @@
 
 using namespace std;
 
-// 1 입력 : 노트북 판매 개수와 상관없이 == 임대료, 재산세, 보험료, 급여 == A만원 고정비용
-// 2 입력 : 재료비와 인건비 == B만원
-// 3 입력 : 노트북 가격 == C만원
-
-// C의정수가 B보다 작으면 손익분기점이 상실된다
+#define NJ = "nj"
 
 
 int main()
 {
-	int A;
-	int B;
-	int C;
-
-	cin >> A;
-	cin >> B;
-	cin >> C;
-
-	if (C <= B)
-	{	
-		cout << -1 <<endl;
-	}
-	else
+	string s;
+	cin >> s;
+	
+	if (s.length() > 100)
 	{
-		int temp = C - B;
+		return 0;
+	}
 
-		for (int i = 1; C < A; ++i)
+	int count = 0;
+
+	// 아무래도 C 하고 는 c대로 가고 d는 d대로 가야 할 것 같다
+	// char Croatia [8] = { 'c=', 'c-', 'dz=','d-', 'lj', 'nj', 's=' , 'z='};
+
+
+	for (int i = 0; i < s.length(); i++)
+	{
+
+		switch (s[i])
 		{
-			C = temp * i;
-			B = i;
+		case 'c':
+			if (s[i + 1] == '=' || s[i + 1] == '-')
+			{
+				i += 1;
+				++count;
+				break;
+			}
+
+			++count; // 해맨 포인트 : c가 들어오고 if를 빠져나오면 바로 다음 case구문에 다이렉트로 들어가버린다 
+			break;
+		case 'd':
+			if (s[i + 1] == '-')
+			{
+				i += 1;
+				++count;
+				break;
+			}
+			else if (s[i + 1] == 'z' && s[i + 2] == '=')
+			{
+				i += 2;
+				++count;
+				break;
+			}
+			++count;
+			break;
+
+
+		case 'l':
+			if (s[i + 1] == 'j')
+			{
+				i += 1;
+				++count;
+				break;
+			}
+			++count;
+			break;
+		case 'n':
+			if (s[i + 1] == 'j')
+			{
+				i += 1;
+				++count;
+				break;
+			}
+
+			++count;	
+			break;
+
+		case 's':
+			if (s[i + 1] == '=')
+			{
+				i += 1;
+				++count;
+				break;
+			}
+			++count;
+			break;
+
+		case 'z':
+			if (s[i + 1] == '=')
+			{
+				i += 1;
+				++count;
+				break;
+			}
+			++count;
+			break;
+
+		case '-':	// 특수문자 예외처리는 안해도 정답으로 쳐준다..의외다
+			break;
+
+		case'=':
+			break;
+
+		default:	// 그외 알파벳
+
+			count++;
+			break;
 		}
 
-		cout << B+1 << endl;
-
 	}
 
-	
+
+
+
+
+	cout << count << endl;
+
+
+
+
+
 	return 0;
 }
