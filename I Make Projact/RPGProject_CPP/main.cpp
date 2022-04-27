@@ -1,22 +1,22 @@
+
 #include <iostream>
 
 using namespace std;
 
-#include "Game.h"
-// ¿À´ÃÀÇ ÁÖÁ¦ : TextRPG #4
 
+// ¿À´ÃÀÇ ÁÖÁ¦ : µð¹ö±ë
 
+void Test1()
+{
+	int a = 5;
+
+}
 
 int main()
 {
-	char c[100];
-
-	cin >> c;
 	
-	for (int i = 0; c[i] != '\0'; i++)
-	{
-		cout << i << endl;
-	}
+	cout << "HI~";
+	Test1();
 	
 	
 	return 0;
