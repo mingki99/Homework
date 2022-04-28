@@ -1,109 +1,86 @@
-
 #include <iostream>
-
 using namespace std;
 
-// 오늘의 주제 : 함수 객체
+// 오늘의 주제 : 콜백 (Callback)
+// 원하는 타이밍에 함수를 호출 하는 것.
 
-void HelloWorld()
+
+class Item
 {
-	cout << "Hello World" << endl;
+public:
+
+public:
+	int _itemid = 0;
+	int _rarity = 0;
+	int _ownerid = 0;
+};
+
+// Functor 생성, 지정된 아이디와 인자를 받은 아이디를 검사해준다.
+
+class FindByOwnerID	
+{
+public:
+	bool operator() (const Item* item)
+	{
+		return item->_ownerid==_ownerid;
+	}
+
+public:
+	int _ownerid;
+};
+
+
+// Functor 생성, 지정된 아이템의 값과 인자를 받은 레어값을 검사해준다.
+class FindByRarity	
+{
+public:
+	bool operator() (const Item* item)
+	{
+		return item->_rarity == _rarity;
+	}
+
+public:
+	int _rarity;
+};
+
+
+template <typename T>	// 템플릿을 이용하여 사용
+Item* FindItem(Item items[], int itemCount, T selector)	// Functor들을 넘겨준다
+{
+	for (int i = 0; i < itemCount; i++)
+	{
+		Item* item = &items[i];
+		
+		if(selector(item))
+			return item;
+	}
 }
 
-void HelloNumber(int number)
-{
-	cout << "Hello Number" << endl;
-}
 
-class Knight
-{
-public:
-	void AddHp(int addhp)
-	{
-		_hp;
-	}
-
-private:
-	int _hp = 100;	// k1은 체력 100 k2는 체력 200인것이 상태
-};
-
-class Functor
-{
-public:
-	void operator() ()	// operator()
-	{
-		cout << "Functor Test" << endl;
-		cout << _value << endl;
-
-	}
-
-	bool operator() (int num)
-	{
-		cout << "Functor add" <<endl;
-		_value += num;
-		cout << _value << endl;
-		return _value;
-	}
-
-private:
-	int _value = 0;
-};
-
-class MoveTask
-{
-public:
-	void operator() ()
-	{
-		cout << " 해당 좌표로 플레이어 이동" <<endl;
-	}
-
-public:
-	int _playerid;
-	int _posX;
-	int _posY;
-};
 
 int main()
 {
-	// 함수 객체 (Functor) : 함수처럼 동작하는 객체
-	// 함수 포인터의 단점
 
-	// 함수 포인터 선언
+	// items 10개 생성
+	Item items[10];
+	items[3]._ownerid = 100;
+	items[8]._rarity = 2;
 
-	void(*pfunc)(void);
 
-	// 동작을 넘겨줄 때 유용하다.
-	pfunc = &HelloWorld;
-	(*pfunc)();
+	// 람다를 이용하면 직접 functor를 만들지 않고 함수를 사용 할 수 있다.
+	// functor 2개생성
+	FindByOwnerID functorOwner;
+	functorOwner._ownerid = 100;	// 체력이 100인 items를 찾는다
 
-	// 함수 포인터 단점
-	// 1) 시그니처가 안 맞으면 사용할 수 없다
-	// 2) 상태를 가질 수 없다.
-	// pfunc = &HelloNumber;
-	
-	// [함수처럼 동작]하는 객체
-	// () 연산자 오버로딩
-	HelloWorld();
-	
-	Functor functor;
-	functor();
-	bool b = functor(3);
+	FindByRarity functorRarity;
+	functorRarity._rarity = 1;		// rariy가 1인 items를 찾는다.
 
-	// MMO에서 함수 객체를 사용하는 예시
-	// 클라 <-> 서버 
-	// 서버 : 클라가 보내준 네트워크 패킷을 받아서 처리
-	// ex) 클라 : 나 (5, 0) 좌표로 이동시켜줘!
-	MoveTask task;
-	task._playerid = 100;
-	task._posX = 5;
-	task._posY = 0;
-
-	// 논리적으로 일감을 만들어주는 부분과 실행하는 부분이 2개로 나누어진다.
-
-	// 나중에 여유 될 때 일감을 실행한다.
-	task();
+	// FindOwnerID로 실행
+	Item* item = FindItem(items, 10, functorOwner);	
+	// FindByRarity로 실행
+	Item* item2 = FindItem(items, 10, functorRarity);
 
 
 	return 0;
+}
 
-} 

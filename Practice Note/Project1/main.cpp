@@ -2,27 +2,46 @@
 
 using namespace std;
 
+enum rull
+{
+	RIGHT = 0,
+	LEFT = 1,
+};
 
-// 규칙 6의 배수 찾기.
 
 int main()
 {
-	int A;
-	
-	cin >> A;
+	int right = 1;
+	int left = 1;
 
+	int num;
 
+	bool Rull = 0;
 
-	int startPoint = 1;
+	cin >> num;	// 14
 
-	int count = 1;
-
-	for (count; startPoint < A ; ++count)
+	for (int i = 0; i < num; ++i)
 	{
-		startPoint = startPoint + (6 * count);
+		
+		switch (Rull)
+		{
+		case RIGHT:
+			right += 1;
+			break;
+		case LEFT:
+			left += 1;
+			break;
+		}
+		
+
+		
+		if (right == left)
+		{
+			Rull = NOT;
+		}
+		
+
 	}
-	
-	cout << count << endl;
 
 
 	return 0;
