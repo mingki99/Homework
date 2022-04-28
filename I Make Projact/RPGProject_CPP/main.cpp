@@ -3,99 +3,107 @@
 
 using namespace std;
 
+// 오늘의 주제 : 함수 객체
 
-// 오늘의 주제 : 함수 포인터
-
-int Add(int a, int b)
+void HelloWorld()
 {
-	return a+b;
+	cout << "Hello World" << endl;
 }
 
-int Sub(int a, int b)
+void HelloNumber(int number)
 {
-	return a-b;
+	cout << "Hello Number" << endl;
 }
 
-class Item
+class Knight
 {
 public:
-	Item() : _itemID(0), _rarity(0), _ownerID(0)
+	void AddHp(int addhp)
 	{
-
+		_hp;
 	}
-		
 
-public:
-	int _itemID;	// 아이템을 구분하기 위한 ID
-	int _rarity;	// 희귀도
-	int _ownerID;	// 소지자 ID
+private:
+	int _hp = 100;	// k1은 체력 100 k2는 체력 200인것이 상태
 };
 
-typedef bool(ITEM_SELECTOR)(Item*, int);
-
-Item* FindItem(Item items[], int itemCount, ITEM_SELECTOR* selector, int value)
+class Functor
 {
-	for (int i = 0; i < itemCount; i++)
+public:
+	void operator() ()	// operator()
 	{
-		Item* item = &items[i];
-		if(selector(item, value))
-			return item;
+		cout << "Functor Test" << endl;
+		cout << _value << endl;
 
 	}
-}
 
-bool IsRareItem(Item* item, int value)
+	bool operator() (int num)
+	{
+		cout << "Functor add" <<endl;
+		_value += num;
+		cout << _value << endl;
+		return _value;
+	}
+
+private:
+	int _value = 0;
+};
+
+class MoveTask
 {
-	return item->_rarity >= value;
-}
+public:
+	void operator() ()
+	{
+		cout << " 해당 좌표로 플레이어 이동" <<endl;
+	}
 
-bool IsOwnerItem(Item* item, int ownerld)
-{
-	return item->_ownerID == ownerld;
-}
-
+public:
+	int _playerid;
+	int _posX;
+	int _posY;
+};
 
 int main()
 {
-	int a = 10;
+	// 함수 객체 (Functor) : 함수처럼 동작하는 객체
+	// 함수 포인터의 단점
 
-	// 바구니 주소
-	// pointer[ 주소 ] -> 주소 [ ]
+	// 함수 포인터 선언
 
-	typedef int DATA;
+	void(*pfunc)(void);
 
-	// 1) 포인터			*
-	// 2) 변수이름		pointer
-	// 3) 데이터 타입	int
+	// 동작을 넘겨줄 때 유용하다.
+	pfunc = &HelloWorld;
+	(*pfunc)();
 
-	DATA* pointer = &a;
+	// 함수 포인터 단점
+	// 1) 시그니처가 안 맞으면 사용할 수 없다
+	// 2) 상태를 가질 수 없다.
+	// pfunc = &HelloNumber;
 	
-	// 함수
-	typedef int(FUNC_TYPE)(int a, int b);
-
-
-	// 1) 포인터			*
-	// 2) 변수이름		fn
-	// 3) 데이터 타입	함수 (인자는 int, int / 반환은 int)
-	FUNC_TYPE* fn;
-
-	// 포인터에 함수의 주소를 넣어줬다.
+	// [함수처럼 동작]하는 객체
+	// () 연산자 오버로딩
+	HelloWorld();
 	
-	fn = Sub;
+	Functor functor;
+	functor();
+	bool b = functor(3);
 
-	// 함수의 이름은 함수의 시작 주소 (배열과 유사)
-	// 함수를 호출 할 수 있게된다.
-	int result = fn(1, 2);
-	cout << result << endl;
+	// MMO에서 함수 객체를 사용하는 예시
+	// 클라 <-> 서버 
+	// 서버 : 클라가 보내준 네트워크 패킷을 받아서 처리
+	// ex) 클라 : 나 (5, 0) 좌표로 이동시켜줘!
+	MoveTask task;
+	task._playerid = 100;
+	task._posX = 5;
+	task._posY = 0;
 
-	// 함수 포인터는 *(접근 연산자) 붙어도 똑같은 함수 주소이다.
-	int result2 = (*fn)(1,2);	
-	cout << result2 <<endl;
+	// 논리적으로 일감을 만들어주는 부분과 실행하는 부분이 2개로 나누어진다.
 
+	// 나중에 여유 될 때 일감을 실행한다.
+	task();
 
-	Item items[10] = {};
-	items[3]._rarity = 2;
-	Item* rareItem = FindItem(items, 10, IsRareItem, 100);
 
 	return 0;
-}
+
+} 
