@@ -31,14 +31,8 @@ int main()
 
 
 
-	for (int i = 1; i < num; ++i)	// 한번 더 실행되야 계산이 맞으니까
+	for (int i = 1; i < num; ++i)	// 1부터 해야 순서가 맞다.
 	{
-
-
-		
-		// 어떤 조건을 넣어야지 원하는 값이 나올까?
-
-			
 
 		switch (addLocation)
 		{
@@ -76,8 +70,8 @@ int main()
 				break;
 			}
 			break;
-		
-		} 
+
+		}
 
 	}
 
