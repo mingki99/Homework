@@ -1,81 +1,120 @@
 #include <iostream>
-
 using namespace std;
 
-enum add
-{
-	RIGHT = 0,
-	LEFT = 1,
-	ADDRIGHT = 3,
-	ADDLEFT = 4,
-};
+#include <vector>
+// 오늘의 주제 : vector
+
+
+
 
 int main()
 {
-	int right = 1;
-	int left = 1;
 
-	int num;
+	// 컨테이너(Container) : 데이터를 저장하는 객체 (자료구조 Data Structure)
 
-	int temp = 1;
-	int lefttemp = 1;
+	// vector (동적 배열)
+	// - vector의 동작 원리 (size/capacity)
 
-	add addLocation = RIGHT;
+	// 반복자(Iterator) : 포인타와 유사한 개념. 컨테이너의 원서(데이터)를 가리키고, 다음/이전 원소를 알려준다.
 
+	vector<int> vec(10);
 
-	cin >> num;	// 14
-
-	// 1/1 ->  1/2 ->  2/1 ->  3/1 ->  2/2 ... 3/3... 4/4   5/5
-	//	1		2		3		4		5		13	   25	 42
-	//									4		8	   12    16
-
-
-
-	for (int i = 1; i < num; ++i)	// 1부터 해야 순서가 맞다.
+	for (vector<int>::size_type i = 0; i < vec.size(); i++)
 	{
-
-		switch (addLocation)
-		{
-		case RIGHT:
-			right += 1;
-			temp = right;
-
-			addLocation = ADDLEFT;
-			break;
-		case LEFT:
-			left += 1;
-			temp = left;
-
-			addLocation = ADDRIGHT;
-			break;
-
-		case ADDRIGHT:
-			right += 1;
-			left -= 1;
-
-			if (right == temp)
-			{
-				addLocation = RIGHT;
-				break;
-			}
-			break;
-
-		case ADDLEFT:
-			left += 1;
-			right -= 1;
-
-			if (left == temp)
-			{
-				addLocation = LEFT;
-				break;
-			}
-			break;
-
-		}
-
+		vec[i] = i;
 	}
 
-	cout << left << '/' << right << endl;
+	vector<int>::iterator it;
+	int* ptr;
+
+	it = vec.begin();
+	ptr = &vec[0];
+
+	cout << (*it) << endl;
+	cout << *ptr << endl;
+
+
 
 	return 0;
 }
+
+#include <iostream>
+using namespace std;
+
+#include <vector>
+// 오늘의 주제 : vector
+
+
+
+
+int main()
+{
+
+	// 컨테이너(Container) : 데이터를 저장하는 객체 (자료구조 Data Structure)
+
+	// vector (동적 배열)
+	// - vector의 동작 원리 (size/capacity)
+
+	// 반복자(Iterator) : 포인타와 유사한 개념. 컨테이너의 원서(데이터)를 가리키고, 다음/이전 원소를 알려준다.
+
+	vector<int> vec(10);
+
+	for (vector<int>::size_type i = 0; i < vec.size(); i++)
+	{
+		vec[i] = i;
+	}
+
+	vector<int>::iterator it;
+	int* ptr;
+
+	it = vec.begin();
+	ptr = &vec[0];
+
+	cout << (*it) << endl;
+	cout << *ptr << endl;
+
+
+
+	return 0;
+}
+
+#include <iostream>
+using namespace std;
+
+#include <vector>
+// 오늘의 주제 : vector
+
+
+
+
+int main()
+{
+
+	// 컨테이너(Container) : 데이터를 저장하는 객체 (자료구조 Data Structure)
+
+	// vector (동적 배열)
+	// - vector의 동작 원리 (size/capacity)
+
+	// 반복자(Iterator) : 포인타와 유사한 개념. 컨테이너의 원서(데이터)를 가리키고, 다음/이전 원소를 알려준다.
+
+	vector<int> vec(10);
+
+	for (vector<int>::size_type i = 0; i < vec.size(); i++)
+	{
+		vec[i] = i;
+	}
+
+	vector<int>::iterator it;
+	int* ptr;
+
+	it = vec.begin();
+	ptr = &vec[0];
+
+	cout << (*it) << endl;
+	cout << *ptr << endl;
+
+
+
+	return 0;
+}
+
