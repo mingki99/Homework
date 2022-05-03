@@ -4,76 +4,185 @@ using namespace std;
 #include <vector>
 // 오늘의 주제 : vector
 
+template<typename T>
+class Iterator
+{
+public:
+	Iterator() : _ptr(nullptr)
+	{
+	}
+
+	Iterator(T* ptr) : _ptr(ptr)
+	{
+
+	}
+
+	Iterator operator+(const int count)
+	{
+		Iterator temp = *this;
+		temp._ptr += count;
+		return temp;
+	}
+
+	Iterator operator-(const int count)
+	{
+		Iterator temp = *this;
+		temp._ptr -= count;
+		return temp;
+	}
+
+	Iterator& operator++()
+	{
+		_ptr++;
+		return *this;
+	}
+
+	Iterator operator++(int)
+	{
+		Iterator temp = *this;
+		_ptr++;
+		return temp;
+	}
+
+	Iterator& operator--()
+	{
+		_ptr--;
+		return *this;
+	}
+
+	Iterator operator--(int)
+	{
+		Iterator temp = *this;
+		_ptr--;
+		return temp;
+	}
+
+	bool operator==(const Iterator& right)
+	{
+		return _ptr == right._ptr;
+	}
+
+	bool operator!=(const Iterator& right)
+	{
+		return !(*this == right);	// == 의 만든 오퍼레이트를 활용해 !=을 만들어줬다.
+	}
+
+	T& operator*()
+	{
+		return *_ptr;
+	}
+
+
+
+
+public:
+	T* _ptr;
+};
+
+
+
+template<typename T>
+class Vector
+{
+public:
+	Vector() : _data(nullptr), _size(0), _capacity(0)
+	{
+
+	}
+
+	~Vector()
+	{
+		if (_data)
+		{
+			delete[] _data;
+		}
+	}
+
+	void push_back(const T& val)
+	{
+		if (_size == _capacity)
+		{
+			// 증설 작업
+			int newCapacity = static_cast<int>(_capacity * 1.5);
+			if(newCapacity == _capacity)
+				newCapacity++;
+
+			reserve(newCapacity);
+		}
+
+		// size = 3
+		// [1] [2] [3]  
+		// 데이터 저장
+		_data[_size] = val;
+
+		// 데이터 개수 증가
+		_size++;
+	}
+
+	void reserve(int capacity)
+	{
+		_capacity = capacity;
+		T* newData = new T[_capacity];
+
+		// 데이터 복사
+		for (int i = 0; i < _size; ++i)
+		{
+			newData[i] = _data[i];
+		}
+
+		// 기존에 있던 데이터 날린다.
+		if(_data)
+			delete[] _data;
+
+		_data = newData;
+	}
+
+	// 데이터를 밀어넣는 처리까지 하려면 실제 값을 건드려야 하기에 레퍼런스로 지정해놓는다.
+	T& operator[](const int pos) {return _data[pos]; }
+
+
+	void clear() {_size = 0;}
+	int size() {return _size;}
+	int capacity() {return _capacity; }
+
+
+public:
+	typedef Iterator<T>iterator;	// vector::iterator
+
+	iterator begin() {return iterator(&_data[0]); }
+	iterator end() { return begin() + _size;}
+
+private:
+	T* _data;
+	int _size;
+	int _capacity;
+};
+
 
 int main()
 {
+	vector<int> v;
+	v.reserve(100);
 
-	// 컨테이너(Container) : 데이터를 저장하는 객체 (자료구조 Data Structure)
-
-	// vector (동적 배열)
-	// - vector의 동작 원리 (size/capacity)
-
-	// 반복자(Iterator) : 포인타와 유사한 개념. 컨테이너의 원서(데이터)를 가리키고, 다음/이전 원소를 알려준다.
-
-	vector<int> vec(10);
-
-	for (vector<int>::size_type i = 0; i < vec.size(); i++)
+	for (int i = 0; i < 100; ++i)
 	{
-		vec[i] = i;
+		v.push_back(i);
+		cout << v.size() << " " << v.capacity() << endl;
 	}
 
-	vector<int>::iterator it;
-	int* ptr;
-
-	it = vec.begin();
-	ptr = &vec[0];
-
-	cout << (*it) << endl;
-	cout << *ptr << endl;
-
-
-	// 다음데이터를 이동시킨다.
-	ptr++;
-	++ptr;
-	it++;
-	++it;
-
-	it--;
-	--it;
-	ptr--;
-	--ptr;
-
-	vector<int>::iterator itBegin = vec.begin();
-	vector<int>::iterator itEnd = vec.end(); // 끝나는 지점이기에 이상한 값이 들어가 있다.
-
-	// ++it을 해주는것이 정말 조금 더 빠르다 (연산자 오버로딩 구문에 ++이 조금 더 빠르게 동작된다
-	// 다른 컨테이너는 v[i]와 같은 인덱스 접근이 안 될 수도 있다.
-	// iterator는 vector뿐 아니라, 다른 컨테이너에도 공통적으로 있는 개념
-	for (vector<int>::iterator it = vec.begin(); it != vec.end(); ++it)	
+	for (int i = 0; i < v.size(); ++i)
 	{
-		cout <<(*it) <<endl;
+		cout << v[i] << endl;
 	}
 
-	int* ptrBegin = &vec[0];	// vec.begin()
-	int* ptrEnd = ptrBegin + 10;
-	for (int* ptr = ptrBegin; ptr != ptrEnd; ++ptr)
-	{
-		cout << (*ptr) << endl;
-	}
+	cout << "----------------" <<endl;
 
-	// const int*
-	vector<int>::const_iterator cit1 = vec.begin();
-	// *cit1 = 100;
-
-	for (vector<int>::reverse_iterator it = vec.rbegin(); it != vec.rend(); ++it)
+	for (vector<int>::iterator it = v.begin(); it != v.end(); ++it)
 	{
 		cout << (*it) <<endl;
 	}
 
-
-
-
-
+	v.clear();	// capasity는 남겨두고 size만 0으로 만들어준다.
 
 	return 0;
 }
