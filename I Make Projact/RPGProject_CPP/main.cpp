@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #include <list>
+#include <vector>
 
 // 오늘의 주제 : list
 
@@ -8,117 +9,225 @@ using namespace std;
 // [               ]
 
 
-
+template<typename T>
 class Node
 {
 public:
+	Node() : _next(nullptr), _prev(nullptr), _data(T())
+	{
+
+	}
+	Node(const T& value) : _next(nullptr), _prev(nullptr), _data(value)
+	{
+
+	}
+
+
+public:
 	Node*	_next;	// node의 주소값을 넣을것이기에 class node를 사용한다.
 	Node*	_prev;
-	int		_data;
+	T		_data;
 
 };
 
+template<typename T>
+class Iterator
+{
+public:
 
-// 단일 / 이중 / 원형
-// list : 연결 리스트
+	Iterator() : _node(nullptr)
+	{
 
-// 나란히 나열되있는 배열이 아니라 서로의 다음포인터를 가지고있는 data들이다. 
-// 
-// 칸단위를 노드라고한다
-// 
-// 단일 리스트
-// [1] -> [2] -> [3] -> [4] -> [5]
+	}
 
-// 이중 리스트
-// [1] <-> [2] <-> [3] <-> [4] <-> [5] <-> [My_Head : end()]	end()함수를 사용할때 있는 마지막 값이 따로 변수로가지고있다.
+	Iterator(Node<T>* node) : _node(node)
+	{
 
-// 원형 리스트
-// [1] <-> [2] <-> [3] <-> [4] <-> [5] <->
+	}
 
+
+	Iterator& operator ++ ()
+	{
+		_node = _node->_next;
+		return *this;
+	}
+
+
+	Iterator operator ++ (int)
+	{
+		Iterator<T> temp = *this;
+
+		_node = _node->_next;
+		return temp;
+	}
+
+	Iterator& operator -- ()
+	{
+		_node = _node->_prev;
+		return *this;
+	}
+
+
+	Iterator operator -- (int)
+	{
+		Iterator<T> temp = *this;
+
+		_node = _node->_prev;
+		return temp;
+	}
+
+	T& operator*()
+	{
+		return _node->_data;
+	}
+
+	bool operator == (const Iterator& right)
+	{
+		return _node == right._node;
+	}
+
+	bool operator != (const Iterator& right)
+	{
+		return _node != right._node;
+	}
+
+
+
+public:
+	Node<T>* _node;
+};
+
+
+// <-> [ header ] <-> 
+// [1] <-> [2] <->  [3] <-> [4] <-> [header] <-> 
+template<typename T>
+class List
+{
+public:
+	List() : _size(0)	// 아무 값이 없다면.
+	{
+		_header = new Node<T>();	// 바로 생성
+		_header->_next = _header;	// next 자기자신
+		_header->_prev = _header;	// prev 자기자신
+	}
+
+	~List()
+	{
+		while (_size > 0)
+			pop_back();
+
+		delete _header;
+	}
+
+	void push_back(const T& value)
+	{
+		AddNode(_header, value);
+	}
+
+	// [1] <-> [2] <-> [3] <-> [4] <-> [header] <->
+	// [1] <-> [2] <-> [3] <->  [header] <->
+	void pop_back()
+	{
+		RemoveNode(_header->_prev);
+	}
+
+
+	// 생성자 시작할 때 해더를 자기자신으로 설정을 해놓으니까 절묘하게 맞아 떨어진다.
+	// [node] - [ header ] - 
+	// 
+	// 
+	// [1] <-> [2] <-> [before] <-> [4] <-> [ header ] <->
+	// [1] <-> [2] <-> [value] - [before] <-> [4] <-> [ header ]
+	Node<T>* AddNode(Node<T>* before, const T& value)
+	{
+		Node<T>* node = new Node<T>(value);
+
+		Node<T>* prevNode = before->_prev;
+		prevNode->_next = node;
+		node->_prev = prevNode;
+
+		node->_next = before;
+		before->_prev = node;
+
+		_size++;
+
+		return node;
+	}
+
+
+
+	Node<T>* RemoveNode(Node<T>* node)
+	{
+		Node<T>* prevNode = node->_prev;
+		Node<T>* nextNode = node->_next;
+
+		prevNode->_next = nextNode;
+		nextNode->_prev = prevNode;
+
+		delete node;
+
+		_size--;
+
+		return nextNode;
+	}
+
+	int size() {return _size;}
+
+public:
+	typedef Iterator<T> iterator;
+
+	iterator begin() { return iterator(_header->_next); }
+	iterator end() { return iterator(_header); }
+
+	iterator insert(iterator it, const T& value)
+	{
+		Node<T>* node = AddNode(it._node, value);
+
+		return iterator(node);
+	}
+
+	iterator erase(iterator it)
+	{
+		Node<T>* node = RemoveNode(it._node);
+
+		return iterator(node);
+	}
+
+
+
+public:
+	Node<T>* _header;
+	int		_size;
+};
 
 
 int main()
 {
-	// list (연결 리스트)
-	// - list의 동작 원리
-	// - 중간 삽입/삭제		= 전부 O에 1의 비용을 들이고 삭제된다.
-	// - 처음/끝 삽입/삭제	= 전부 O에 1의 비용을 들이고 삭제된다.
-	// - 임의 접근 (i번째 데이터는 어디잇습니까?)			= 임으
+	List<int> li;
 
-	list<int> li;
+	List<int>::iterator eraseif;
 
-	list<int>::iterator itRemember;
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		if ( i == 50)
-		{	
-			// 리스트를 초기화 할 때 지울 값을 저장한다.
-			itRemember = li.insert(li.end(), i);	// 50을 iterator로 기억하고있다.
+		if (i == 5)
+		{
+			eraseif = li.insert(li.end(), i);
 		}
 		else
 		{
 			li.push_back(i);
 		}
-		
-		
 	}
 
-	
-	li.push_front(10);	// 
+	li.pop_back();
 
-	int size = li.size();
-	// li.capacity() 없음	실시간으로 데이터를 만들어주고 연결해준다.
+	li.erase(eraseif);
 
-	int first = li.front();
-	int last = li.back();
-
-	
-
-	list<int>::iterator itBegin = li.begin();
-	list<int>::iterator itEnd = li.end();
-
-	// li[3] = 10;	접근 불가능
-	// li + 10;		불가능
-
-	int* ptrBegin = &(li.front());
-	int* ptrEnd = &(li.back());
-
-	// list<int>::iterator itTest1 = --itBegin;	begin에서 한칸뒤로(end)로 이동은 불가능
-	list<int>::iterator itTest1 = --itEnd;
-	// list<int>::iterator itTest1 = ++itEnd;	end에서 한칸뒤로(begin)으로 이동은 불가능
-
-	for (list<int>::iterator it = li.begin(); it != li.end(); ++it)
+	for (List<int>::iterator it = li.begin(); it != li.end(); ++it)
 	{
-		cout << *it << endl;
+		cout << (*it) << endl;
 	}
-
-
-	li.insert(itBegin, 100);	// 지정한 위치 100 넣기.
-
-	li.erase(li.begin());	// 맨 앞 삭제
-
-	li.pop_front();	// 맨 앞 삭제
-
-	li.remove(10);	// 인자값과 같은 배열값을 전부 삭제한다 
-
-
-
-	// 임의접근은 가능하지만 중간삽입 삭제는 빠르다?
-	// 
-	// 임의접근하여 삽입삭제 하는 것은 느리다.
-	// 50번 인덱스 데이터를 삭제
-	list<int>::iterator it = li.begin();
-	for(int i =0; i< 50; i++)
-		++it;
-
-	li.erase(it);	// iterartor로 되있는 50은 빠르게 처리가 가능하다.
-
-	li.erase(itRemember);	// 그리하여 삽입 삭제한 값을 미리 들고있어서 바로 넣어줄 수 있다.
-
-	// li.erase(50); 
-
-
 
 
 
