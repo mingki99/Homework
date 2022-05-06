@@ -2,233 +2,65 @@
 using namespace std;
 #include <list>
 #include <vector>
+#include <deque>
 
-// 오늘의 주제 : list
+
+// 오늘의 주제 : deque
 
 // vector : 동적 배열
-// [               ]
+// [          ]
 
+// list : 이중 연결 리스트
+// [ ] <-> [ ] <-> [ ] <-> []
 
-template<typename T>
-class Node
-{
-public:
-	Node() : _next(nullptr), _prev(nullptr), _data(T())
-	{
-
-	}
-	Node(const T& value) : _next(nullptr), _prev(nullptr), _data(value)
-	{
-
-	}
-
-
-public:
-	Node*	_next;	// node의 주소값을 넣을것이기에 class node를 사용한다.
-	Node*	_prev;
-	T		_data;
-
-};
-
-template<typename T>
-class Iterator
-{
-public:
-
-	Iterator() : _node(nullptr)
-	{
-
-	}
-
-	Iterator(Node<T>* node) : _node(node)
-	{
-
-	}
-
-
-	Iterator& operator ++ ()
-	{
-		_node = _node->_next;
-		return *this;
-	}
-
-
-	Iterator operator ++ (int)
-	{
-		Iterator<T> temp = *this;
-
-		_node = _node->_next;
-		return temp;
-	}
-
-	Iterator& operator -- ()
-	{
-		_node = _node->_prev;
-		return *this;
-	}
-
-
-	Iterator operator -- (int)
-	{
-		Iterator<T> temp = *this;
-
-		_node = _node->_prev;
-		return temp;
-	}
-
-	T& operator*()
-	{
-		return _node->_data;
-	}
-
-	bool operator == (const Iterator& right)
-	{
-		return _node == right._node;
-	}
-
-	bool operator != (const Iterator& right)
-	{
-		return _node != right._node;
-	}
-
-
-
-public:
-	Node<T>* _node;
-};
-
-
-// <-> [ header ] <-> 
-// [1] <-> [2] <->  [3] <-> [4] <-> [header] <-> 
-template<typename T>
-class List
-{
-public:
-	List() : _size(0)	// 아무 값이 없다면.
-	{
-		_header = new Node<T>();	// 바로 생성
-		_header->_next = _header;	// next 자기자신
-		_header->_prev = _header;	// prev 자기자신
-	}
-
-	~List()
-	{
-		while (_size > 0)
-			pop_back();
-
-		delete _header;
-	}
-
-	void push_back(const T& value)
-	{
-		AddNode(_header, value);
-	}
-
-	// [1] <-> [2] <-> [3] <-> [4] <-> [header] <->
-	// [1] <-> [2] <-> [3] <->  [header] <->
-	void pop_back()
-	{
-		RemoveNode(_header->_prev);
-	}
-
-
-	// 생성자 시작할 때 해더를 자기자신으로 설정을 해놓으니까 절묘하게 맞아 떨어진다.
-	// [node] - [ header ] - 
-	// 
-	// 
-	// [1] <-> [2] <-> [before] <-> [4] <-> [ header ] <->
-	// [1] <-> [2] <-> [value] - [before] <-> [4] <-> [ header ]
-	Node<T>* AddNode(Node<T>* before, const T& value)
-	{
-		Node<T>* node = new Node<T>(value);
-
-		Node<T>* prevNode = before->_prev;
-		prevNode->_next = node;
-		node->_prev = prevNode;
-
-		node->_next = before;
-		before->_prev = node;
-
-		_size++;
-
-		return node;
-	}
-
-
-
-	Node<T>* RemoveNode(Node<T>* node)
-	{
-		Node<T>* prevNode = node->_prev;
-		Node<T>* nextNode = node->_next;
-
-		prevNode->_next = nextNode;
-		nextNode->_prev = prevNode;
-
-		delete node;
-
-		_size--;
-
-		return nextNode;
-	}
-
-	int size() {return _size;}
-
-public:
-	typedef Iterator<T> iterator;
-
-	iterator begin() { return iterator(_header->_next); }
-	iterator end() { return iterator(_header); }
-
-	iterator insert(iterator it, const T& value)
-	{
-		Node<T>* node = AddNode(it._node, value);
-
-		return iterator(node);
-	}
-
-	iterator erase(iterator it)
-	{
-		Node<T>* node = RemoveNode(it._node);
-
-		return iterator(node);
-	}
-
-
-
-public:
-	Node<T>* _header;
-	int		_size;
-};
+// deque : doble-ended queue 데크
+// [   ]
+// [   ]
 
 
 int main()
 {
-	List<int> li;
+	// 시퀀스 컨테이너 (Sequence Container)
+	// 데이터가 삽입 순서대로 나열되는 형태
+	// vector list deque
 
-	List<int>::iterator eraseif;
+	// vector와 마찬가지로 배열 기반으로 동작
+	// 다만 메모리 할당 정책이 다르다
 
+	// vector
+	// [1 1 1]
 
-	for (int i = 0; i < 10; i++)
-	{
-		if (i == 5)
-		{
-			eraseif = li.insert(li.end(), i);
-		}
-		else
-		{
-			li.push_back(i);
-		}
-	}
+	// deque
+	// [    3 3]	1동
+	// [3 4 3 3]	2동
+	// [1 1 1 2]	3동
+	// [2      ]	4동
 
-	li.pop_back();
+	vector<int> v(3,1);
+	deque<int> dq(3, 1);
 
-	li.erase(eraseif);
+	v.push_back(2);
+	v.push_back(2);
 
-	for (List<int>::iterator it = li.begin(); it != li.end(); ++it)
-	{
-		cout << (*it) << endl;
-	}
+	dq.push_back(2);
+	dq.push_back(2);
 
+	dq.push_front(3);
+	dq.push_front(3);
+
+	// - deque의 동작원리
+	// - 중간 삽입/삭제 = 매우 느리다
+	// -- 배열이기에 중간에 삭제하면 밀린 공간을 전부 정렬해줘야한다.
+	// - 처음/끝 삽입/삭제 = 둘다 빠르다
+	// - 임의접근  = 빠르다. 
+
+	dq[3] = 10;
+
+	deque<int>::iterator it;
+
+	// _Size_type _Block = _Mycont->_Getblock(_Myoff);
+	// _Size_type _Off = _Myoff % _Block_size;
+	// return _Mycont->_Map[_Block][_Off];
 
 
 	return 0;
