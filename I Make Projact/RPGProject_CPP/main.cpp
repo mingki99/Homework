@@ -10,110 +10,82 @@ using namespace std;
 
 int main()
 {
-	// 키 자체가 데이터일경우 set
-	// key == value 가 같은 자료구조이다.
-	set<int>s;
+	srand(static_cast<unsigned int>(time(nullptr)));
 
-	// 넣고
-	// 빼고
-	// 찾고
-	// 순회한다.
+	vector<int> v;
 
-	// 넣고
-	s.insert(10);
-	s.insert(30);
-	s.insert(20);
-	s.insert(50);
-	s.insert(40);
-	s.insert(70);
-	s.insert(100);
-	s.insert(80);
-	s.insert(90);
-
-	// 빼기
-	s.erase(40);
-
-	// 찾기
-	set<int>::iterator findit = s.find(50);
-	if (findit == s.end())
+	for (int i = 0; i < 100; i++)
 	{
-		cout << "못찾음" << endl;
-	} 
-	else
-	{
-		cout << "찾음" << endl;
+		int num = rand() % 100;
+		v.push_back(num);
 	}
 
-	// 순회하기
-	for (set<int>::iterator it = s.begin(); it != s.end(); it++)
+	// number라는 숫자가 벡터에 체크하는 기능 (bool, 첫 등장 iterator
 	{
-		cout << (*it) <<endl;
+		int number = 50;
+		int count = 1;
+
+		bool found = false;
+		for (vector<int>::iterator it = v.begin(); it != v.end();)
+		{	
+			if (*it== number)
+			{
+				found = true;
+				cout << (*it) <<endl;
+				cout << count << "번 째 에 50 등장" << endl;
+				break;
+			}
+			else
+			{
+				++it;
+				++count;
+			}
+
+
+		}
+
 	}
 
-	cout << "=====================" << endl;
-
-	multimap<int, int> mm;
-
-	// 넣기
-	// 같은키로 다른 값들을 넣을 수 있다.
-	mm.insert(make_pair(1, 100));
-	mm.insert(make_pair(1, 200));
-	mm.insert(make_pair(1, 300));
-	mm.insert(make_pair(2, 300));
-	mm.insert(make_pair(2, 400));
-	mm.insert(make_pair(2, 500));
-
-	// mm[1] = 500; 덮어쓰는거와 같기에 막혀있다.
-
-	// 빼기
-	// mm.erase(1);	// 1의 키값을 전부 삭제한다, 반환 값은 삭제된 횟수를 리턴해준다.
-
-	// 찾기
-	/*multimap<int, int>::iterator itFind = mm.find(0);
-	if(itFind != mm.end())
-		mm.erase(itFind);*/
-
-
-	pair<multimap<int, int>::iterator, multimap<int, int>::iterator> itPair;
-	mm.equal_range(1);
-
-	multimap<int, int>::iterator itBegin = mm.lower_bound(1);
-	multimap<int, int>::iterator itEnd = mm.upper_bound(1);
-
-	for (multimap<int, int>::iterator it = itPair.first; it != itPair.second; ++it)
+	// 11로 나뉘는 숫자가 백터에 있는지 체크한다.
 	{
-		cout << it->first << " " << it->second <<endl;
+		int count = 1;
+		for (vector<int>::iterator it = v.begin(); it != v.end(); ++it)
+		{
+			if (*it % 11 == 0)
+			{
+				cout << (*it) << " \t 11로 나뉘어진 " << count <<  " 번 째" << endl;
+			}
+		
+			++count;
+		}
 	}
 
-	multiset<int> ms;
-
-	// 넣기
-	ms.insert(100);
-	ms.insert(100);
-	ms.insert(100);
-	ms.insert(200);
-	ms.insert(200);
-
-	// 찾기
-	multiset<int>::iterator findit2 = ms.find(100);
-
-	pair<multiset<int>::iterator, multiset<int>::iterator> itPair2;
-	itPair2 = ms.equal_range(100);
-
-	for (multiset<int>::iterator it = itPair2.first; it != itPair2.second; ++it)
+	// 홀수의 숫자의 갯수는?
 	{
-		cout << *it << endl;
+		int count = 0;
+		for (vector<int>::iterator it = v.begin(); it != v.end(); ++it)
+		{
+			if ((*it %2) != 0)
+			{
+				count ++;
+			} 
+		}
+		cout << " 홀수의 개수 : "  << count << endl;
+
 	}
 
-	multiset<int>::iterator itBegin2 = ms.lower_bound(100);
-	multiset<int>::iterator itEnd2 = ms.upper_bound(100);
+	cout << "============================" << endl;
 
-	for (multiset<int>::iterator it = itBegin2; it != itEnd2; ++it)
+	// 백터에 들어가 있는 모든 숫자들을 3을 곱해준다.
 	{
-		cout << *it << endl;
+		
+		for (unsigned int i = 0; i < v.size(); i++)
+		{
+			v[i] *= 3;
+			
+			cout << i <<" 번째 백터에 데이터를 3을 곱해준 값 : " << v[i] << endl;
+		}
 	}
-
-
 
 	return 0;
 }
