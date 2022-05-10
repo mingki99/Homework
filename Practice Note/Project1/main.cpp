@@ -8,11 +8,9 @@ int main()
 {
 
 	int N;
-	cin >> N;	// 11이 들어왔다 가정.
+	cin >> N;	
 
-	
-
-	int temp = N / 5;
+	int temp = N / 5;	// Greedy Algorithm
 
 	int count = temp;
 
@@ -37,12 +35,5 @@ int main()
 		}
 
 	}
-	
-	
-
-
-
-
-
 	return 0;
 }
