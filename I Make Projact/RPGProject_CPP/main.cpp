@@ -7,89 +7,92 @@ using namespace std;
 #include <set>
 #include <algorithm>
 
-// 오늘의 주제 : auto
+// 오늘의 주제 : nullptr
 
-class knight
+class Knight
 {
-
+public:
+	void test() {}
 };
 
-template<typename T>
-void Print(T t)
+Knight* FindKNight()
 {
-	cout << t << endl;
+	// TODO
+	return nullptr;
 }
 
 
+// 오버로딩 하게될때
 
-MyClass::MyClass()
+
+
+
+void Test(float f)
 {
 }
 
-MyClass::~MyClass()
+void Test(bool a)
 {
+
 }
 
-auto add(int a, int b )
+void Test(void* ptr)
 {
-	return a + b;
-}; 
+	cout << "Test(*)" << endl;
+}
+
+// nullptr구현
+const
+class
+{
+public:
+	// 그 어떤 타입의 포인터들이라도 치환 가능
+	template<typename T>
+	operator T* () const
+	{
+		return 0;
+	}
+
+	// 그 어떤 타입의 멤버 포인터들이라도 치환 가능
+	template<typename C, typename T>
+	operator T C::* () const
+	{
+		return 0;
+	}
+
+private:
+	void operator&() const = delete;	// 주소값 접근 &을 막는다.
+
+} _NullPtr;
+
+
+
 
 int main()
 {
-	// Modern C++ (C++11)
-
-	int a = 3;
-	float b = 3.14f;
-	double c = 1.23;
-	knight d = knight();
-	const char* e = "rookiss";
-
-	auto a1 = 3;
-	auto b1 = 3.14f;
-	auto c1 = 1.23;
-	auto d1 = knight();
-	auto e1 = "rookiss";
-
-	// auto는 일종의 조거 카드
-	// 형식 연역 (type deduction)
-	// 추론 규칙은 생각보다 복잡해질 수 있다.
-
-	/*auto f = &d;
-	const auto test1 = b;
-	auto* test2 = a1;*/
-
-	// 주의!
-	// 기본 auto는 const, & 무시!!
-	int& reference = a;
-	const int cst = a;
-
-	auto test1 = reference;	// int 형으로 복사된다.
-	auto test2 = cst;		// int 형으로 복사된다
-
-	vector<int> v;
-	v.push_back(1);
-	v.push_back(2);
-	v.push_back(3);
 	
-	for (vector<int>::size_type i = 0; i < v.size(); i++)
-	{	
-		auto data = v[i];
-		// auto& data = v[i]	명시적으로 레퍼런스라고 지정을 해줘야한다.
+	// 포인터를 받아주는 버전으로 실행되게 하고싶지만
+	// Test(0);
+	// Test(NULL);
+	Test(_NullPtr);
 
-
-		data = 100;
+	// 2) 가독성
+	auto knight = FindKNight();
+	if (knight == _NullPtr)	// 만든 클래스로 치환가능
+	{
+	}
+	
+	void (Knight::*memFunc)();
+	memFunc = &Knight::test;
+	// 포인터의 값이 없으면 true
+	if (memFunc == _NullPtr)
+	{
 	}
 
-	// 가독성을 위해 일반적으로 나두는게 좋다.
-	// 타이핑이 길어지는경우 사용하자.
-	map<int, int> m;
-	
-	// 긴 문장
-	pair<map<int,int>::iterator, bool> itbool = m.insert(make_pair(1, 100));
+	// &_NullPtr
+	// &nullptr
 
-	// auto 이용하여 짧은 문장
-	auto itbool1 = m.insert(make_pair(2, 300));
+	auto whoami = nullptr;
 
 	return 0;
 }
