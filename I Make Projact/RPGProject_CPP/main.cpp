@@ -7,92 +7,51 @@ using namespace std;
 #include <set>
 #include <algorithm>
 
-// 오늘의 주제 : nullptr
+// 오늘의 주제 : override, final
 
-class Knight
+class Player
 {
 public:
-	void test() {}
+	virtual void Attack()
+	{
+		cout << "Player !" << endl;
+	}
+	virtual void Print()
+	{
+		cout << " Player " <<endl;
+	}
 };
 
-Knight* FindKNight()
-{
-	// TODO
-	return nullptr;
-}
-
-
-// 오버로딩 하게될때
-
-
-
-
-void Test(float f)
-{
-}
-
-void Test(bool a)
-{
-
-}
-
-void Test(void* ptr)
-{
-	cout << "Test(*)" << endl;
-}
-
-// nullptr구현
-const
-class
+class Knight : public Player
 {
 public:
-	// 그 어떤 타입의 포인터들이라도 치환 가능
-	template<typename T>
-	operator T* () const
+	// 부모함수의 override 했다 라는 표시.
+	// Knight class 만 보았을때 virtual만 보게되면 override됬는지 모르기에
+	// 가독성 측면에서 override를 붙여준다. ( 부모 함수에서 override했다는 표시 )
+	virtual void Attack() override // Player도 똑같은 함수가 있겠구나.
 	{
-		return 0;
+		cout << "Knight !" << endl;
 	}
 
-	// 그 어떤 타입의 멤버 포인터들이라도 치환 가능
-	template<typename C, typename T>
-	operator T C::* () const
+	// 마지막으로 오버라이드 하고 밑에있는 자손 클래스들은 더이상 이 함수를 override 할 수 없다.
+	virtual void Print() final
 	{
-		return 0;
+		cout << " Player " << endl;
 	}
 
-private:
-	void operator&() const = delete;	// 주소값 접근 &을 막는다.
-
-} _NullPtr;
+};
 
 
 
 
 int main()
 {
-	
-	// 포인터를 받아주는 버전으로 실행되게 하고싶지만
-	// Test(0);
-	// Test(NULL);
-	Test(_NullPtr);
+	Knight* k1 = new Knight();
 
-	// 2) 가독성
-	auto knight = FindKNight();
-	if (knight == _NullPtr)	// 만든 클래스로 치환가능
-	{
-	}
-	
-	void (Knight::*memFunc)();
-	memFunc = &Knight::test;
-	// 포인터의 값이 없으면 true
-	if (memFunc == _NullPtr)
-	{
-	}
+	k1->Attack();
 
-	// &_NullPtr
-	// &nullptr
-
-	auto whoami = nullptr;
+	Player* p1 = new Knight();
+	p1->Attack();	// player타입이기에 player함수를 실행한다. ( virtual을 붙이면 RTTI로 인해 knight 함수가 실행된다)
 
 	return 0;
 }
