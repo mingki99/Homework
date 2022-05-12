@@ -1,7 +1,8 @@
 #include <iostream>
 
 using namespace std;
-#include <string.h>
+#include <string>
+#include <algorithm>
 
 
 int main()
@@ -64,12 +65,19 @@ int main()
 		temp.push_back(tenth);
 	}
 
-	// string을 현재 거꾸로 출력
-	for (int i = (temp.size()) - 1; i >= 0; --i)
+	reverse(temp.begin(), temp.end());
+
+	for (int i = 0 ; i < temp.size(); ++i)
 	{
-		int ch = temp [i];
-		cout << ch;
+		cout << static_cast<int>(temp[i]);
 	}
+
+	//// string을 현재 거꾸로 출력
+	//for (int i = (temp.size()) - 1; i >= 0; --i)
+	//{
+	//	int ch = temp [i];
+	//	cout << ch;
+	//}
 	
 
 	return 0;
