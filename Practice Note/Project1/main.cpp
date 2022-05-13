@@ -1,84 +1,46 @@
 #include <iostream>
 
 using namespace std;
-#include <string>
-#include <algorithm>
 
 
 int main()
 {
-	string a;
-	string b;
-	cin >> a >> b;
 
-	// 두 수의 합이 옮겨질 변수
-	string temp;
+	int count = 0;
 
-	// 십의 자리올라가는 변수
-	int tenth = 0;
+	int totalN;
 
-	// 사이즈 크기 각각 배분
-	int asize = a.size() - 1;
-	int bsize = b.size() - 1;
+	int N[100];
 
-	// a,b size 2개다 0보다 작아지면 반복문 중당
-	while (0 <= asize || 0 <= bsize)
+	cin >> totalN;
+	if (totalN >= 100)
+		return 0;
+
+
+	for (int i = 0; i < totalN; ++i)
 	{
-		// 더해준 값 임시로 저장
-		int add = 0;
-
-		// a,b size 십의자리가 같거나, 다를 때 처리해주는 식과 조건문 
-		if (0 <= asize && 0 <= bsize)
-		{
-			add = (a[asize] - 48) + (b[bsize] - 48) + tenth;
-		}
-		else if (asize > bsize)
-		{
-			add = (a[asize] - 48) + tenth;
-		}
-		else if (asize < bsize)
-		{
-			add = (b[bsize] - 48) + tenth;
-		}
-
-		// 더해준 값이 10보다 크다면 10의 자리 올림을 해야한다.
-		if (add >= 10)
-		{
-			tenth = add / 10;
-			add %= 10;
-
-			temp.push_back(add);
-		}
-		else
-		{
-			temp.push_back(add);
-			tenth = 0;
-		}
 		
-		--asize;
-		--bsize;
-	}
-	
-	// 첫째 자리수 10의 올림
-	if (tenth == 1)
-	{
-		temp.push_back(tenth);
+
+		cin >> N[i];
+
+		if (N[i] >= 1000)
+			return 0;
+		
+
+		if ( N[i] == 2|| N[i] == 3|| N[i] == 5 || N[i] == 7)
+		{
+			count += 1;
+		}
+		else if (1 != N[i] && 0 != (N[i] % 2) && 0 != (N[i] %3) && 0 != (N[i] % 5) && 0 != (N[i] % 7))
+		{
+			count += 1;
+		}
+
+
 	}
 
-	reverse(temp.begin(), temp.end());
-
-	for (int i = 0 ; i < temp.size(); ++i)
-	{
-		cout << static_cast<int>(temp[i]);
-	}
-
-	//// string을 현재 거꾸로 출력
-	//for (int i = (temp.size()) - 1; i >= 0; --i)
-	//{
-	//	int ch = temp [i];
-	//	cout << ch;
-	//}
-	
+	cout << count << endl;
 
 	return 0;
 }
+

@@ -7,73 +7,243 @@ using namespace std;
 #include <set>
 #include <algorithm>
 
-// 오늘의 주제 : 전달 참조(forwarding reference)
+// 오늘의 주제 : 람다(lambda)
 
-class Knight
+// 함수 객체를 빠르게 만드는 문법
+
+enum class ItemType
 {
-public:
-	Knight() { cout << "기본 생성자"  << endl;}
-	Knight(const Knight&) { cout << "복사 생성자" << endl; }
-	Knight(Knight&&) noexcept { cout << "이동 생성자" << endl; }
+	None,
+	Armor,
+	Weapon,
+	Jewelry,
+	Consumable
 };
 
-void RvalueRef(Knight&& knight) {}	// 오른 값 참조
-
-void Copy(Knight k) {}
-
-template<typename T>
-void ForwardingRef(T&& param)	// 전달 참조
+enum class Rarity
 {
-	Copy (std::forward<T>(std::move(param)));
-	// 왼값 참조라면
-	Copy(param);
+	Common,
+	Rare,
+	Unique
+};
 
-	// 오른값 참조라면
-	Copy(std::move(param));
-}
+class Item
+{
+public:
+	Item() {}
+	Item(int itemid, Rarity rarity, ItemType type)
+		: _itmeid(itemid), _rarity(rarity), _type(type)
+	{
+	}
+public:
+	int _itmeid = 0;
+	Rarity _rarity = Rarity::Common;
+	ItemType _type = ItemType::None;
+};
 
-//template<typename T>
-//void ForwardingRef(const T&& param)	// const를 붙인다면 오른값 참조의 기능밖에 못한다.
-//{
-//
-//}
 
 int main()
 {
-	// 보편 참조(universal reference)
-	// 전달 참조(forwading reference) C++17
-
-	// && 두번 == 오른값 참조
-
-	Knight k1;
-
-	RvalueRef(std::move(k1));
-
-	// 경우에 따라서 왼값참조, 오른값 참조로 변할 수 있다.
-	ForwardingRef(k1);				// OK
-	ForwardingRef(std::move(k1));	// OK
-
-
-	// 오른값 참조라면 error를 뱉어야하는데 정상 작동된다!
-	auto&& k2 = k1;	// 왼값 참조로 바뀌어있다.
-
-	auto&& k3 = std::move(k1);	// 오른값 참조로 바뀌어있다.
-
-	// 공통점 : 형식 영역 (type deduction)이 일어난다.
-
-	// 전달 참조를 구별하는 방법
 	
-	Knight& k4 = k1;	// 왼값 참조
-	Knight&& k5 = std::move(k1);	// 오른값 참조
-	// k5는 오른값의 참조가 맞긴하지만 
-	// k5는 사라지지않고 계속 사용할 수 있기에 왼값이다.
+	vector<Item> v;
+	v.push_back(Item(1, Rarity::Common, ItemType::Weapon));
+	v.push_back(Item(2, Rarity::Common, ItemType::Armor));
+	v.push_back(Item(3, Rarity::Rare, ItemType::Jewelry));
+	v.push_back(Item(4, Rarity::Unique, ItemType::Weapon));
+
+	// 람다 = 함수 객체를 손쉽게 만드는 문법
+	// 람다 자체로 C++11에 '새로운' 기능이 들어간 것은 아니다.
 
 
-	// 오른값 : 왼값이 아니다. = 단일식에서 벗어나면 사용 X
-	// 오른값 참조 : 오른값만 참조할 수 있는 참조타입
-	RvalueRef(k5);
+	{
+		int itemId = 4;
+
+		// 참조 [&] 방식
+		auto FindItemByItemIDLambda = [=](Item& item)
+		{
+			return item._itmeid == itemId;
+		};
+
+		itemId = 10;
+
+		auto findit2 = std::find_if(v.begin(), v.end(), FindItemByItemIDLambda);
+
+		if (findit2 != v.end())
+			cout << "아이템 ID : " << findit2->_itmeid << endl;
+	}
 
 
+
+
+
+
+
+
+
+
+	{
+		struct IsUniqueItem
+		{
+			bool operator()(Item& item)
+			{
+				return item._rarity == Rarity::Unique;
+			}
+		};
+
+
+		auto IsUniqueLambda = [](Item& item) {return item._rarity == Rarity::Unique; };	// 람다 표현식 (lambda exoression)
+
+		// 보기 편하게 바꾸었다.
+		auto IsUniqueLambda2 = [](Item& item)
+		{
+			return item._rarity == Rarity::Unique;
+		};
+
+		// 명시적으로 int로 반환해달라는 표현
+		auto IsUniqueLambda3 = [](Item& item)-> int {return item._rarity == Rarity::Unique; };
+
+		// 사용가능
+		auto findit2 = std::find_if(v.begin(), v.end(), IsUniqueLambda3);
+		if (findit2 != v.end())
+			cout << "아이템 ID : " << findit2->_itmeid << endl;
+
+
+		// 객체로 생성하지 않고 일회성으로 사용하고싶다면
+		auto findit3 = std::find_if(v.begin(), v.end(), [](Item& item) {return item._rarity == Rarity::Unique; });
+		if (findit3 != v.end())
+			cout << "아이템 ID : " << findit3->_itmeid << endl;
+
+
+	}
+
+
+	{
+
+		struct FindItemByItemID
+		{
+			FindItemByItemID(int itemID, Rarity rarity, ItemType itemtype) 
+				: _itemId(itemID), _rarity(rarity), _itemtype(itemtype)  {}
+
+			bool operator()(Item& item)
+			{
+				return  item._itmeid == _itemId && item._rarity == _rarity && item._type == _itemtype;
+			}
+
+			int _itemId;
+			Rarity _rarity;
+			ItemType _itemtype;
+		};
+		
+		int itemId = 4;
+		Rarity rarity = Rarity::Unique;
+		ItemType type = ItemType::Weapon;
+
+
+		// functor를 활용
+		auto findit1 = std::find_if(v.begin(), v.end(), FindItemByItemID(4, Rarity::Unique, ItemType::Weapon));
+		if (findit1 != v.end())
+			cout << "아이템 ID : " << findit1->_itmeid << endl;
+
+
+		// 클로저 (closure) = 람다에 의해 만들어진 실행시점 객체
+		
+		// [ ] 캡처(capture) : 함수 객체 내부에 변수를 저장하는 개념과 유사
+		// 사진을 캡처 하듯 = 일종의 스냅샷을 찍는다고 한다.
+		// 
+		// 기본 캡처모드, 값(복사) 방식(=) 참조 방식(&)
+		// 
+		// 람다는 외부에 있는 값을 사용할 수 있다.
+
+
+		// ---------------- 5 / 13 --------------------
+
+
+		
+		// 값 복사, 참조를 할때 [=], [&] 로 한번에 처리하는 코드를 지향하자
+		// 코드 가독성 측면에서도 물론, 실수를 덜 할 수 있다.
+		// 변수마다 캡처 모드를 지정해서 사용해서 사용하자 : 값 방식 (name), 참조 방식(&name)
+		auto FindItemByItemIDLambda = [itemId, &rarity, &type](Item& item) 
+		{
+			return item._itmeid == itemId && item._rarity == rarity && item._type == type;
+		};
+
+		auto findit2 = std::find_if(v.begin(), v.end(), FindItemByItemIDLambda);
+		if (findit2 != v.end())
+			cout << "아이템 ID : " << findit2->_itmeid << endl;
+
+		{
+			// 참조 방식으로 하게도면 functor와 똑같다
+			
+			struct FindItemByItemID
+			{
+				FindItemByItemID(int& itemID) : _itemId(itemID) {}
+
+				bool operator()(Item& item)
+				{
+					return item._itmeid == _itemId;
+				}
+
+				int& _itemId;
+			};
+
+
+			auto FindItemByItemIDLambda = [&](Item& item)
+			{
+				return item._itmeid == itemId;
+			};
+
+			auto findit2 = std::find_if(v.begin(), v.end(), FindItemByItemIDLambda);
+			if (findit2 != v.end())
+				cout << "아이템 ID : " << findit2->_itmeid << endl;
+
+		}
+
+
+
+		{
+			class Knight
+			{
+			public:
+				auto ResetHpJob()
+				{
+					auto f = [this]()
+					{
+						this->_hp = 200;
+					};
+
+					return f;
+				}
+
+			public:
+				int _hp = 100;
+			};
+
+			Knight* k = new Knight();
+			auto t = k->ResetHpJob();
+			delete k;
+
+			t();
+
+			int a = 0;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
 
 
 
