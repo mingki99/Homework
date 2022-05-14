@@ -27,15 +27,12 @@ int main()
 			return 0;
 		
 
-		if ( N[i] == 2|| N[i] == 3|| N[i] == 5 || N[i] == 7)
+		for (int j = 1; j < N[i]; j++)
 		{
-			count += 1;
+			if ()
+			{
+			}
 		}
-		else if (1 != N[i] && 0 != (N[i] % 2) && 0 != (N[i] %3) && 0 != (N[i] % 5) && 0 != (N[i] % 7))
-		{
-			count += 1;
-		}
-
 
 	}
 
