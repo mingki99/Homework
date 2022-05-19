@@ -8,36 +8,45 @@ int main()
 
 	int count = 0;
 
+	int N;
+
 	int totalN;
+	
+	int MinorityCount = 0;
 
-	int N[100];
-
-	cin >> totalN;
-	if (totalN >= 100)
-		return 0;
-
-
-	for (int i = 0; i < totalN; ++i)
+	cin >> N;
+	for (int i = 0; i < N; i++)
 	{
-		
 
-		cin >> N[i];
+		cin >> totalN;
+		count = 0;
+		if (totalN == 1)
+			continue;
 
-		if (N[i] >= 1000)
-			return 0;
-		
 
-		for (int j = 1; j < N[i]; j++)
+		if (totalN == 2|| totalN == 3|| totalN == 5|| totalN == 7)
 		{
-			if ()
+			MinorityCount++;
+			continue;
+		}
+
+		for (int J = 1; J <= totalN; J++)
+		{
+
+			if (0 == totalN % J)
 			{
+				count++;
 			}
+		}
+
+		if (count <= 2)
+		{
+			MinorityCount++;
 		}
 
 	}
 
-	cout << count << endl;
+	cout << MinorityCount << endl;
 
 	return 0;
 }
-
